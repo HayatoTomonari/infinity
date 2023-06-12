@@ -49,25 +49,6 @@ class SignIn extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 24),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.account_circle),
-              onPressed: () {},
-            ),
-            Container(
-              color: ConstantsColor.kTextColorSecondary,
-              width: 1,
-              height: 16,
-            ),
-            IconButton(
-              icon: const Icon(Icons.account_circle),
-              onPressed: () {},
-            ),
-          ],
-        )
       ],
     );
   }
