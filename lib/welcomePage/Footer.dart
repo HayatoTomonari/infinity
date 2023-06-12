@@ -18,12 +18,17 @@ class Footer extends StatelessWidget {
               .copyWith(color: ConstantsColor.kTextColorSecondary),
         ),
         const SizedBox(width: 4),
-        Text(
-          'コチラ',
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium!
-              .copyWith(color: ConstantsColor.kTextColorPrimary),
+        GestureDetector(
+          onTap: () {
+            //クリック時のイベント
+          },
+          child: Text(
+            'こちら',
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium!
+                .copyWith(color: ConstantsColor.kTextColorPrimary),
+          ),
         ),
       ],
     );

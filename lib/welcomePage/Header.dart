@@ -26,11 +26,6 @@ class Header extends StatelessWidget {
               child: _HeaderTitle(),
             ),
           ),
-          Positioned(
-            top: 16,
-            left: 0,
-            child: _HeaderBackButton(),
-          ),
         ],
       ),
     );
@@ -111,22 +106,6 @@ class _HeaderBackground extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _HeaderBackButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      style: TextButton.styleFrom(
-        foregroundColor: ConstantsColor.kButtonTextColorPrimary, backgroundColor: Colors.transparent,
-        shape: const CircleBorder(
-          side: BorderSide(color: ConstantsColor.kButtonColorPrimary),
-        ),
-      ),
-      onPressed: () {},
-      child: const Icon(Icons.chevron_left, color: ConstantsColor.kIconColor),
     );
   }
 }
