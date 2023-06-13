@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:si_proto/welcomePage/constants_color.dart';
 import 'package:si_proto/welcomePage/custom_text_field.dart';
@@ -62,8 +63,18 @@ class SignIn extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
-            onPressed: () {
-              //TODO:ログイン機能
+            onPressed: () async {
+              try {
+                final User? user = (await FirebaseAuth.instance
+                        .signInWithEmailAndPassword(
+                            email: email, password: password))
+                    .user;
+                if (user != null) {
+                  //TODO:ログイン成功時の処理
+                }
+              } catch (e) {
+                //TODO:ログイン失敗時の処理
+              }
             },
             child: Text(
               'ログイン',
