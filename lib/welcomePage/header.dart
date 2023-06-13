@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:si_proto/welcomePage/ConstantsColor.dart';
+import 'package:si_proto/welcomePage/constants_color.dart';
 
 class Header extends StatelessWidget {
   const Header({super.key});
@@ -25,11 +25,6 @@ class Header extends StatelessWidget {
               padding: const EdgeInsets.only(top: 128),
               child: _HeaderTitle(),
             ),
-          ),
-          Positioned(
-            top: 16,
-            left: 0,
-            child: _HeaderBackButton(),
           ),
         ],
       ),
@@ -111,22 +106,6 @@ class _HeaderBackground extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _HeaderBackButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      style: TextButton.styleFrom(
-        foregroundColor: ConstantsColor.kButtonTextColorPrimary, backgroundColor: Colors.transparent,
-        shape: const CircleBorder(
-          side: BorderSide(color: ConstantsColor.kButtonColorPrimary),
-        ),
-      ),
-      onPressed: () {},
-      child: const Icon(Icons.chevron_left, color: ConstantsColor.kIconColor),
     );
   }
 }
