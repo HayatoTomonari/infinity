@@ -7,10 +7,20 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ホーム'),
+        centerTitle: true,
+        title: const Text('future',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.purple,
+        automaticallyImplyLeading: false,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(30),
+            bottomRight: Radius.circular(30),
+          ),
+        ),
       ),
-      body: const Center(
-          child: Text('ホーム画面', style: TextStyle(fontSize: 32.0))),
+      body:
+          const Center(child: Text('ホーム画面', style: TextStyle(fontSize: 32.0))),
     );
   }
 }
