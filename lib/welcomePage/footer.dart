@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:si_proto/welcomePage/constants_color.dart';
-import 'package:si_proto/welcomePage/signUp_page.dart';
+import 'package:si_proto/welcomePage/signup_page.dart';
 
 class Footer extends StatelessWidget {
   const Footer({super.key});
@@ -23,7 +22,7 @@ class Footer extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const signUp_page()),
+              MaterialPageRoute(builder: (context) => const SignUpPage()),
             );
           },
           child: Text(

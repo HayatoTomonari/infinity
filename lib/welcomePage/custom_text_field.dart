@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:si_proto/welcomePage/constants_color.dart';
 
-class custom_text_field extends StatelessWidget {
+class CustomTextField extends StatelessWidget {
   final String labelText;
   final String hintText;
   final bool obscureText;
   final Function onChangedFunction;
 
-  const custom_text_field(
+  const CustomTextField(
       {Key? key,
       required this.labelText,
       required this.hintText,

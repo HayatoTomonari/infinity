@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:si_proto/welcomePage/header.dart';
 import 'package:si_proto/welcomePage/Footer.dart';
-import 'package:si_proto/welcomePage/signIn_form.dart';
+import 'package:si_proto/welcomePage/signin_form.dart';
 import 'package:si_proto/welcomePage/constants_color.dart';
 
 class WelcomePage extends StatelessWidget {

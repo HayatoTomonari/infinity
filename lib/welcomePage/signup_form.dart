@@ -1,11 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:si_proto/welcomePage/constants_color.dart';
 import 'package:si_proto/welcomePage/custom_text_field.dart';
 
-class signUp_form extends StatelessWidget {
-  const signUp_form({super.key});
+class SignUpForm extends StatelessWidget {
+  const SignUpForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,23 +12,23 @@ class signUp_form extends StatelessWidget {
     String password = "";
     return Column(
       children: [
-        custom_text_field(
+        CustomTextField(
           labelText: 'メールアドレス',
           hintText: 'メールアドレスを入力してください。',
           obscureText: false,
           onChangedFunction: (String value) => email = value,
         ),
         const SizedBox(height: 48),
-        custom_text_field(
+        CustomTextField(
           labelText: 'パスワード',
-          hintText: '英数字を含む8文字以上',
+          hintText: '英数字を含む8文字以上で入力してください。',
           obscureText: true,
           onChangedFunction: (String value) => password = value,
         ),
         const SizedBox(height: 48),
-        custom_text_field(
+        CustomTextField(
           labelText: 'ユーザーネーム',
-          hintText: '後から変更可能です',
+          hintText: '後から変更可能です。',
           obscureText: true,
           onChangedFunction: (String value) => {},
         ),

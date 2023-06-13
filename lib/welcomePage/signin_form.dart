@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:si_proto/welcomePage/constants_color.dart';
 import 'package:si_proto/welcomePage/custom_text_field.dart';
@@ -12,14 +11,14 @@ class SignIn extends StatelessWidget {
     String password = "";
     return Column(
       children: [
-        custom_text_field(
+        CustomTextField(
           labelText: 'メールアドレス',
           hintText: 'メールアドレスを入力してください。',
           obscureText: false,
           onChangedFunction: (String value) => email = value,
         ),
         const SizedBox(height: 48),
-        custom_text_field(
+        CustomTextField(
           labelText: 'パスワード',
           hintText: 'パスワードを入力してください。',
           obscureText: true,
