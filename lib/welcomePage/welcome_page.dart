@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:si_proto/welcomePage/Header.dart';
+import 'package:si_proto/welcomePage/header.dart';
 import 'package:si_proto/welcomePage/Footer.dart';
-import 'package:si_proto/welcomePage/SignIn.dart';
-import 'package:si_proto/welcomePage/ConstantsColor.dart';
+import 'package:si_proto/welcomePage/signIn_form.dart';
+import 'package:si_proto/welcomePage/constants_color.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});

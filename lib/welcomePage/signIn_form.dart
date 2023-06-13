@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:si_proto/welcomePage/ConstantsColor.dart';
+import 'package:si_proto/welcomePage/constants_color.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({super.key});

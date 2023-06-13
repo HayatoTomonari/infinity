@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:si_proto/welcomePage/ConstantsColor.dart';
+import 'package:si_proto/welcomePage/constants_color.dart';
 
 class Header extends StatelessWidget {
   const Header({super.key});
