@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:si_proto/home/home_page.dart';
+import 'package:si_proto/home/top_page.dart';
 import 'package:si_proto/welcomePage/constants_color.dart';
 import 'package:si_proto/welcomePage/custom_text_field.dart';
 
@@ -74,7 +74,7 @@ class SignIn extends StatelessWidget {
                     context.mounted) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
+                    MaterialPageRoute(builder: (context) => const TopPage()),
                   );
                 }
               } catch (e) {
