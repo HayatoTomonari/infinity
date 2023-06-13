@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:si_proto/welcomePage/constants_color.dart';
@@ -10,6 +11,7 @@ class SignUpForm extends StatelessWidget {
   Widget build(BuildContext context) {
     String email = "";
     String password = "";
+    String userName = "";
     return Column(
       children: [
         CustomTextField(
@@ -29,8 +31,8 @@ class SignUpForm extends StatelessWidget {
         CustomTextField(
           labelText: 'ユーザーネーム',
           hintText: '後から変更可能です。',
-          obscureText: true,
-          onChangedFunction: (String value) => {},
+          obscureText: false,
+          onChangedFunction: (String value) => userName = value,
         ),
         const SizedBox(height: 48),
         SizedBox(
@@ -51,7 +53,15 @@ class SignUpForm extends StatelessWidget {
                             email: email, password: password))
                     .user;
                 if (user != null) {
-                  //TODO:ユーザー登録成功時の処理。
+                  //TODO:テスト用コード
+                  FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(user.uid)
+                      .set({
+                    'userName': userName,
+                    'groupId': '1234',
+                    'assets': 500
+                  }); //
                 }
               } catch (e) {
                 //TODO:ユーザー登録失敗時の処理。
