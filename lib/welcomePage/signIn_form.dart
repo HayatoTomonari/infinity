@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:si_proto/welcomePage/constants_color.dart';
+import 'package:si_proto/welcomePage/custom_text_field.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({super.key});
@@ -9,13 +10,13 @@ class SignIn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const _CustomTextField(
+        const custom_text_field(
           labelText: 'メールアドレス',
           hintText: 'メールアドレスを入力してください。',
           obscureText: false,
         ),
         const SizedBox(height: 48),
-        const _CustomTextField(
+        const custom_text_field(
           labelText: 'パスワード',
           hintText: 'パスワードを入力してください。',
           obscureText: true,
@@ -34,7 +35,7 @@ class SignIn extends StatelessWidget {
             const SizedBox(width: 4),
             GestureDetector(
               onTap: () {
-                //クリック時のイベント
+                //TODO:パスワード再登録
               },
               child: Text(
                 'こちら',
@@ -58,7 +59,9 @@ class SignIn extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              //TODO:ログイン機能
+            },
             child: Text(
               'ログイン',
               style: Theme.of(context).textTheme.labelLarge!.copyWith(
@@ -67,45 +70,6 @@ class SignIn extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _CustomTextField extends StatelessWidget {
-  final String labelText;
-  final String hintText;
-  final bool obscureText;
-
-  const _CustomTextField({
-    Key? key,
-    required this.labelText,
-    required this.hintText,
-    required this.obscureText,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        labelText: labelText,
-        hintText: hintText,
-        hintStyle: const TextStyle(color: ConstantsColor.kTextColorSecondary),
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: ConstantsColor.kAccentColor,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: ConstantsColor.kTextColorSecondary,
-          ),
-        ),
-      ),
-      obscureText: obscureText,
-      onTap: () {},
     );
   }
 }
