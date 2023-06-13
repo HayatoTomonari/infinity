@@ -5,13 +5,15 @@ class custom_text_field extends StatelessWidget {
   final String labelText;
   final String hintText;
   final bool obscureText;
+  final Function onChangedFunction;
 
-  const custom_text_field({
-    Key? key,
-    required this.labelText,
-    required this.hintText,
-    required this.obscureText,
-  }) : super(key: key);
+  const custom_text_field(
+      {Key? key,
+      required this.labelText,
+      required this.hintText,
+      required this.obscureText,
+      required this.onChangedFunction})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,9 @@ class custom_text_field extends StatelessWidget {
       ),
       obscureText: obscureText,
       onTap: () {},
+      onChanged: (String value) {
+        onChangedFunction(value);
+      },
     );
   }
 }

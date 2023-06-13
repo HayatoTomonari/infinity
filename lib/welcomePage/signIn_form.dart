@@ -8,18 +8,22 @@ class SignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String email = "";
+    String password = "";
     return Column(
       children: [
-        const custom_text_field(
+        custom_text_field(
           labelText: 'メールアドレス',
           hintText: 'メールアドレスを入力してください。',
           obscureText: false,
+          onChangedFunction: (String value) => email = value,
         ),
         const SizedBox(height: 48),
-        const custom_text_field(
+        custom_text_field(
           labelText: 'パスワード',
           hintText: 'パスワードを入力してください。',
           obscureText: true,
+          onChangedFunction: (String value) => password = value,
         ),
         const SizedBox(height: 4),
         Row(

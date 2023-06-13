@@ -9,24 +9,29 @@ class signUp_form extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String email = "";
+    String password = "";
     return Column(
       children: [
-        const custom_text_field(
+        custom_text_field(
           labelText: 'メールアドレス',
           hintText: 'メールアドレスを入力してください。',
           obscureText: false,
+          onChangedFunction: (String value) => email = value,
         ),
         const SizedBox(height: 48),
-        const custom_text_field(
+        custom_text_field(
           labelText: 'パスワード',
           hintText: '英数字を含む8文字以上',
           obscureText: true,
+          onChangedFunction: (String value) => password = value,
         ),
         const SizedBox(height: 48),
-        const custom_text_field(
+        custom_text_field(
           labelText: 'ユーザーネーム',
           hintText: '後から変更可能です',
           obscureText: true,
+          onChangedFunction: (String value) => {},
         ),
         const SizedBox(height: 48),
         SizedBox(
@@ -44,13 +49,13 @@ class signUp_form extends StatelessWidget {
               try {
                 final User? user = (await FirebaseAuth.instance
                         .createUserWithEmailAndPassword(
-                            email: "_email", password: "_password"))
+                            email: email, password: password))
                     .user;
                 if (user != null) {
-                  print("ユーザ登録しました ${user.email} , ${user.uid}");
+                  //TODO:ユーザー登録成功時の処理。
                 }
               } catch (e) {
-                print(e);
+                //TODO:ユーザー登録失敗時の処理。
               }
             },
             child: Text(
