@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:si_proto/home/home_page.dart';
 import 'package:si_proto/welcomePage/constants_color.dart';
 import 'package:si_proto/welcomePage/custom_text_field.dart';
 
@@ -69,8 +70,12 @@ class SignIn extends StatelessWidget {
                         .signInWithEmailAndPassword(
                             email: email, password: password))
                     .user;
-                if (user != null) {
-                  //TODO:ログイン成功時の処理
+                if (user != null &&
+                    context.mounted) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomePage()),
+                  );
                 }
               } catch (e) {
                 //TODO:ログイン失敗時の処理
