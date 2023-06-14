@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Payment extends StatelessWidget {
-  const Payment({Key? key}) : super(key: key);
+  const Payment(this.uid, {super.key});
+  final String uid;
 
   @override
   Widget build(BuildContext context) {

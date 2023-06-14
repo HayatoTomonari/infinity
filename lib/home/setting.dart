@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Setting extends StatelessWidget {
-  const Setting({Key? key}) : super(key: key);
+  const Setting(this.uid, {super.key});
+  final String uid;
 
   @override
   Widget build(BuildContext context) {

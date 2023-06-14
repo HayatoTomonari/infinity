@@ -74,7 +74,7 @@ class SignIn extends StatelessWidget {
                     context.mounted) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const TopPage()),
+                    MaterialPageRoute(builder: (context) => TopPage(user.uid)),
                   );
                 }
               } catch (e) {

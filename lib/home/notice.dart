@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Notice extends StatelessWidget {
-  const Notice({Key? key}) : super(key: key);
+  const Notice(this.uid, {super.key});
+  final String uid;
 
   @override
   Widget build(BuildContext context) {

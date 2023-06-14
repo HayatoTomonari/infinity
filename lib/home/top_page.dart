@@ -5,20 +5,13 @@ import 'package:si_proto/home/setting.dart';
 import 'package:si_proto/home/payment.dart';
 
 class TopPage extends StatefulWidget {
-  const TopPage({Key? key}) : super(key: key);
-
+  const TopPage(this.uid, {super.key});
+  final String uid;
   @override
   State<TopPage> createState() => _TopPageState();
 }
 
 class _TopPageState extends State<TopPage> {
-  static const _screens = [
-    Home(),
-    Payment(),
-    Notice(),
-    Setting(),
-  ];
-
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -30,7 +23,12 @@ class _TopPageState extends State<TopPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: _screens[_selectedIndex],
+        body: [
+          Home(widget.uid),
+          Payment(widget.uid),
+          Notice(widget.uid),
+          Setting(widget.uid),
+        ][_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
