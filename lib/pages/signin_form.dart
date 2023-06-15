@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:si_proto/components/custom_button.dart';
+import 'package:si_proto/components/info_dialog.dart';
 import 'package:si_proto/models/app_user.dart';
 import 'package:si_proto/pages/top_page.dart';
 import 'package:si_proto/utils/constants_color.dart';
@@ -76,15 +77,30 @@ class SignIn extends StatelessWidget {
       if (user == null) return;
       Map<String, dynamic>? data = await _getAppUser(user.uid); //
       if (data == null) return;
-      if (context.mounted) return;
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TopPage(AppUser.fromJson(data)),
-          ));
-    } catch (e) {
-      //TODO:ログイン失敗時の処理
+      if (context.mounted) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TopPage(AppUser.fromJson(data)),
+            ));
+      }
+    } on FirebaseAuthException catch (e) {
+      _showErrorMessage(context, e);
     }
+  }
+
+  void _showErrorMessage(BuildContext context, FirebaseAuthException e) {
+    String errorMessage = "ログインに失敗しました。";
+    if (e.code == 'user-disabled') {
+      errorMessage = 'そのメールアドレスは利用できません。';
+    } else if (e.code == 'invalid-email') {
+      errorMessage = 'メールアドレスが正しくありません。';
+    } else if (e.code == 'user-not-found') {
+      errorMessage = 'ユーザーが見つかりません。';
+    } else if (e.code == 'wrong-password') {
+      errorMessage = 'パスワードが誤っています。';
+    }
+    InfoDialog.snackBarError(context, errorMessage);
   }
 
   Future<Map<String, dynamic>?> _getAppUser(String uid) async {
