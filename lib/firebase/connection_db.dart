@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:si_proto/pages/confirm_email.dart';
 
 import '../components/info_dialog.dart';
 import '../models/app_user.dart';
@@ -14,6 +15,10 @@ class ConnectionDb {
               .signInWithEmailAndPassword(email: email, password: password))
           .user;
       if (user == null) return;
+      if (!user.emailVerified && context.mounted) {
+          InfoDialog.snackBarNetral(context, 'メール認証が未完了です。\nメール記載のリンクを開いて、認証を完了してください。');
+          return;
+        }
       Map<String, dynamic>? data = await _getAppUser(user.uid); //
       if (data == null) return;
       if (context.mounted) {
@@ -39,8 +44,29 @@ class ConnectionDb {
             .collection('users')
             .doc(user.uid)
             .set({'userName': userName, 'teamId': '', 'assets': 0});
+        user.sendEmailVerification();
         if (context.mounted) {
-          loginUser(email, password, context); //
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ConfirmEmail(email, password)),
+          );
+        }
+      }
+    } on FirebaseAuthException catch (e) {
+      _showErrorRegisterMessage(context, e);
+    }
+  }
+
+  static Future<void> sendEmail(BuildContext context, String email,
+      String password) async {
+    try {
+      final User? user = (await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password))
+          .user;
+      if (user != null) {
+        user.sendEmailVerification();
+        if (context.mounted) {
+          InfoDialog.snackBarNetral(context, '$email\nに認証メールを送信しました。');
         }
       }
     } on FirebaseAuthException catch (e) {
