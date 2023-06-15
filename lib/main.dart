@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:si_proto/welcomePage/welcome_page.dart';
-import 'package:si_proto/welcomePage/constants_color.dart';
+import 'package:si_proto/pages/welcome_page.dart';
+import 'package:si_proto/utils/constants_color.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 

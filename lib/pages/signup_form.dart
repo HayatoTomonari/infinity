@@ -1,16 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:si_proto/home/top_page.dart';
-import 'package:si_proto/welcomePage/constants_color.dart';
-import 'package:si_proto/welcomePage/custom_text_field.dart';
+import 'package:si_proto/utils/constants_color.dart';
+import 'package:si_proto/components/custom_text_field.dart';
 
-class SignIn extends StatelessWidget {
-  const SignIn({super.key});
+class SignUpForm extends StatelessWidget {
+  const SignUpForm({super.key});
 
   @override
   Widget build(BuildContext context) {
     String email = "";
     String password = "";
+    String userName = "";
     return Column(
       children: [
         CustomTextField(
@@ -22,35 +23,16 @@ class SignIn extends StatelessWidget {
         const SizedBox(height: 48),
         CustomTextField(
           labelText: 'パスワード',
-          hintText: 'パスワードを入力してください。',
+          hintText: '英数字を含む8文字以上で入力してください。',
           obscureText: true,
           onChangedFunction: (String value) => password = value,
         ),
-        const SizedBox(height: 4),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'パスワードを忘れた方は',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(color: ConstantsColor.kTextColorSecondary),
-            ),
-            const SizedBox(width: 4),
-            GestureDetector(
-              onTap: () {
-                //TODO:パスワード再登録
-              },
-              child: Text(
-                'こちら',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium!
-                    .copyWith(color: ConstantsColor.kTextColorPrimary),
-              ),
-            ),
-          ],
+        const SizedBox(height: 48),
+        CustomTextField(
+          labelText: 'ユーザーネーム',
+          hintText: '後から変更可能です。',
+          obscureText: false,
+          onChangedFunction: (String value) => userName = value,
         ),
         const SizedBox(height: 48),
         SizedBox(
@@ -67,22 +49,26 @@ class SignIn extends StatelessWidget {
             onPressed: () async {
               try {
                 final User? user = (await FirebaseAuth.instance
-                        .signInWithEmailAndPassword(
+                        .createUserWithEmailAndPassword(
                             email: email, password: password))
                     .user;
-                if (user != null &&
-                    context.mounted) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => TopPage(user.uid)),
-                  );
+                if (user != null) {
+                  //TODO:テスト用コード
+                  FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(user.uid)
+                      .set({
+                    'userName': userName,
+                    'groupId': '1234',
+                    'assets': 500
+                  }); //
                 }
               } catch (e) {
-                //TODO:ログイン失敗時の処理
+                //TODO:ユーザー登録失敗時の処理。
               }
             },
             child: Text(
-              'ログイン',
+              'アカウント登録',
               style: Theme.of(context).textTheme.labelLarge!.copyWith(
                   color: ConstantsColor.kButtonTextColorPrimary, fontSize: 18),
             ),
