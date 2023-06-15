@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:si_proto/welcomePage/header.dart';
-import 'package:si_proto/welcomePage/signup_form.dart';
-import 'package:si_proto/welcomePage/constants_color.dart';
+import 'package:si_proto/widgets/header.dart';
+import 'package:si_proto/pages/signup_form.dart';
+import 'package:si_proto/utils/constants_color.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
