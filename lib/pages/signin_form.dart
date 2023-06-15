@@ -90,7 +90,7 @@ class SignIn extends StatelessWidget {
   }
 
   void _showErrorMessage(BuildContext context, FirebaseAuthException e) {
-    String errorMessage = "ログインに失敗しました。";
+    String errorMessage = "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。";
     if (e.code == 'user-disabled') {
       errorMessage = 'そのメールアドレスは利用できません。';
     } else if (e.code == 'invalid-email') {

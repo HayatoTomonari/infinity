@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:si_proto/components/custom_button.dart';
 import 'package:si_proto/components/custom_text_field.dart';
 
+import '../components/info_dialog.dart';
+
 class SignUpForm extends StatelessWidget {
   const SignUpForm({super.key});
 
@@ -23,7 +25,7 @@ class SignUpForm extends StatelessWidget {
         const SizedBox(height: 48),
         CustomTextField(
           labelText: 'パスワード',
-          hintText: '英数字を含む8文字以上で入力してください。',
+          hintText: '6文字以上で入力してください。',
           obscureText: true,
           onChangedFunction: (String value) => password = value,
         ),
@@ -37,31 +39,44 @@ class SignUpForm extends StatelessWidget {
         const SizedBox(height: 48),
         SizedBox(
           width: double.infinity,
-          child: CustomButton(labelText: 'アカウント登録', onPressedFunction: () => _registerUser(email, password, userName),),
+          child: CustomButton(
+            labelText: 'アカウント登録',
+            onPressedFunction: () =>
+                _registerUser(context, email, password, userName),
+          ),
         ),
       ],
     );
   }
 
-  Future<void> _registerUser(String email, String password, String userName) async {
+  Future<void> _registerUser(BuildContext context, String email,
+      String password, String userName) async {
     try {
       final User? user = (await FirebaseAuth.instance
-              .createUserWithEmailAndPassword(
-                  email: email, password: password))
+              .createUserWithEmailAndPassword(email: email, password: password))
           .user;
       if (user != null) {
-        //TODO:テスト用コード
         FirebaseFirestore.instance
             .collection('users')
             .doc(user.uid)
-            .set({
-          'userName': userName,
-          'groupId': '1234',
-          'assets': 500
-        }); //
+            .set({'userName': userName, 'teamId': '', 'assets': 0}); //
       }
-    } catch (e) {
-      //TODO:ユーザー登録失敗時の処理。
+    } on FirebaseAuthException catch (e) {
+      _showErrorMessage(context, e);
     }
+  }
+
+  void _showErrorMessage(BuildContext context, FirebaseAuthException e) {
+    String errorMessage = "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。";
+    if (e.code == 'user-disabled') {
+      errorMessage = 'そのメールアドレスは利用できません。';
+    } else if (e.code == 'invalid-email') {
+      errorMessage = 'メールアドレスの形式が正しくありません。';
+    } else if (e.code == 'email-already-in-use') {
+      errorMessage = 'このメールアドレスは既に使用されています。';
+    } else if (e.code == 'weak-password') {
+      errorMessage = 'パスワードは6文字以上で設定してください。';
+    }
+    InfoDialog.snackBarError(context, errorMessage);
   }
 }
