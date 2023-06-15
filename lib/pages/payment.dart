@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:si_proto/models/app_user.dart';
 
 class Payment extends StatelessWidget {
-  const Payment(this.uid, {super.key});
-  final String uid;
+  const Payment(this.user, {super.key});
+  final AppUser user;
 
   @override
   Widget build(BuildContext context) {

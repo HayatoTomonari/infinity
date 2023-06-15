@@ -1,7 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:si_proto/components/custom_button.dart';
-import 'package:si_proto/pages/top_page.dart';
+import 'package:si_proto/firebase/connection_db.dart';
+import 'package:si_proto/pages/forget_password.dart';
 import 'package:si_proto/utils/constants_color.dart';
 import 'package:si_proto/components/custom_text_field.dart';
 
@@ -19,6 +19,7 @@ class SignIn extends StatelessWidget {
           hintText: 'メールアドレスを入力してください。',
           obscureText: false,
           onChangedFunction: (String value) => email = value,
+          icon: Icons.mail,
         ),
         const SizedBox(height: 48),
         CustomTextField(
@@ -26,6 +27,7 @@ class SignIn extends StatelessWidget {
           hintText: 'パスワードを入力してください。',
           obscureText: true,
           onChangedFunction: (String value) => password = value,
+          icon: Icons.lock_clock_outlined,
         ),
         const SizedBox(height: 4),
         Row(
@@ -36,19 +38,23 @@ class SignIn extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!
-                  .copyWith(color: ConstantsColor.kTextColorSecondary),
+                  .copyWith(color: ConstantsColor.kTextColor),
             ),
             const SizedBox(width: 4),
             GestureDetector(
               onTap: () {
-                //TODO:パスワード再登録
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ForgetPassword()),
+                );
               },
               child: Text(
                 'こちら',
                 style: Theme.of(context)
                     .textTheme
                     .bodyMedium!
-                    .copyWith(color: ConstantsColor.kTextColorPrimary),
+                    .copyWith(color: ConstantsColor.kTextColor),
               ),
             ),
           ],
@@ -56,27 +62,13 @@ class SignIn extends StatelessWidget {
         const SizedBox(height: 48),
         SizedBox(
           width: double.infinity,
-          child: CustomButton(labelText: 'ログイン', onPressedFunction: () => _loginUser(email, password, context),),
+          child: CustomButton(
+            labelText: 'ログイン',
+            onPressedFunction: () =>
+                ConnectionDb.loginUser(email, password, context),
+          ),
         ),
       ],
     );
-  }
-
-  Future<void> _loginUser(String email, String password, BuildContext context) async {
-    try {
-      final User? user = (await FirebaseAuth.instance
-              .signInWithEmailAndPassword(
-                  email: email, password: password))
-          .user;
-      if (user != null &&
-          context.mounted) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => TopPage(user.uid)),
-        );
-      }
-    } catch (e) {
-      //TODO:ログイン失敗時の処理
-    }
   }
 }
