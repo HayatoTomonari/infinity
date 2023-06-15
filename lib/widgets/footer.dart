@@ -15,7 +15,7 @@ class Footer extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .bodyMedium!
-              .copyWith(color: ConstantsColor.kTextColorSecondary),
+              .copyWith(color: ConstantsColor.kTextColor),
         ),
         const SizedBox(width: 4),
         GestureDetector(
@@ -30,7 +30,7 @@ class Footer extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium!
-                .copyWith(color: ConstantsColor.kTextColorPrimary),
+                .copyWith(color: ConstantsColor.kTextColor),
           ),
         ),
       ],

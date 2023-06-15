@@ -18,21 +18,23 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      style: const TextStyle(color: ConstantsColor.kTextColor),
       decoration: InputDecoration(
         labelText: labelText,
+        labelStyle: const TextStyle(color: ConstantsColor.kFocusColor),
         hintText: hintText,
-        hintStyle: const TextStyle(color: ConstantsColor.kTextColorSecondary),
+        hintStyle: TextStyle(color: ConstantsColor.kTextColor.withOpacity(0.3)),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
-            color: ConstantsColor.kAccentColor,
+            color: ConstantsColor.kFocusColor,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
-            color: ConstantsColor.kTextColorSecondary,
+            color: ConstantsColor.kTextColor,
           ),
         ),
       ),

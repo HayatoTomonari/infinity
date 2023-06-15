@@ -41,7 +41,7 @@ class _HeaderTitle extends StatelessWidget {
         Text(
           'future',
           style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-            color: ConstantsColor.kTextColorPrimary,
+            color: ConstantsColor.kTextColor,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -51,7 +51,7 @@ class _HeaderTitle extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .titleSmall!
-              .copyWith(color: ConstantsColor.kTextColorPrimary),
+              .copyWith(color: ConstantsColor.kTextColor),
         ),
       ],
     );

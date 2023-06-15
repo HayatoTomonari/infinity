@@ -13,8 +13,8 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       style: TextButton.styleFrom(
-        foregroundColor: ConstantsColor.kButtonTextColorPrimary,
-        backgroundColor: ConstantsColor.kButtonColorPrimary,
+        foregroundColor: ConstantsColor.kButtonTextColor,
+        backgroundColor: ConstantsColor.kButtonBackColor,
         padding: const EdgeInsets.symmetric(vertical: 16),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -26,7 +26,7 @@ class CustomButton extends StatelessWidget {
       child: Text(
         labelText,
         style: Theme.of(context).textTheme.labelLarge!.copyWith(
-            color: ConstantsColor.kButtonTextColorPrimary, fontSize: 18),
+            color: ConstantsColor.kButtonTextColor, fontSize: 18),
       ),
     );
   }

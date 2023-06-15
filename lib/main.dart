@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'future',
       theme: ThemeData.dark().copyWith(
-        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: ConstantsColor.kAccentColor),
+        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: ConstantsColor.kFocusColor),
       ),
       home: const WelcomePage(),
     );
