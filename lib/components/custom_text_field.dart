@@ -6,13 +6,15 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final Function onChangedFunction;
+  final IconData icon;
 
   const CustomTextField(
       {Key? key,
       required this.labelText,
       required this.hintText,
       required this.obscureText,
-      required this.onChangedFunction})
+      required this.onChangedFunction,
+      required this.icon})
       : super(key: key);
 
   @override
@@ -20,6 +22,8 @@ class CustomTextField extends StatelessWidget {
     return TextField(
       style: const TextStyle(color: ConstantsColor.kTextColor),
       decoration: InputDecoration(
+        prefixIcon: Icon(icon),
+        iconColor: ConstantsColor.kIconColor,
         labelText: labelText,
         labelStyle: const TextStyle(color: ConstantsColor.kFocusColor),
         hintText: hintText,

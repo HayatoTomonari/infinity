@@ -18,6 +18,7 @@ class SignIn extends StatelessWidget {
           hintText: 'メールアドレスを入力してください。',
           obscureText: false,
           onChangedFunction: (String value) => email = value,
+          icon: Icons.mail,
         ),
         const SizedBox(height: 48),
         CustomTextField(
@@ -25,6 +26,7 @@ class SignIn extends StatelessWidget {
           hintText: 'パスワードを入力してください。',
           obscureText: true,
           onChangedFunction: (String value) => password = value,
+          icon: Icons.lock_clock_outlined,
         ),
         const SizedBox(height: 4),
         Row(

@@ -18,6 +18,7 @@ class SignUpForm extends StatelessWidget {
           hintText: 'メールアドレスを入力してください。',
           obscureText: false,
           onChangedFunction: (String value) => email = value,
+          icon: Icons.mail,
         ),
         const SizedBox(height: 48),
         CustomTextField(
@@ -25,6 +26,7 @@ class SignUpForm extends StatelessWidget {
           hintText: '6文字以上で入力してください。',
           obscureText: true,
           onChangedFunction: (String value) => password = value,
+          icon: Icons.lock_clock_outlined
         ),
         const SizedBox(height: 48),
         CustomTextField(
@@ -32,6 +34,7 @@ class SignUpForm extends StatelessWidget {
           hintText: '後から変更可能です。',
           obscureText: false,
           onChangedFunction: (String value) => userName = value,
+          icon: Icons.account_circle,
         ),
         const SizedBox(height: 48),
         SizedBox(
