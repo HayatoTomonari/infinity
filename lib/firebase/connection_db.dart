@@ -1,0 +1,88 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+
+import '../components/info_dialog.dart';
+import '../models/app_user.dart';
+import '../pages/top_page.dart';
+
+class ConnectionDb {
+  static Future<void> loginUser(
+      String email, String password, BuildContext context) async {
+    try {
+      final User? user = (await FirebaseAuth.instance
+              .signInWithEmailAndPassword(email: email, password: password))
+          .user;
+      if (user == null) return;
+      Map<String, dynamic>? data = await _getAppUser(user.uid); //
+      if (data == null) return;
+      if (context.mounted) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TopPage(AppUser.fromJson(data)),
+            ));
+      }
+    } on FirebaseAuthException catch (e) {
+      _showLoginErrorMessage(context, e);
+    }
+  }
+
+  static Future<void> registerUser(BuildContext context, String email,
+      String password, String userName) async {
+    try {
+      final User? user = (await FirebaseAuth.instance
+              .createUserWithEmailAndPassword(email: email, password: password))
+          .user;
+      if (user != null) {
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .set({'userName': userName, 'teamId': '', 'assets': 0});
+        if (context.mounted) {
+          loginUser(email, password, context); //
+        }
+      }
+    } on FirebaseAuthException catch (e) {
+      _showErrorRegisterMessage(context, e);
+    }
+  }
+
+  static Future<Map<String, dynamic>?> _getAppUser(String uid) async {
+    final docRef = FirebaseFirestore.instance
+        .collection("users")
+        .doc(uid); // DocumentReference
+    final docSnapshot = await docRef.get(); // DocumentSnapshot
+    return docSnapshot.exists ? docSnapshot.data() : null; //
+  }
+
+  static void _showLoginErrorMessage(
+      BuildContext context, FirebaseAuthException e) {
+    String errorMessage = "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。";
+    if (e.code == 'user-disabled') {
+      errorMessage = 'そのメールアドレスは利用できません。';
+    } else if (e.code == 'invalid-email') {
+      errorMessage = 'メールアドレスが正しくありません。';
+    } else if (e.code == 'user-not-found') {
+      errorMessage = 'ユーザーが見つかりません。';
+    } else if (e.code == 'wrong-password') {
+      errorMessage = 'パスワードが誤っています。';
+    }
+    InfoDialog.snackBarError(context, errorMessage);
+  }
+
+  static void _showErrorRegisterMessage(
+      BuildContext context, FirebaseAuthException e) {
+    String errorMessage = "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。";
+    if (e.code == 'user-disabled') {
+      errorMessage = 'そのメールアドレスは利用できません。';
+    } else if (e.code == 'invalid-email') {
+      errorMessage = 'メールアドレスの形式が正しくありません。';
+    } else if (e.code == 'email-already-in-use') {
+      errorMessage = 'このメールアドレスは既に使用されています。';
+    } else if (e.code == 'weak-password') {
+      errorMessage = 'パスワードは6文字以上で設定してください。';
+    }
+    InfoDialog.snackBarError(context, errorMessage);
+  }
+}
