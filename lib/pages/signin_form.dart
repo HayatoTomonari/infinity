@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:si_proto/components/custom_button.dart';
 import 'package:si_proto/pages/top_page.dart';
 import 'package:si_proto/utils/constants_color.dart';
 import 'package:si_proto/components/custom_text_field.dart';
@@ -55,24 +56,7 @@ class SignIn extends StatelessWidget {
         const SizedBox(height: 48),
         SizedBox(
           width: double.infinity,
-          child: TextButton(
-            style: TextButton.styleFrom(
-              foregroundColor: ConstantsColor.kButtonTextColorPrimary,
-              backgroundColor: ConstantsColor.kButtonColorPrimary,
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-            onPressed: () async {
-              await _loginUser(email, password, context);
-            },
-            child: Text(
-              'ログイン',
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                  color: ConstantsColor.kButtonTextColorPrimary, fontSize: 18),
-            ),
-          ),
+          child: CustomButton(labelText: 'ログイン', onPressedFunction: () => _loginUser(email, password, context),),
         ),
       ],
     );
