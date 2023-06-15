@@ -27,6 +27,13 @@ class SignUpPage extends StatelessWidget {
                     child: Center(child: Text("infinity", style: TextStyle(fontSize: 100, fontWeight: FontWeight.bold))),
                   ),
                   Padding(
+                    padding: EdgeInsets.symmetric(vertical: 30),
+                    child: Center(
+                        child: Text("新規アカウント登録",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold))),
+                  ),
+                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 32),
                     child: SignUpForm(),
                   ),

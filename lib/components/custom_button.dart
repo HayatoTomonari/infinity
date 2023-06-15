@@ -26,7 +26,7 @@ class CustomButton extends StatelessWidget {
       child: Text(
         labelText,
         style: Theme.of(context).textTheme.labelLarge!.copyWith(
-            color: ConstantsColor.kButtonTextColor, fontSize: 18),
+            color: ConstantsColor.kButtonTextColor, fontSize: 14, fontWeight: FontWeight.bold),
       ),
     );
   }
