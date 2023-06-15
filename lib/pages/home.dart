@@ -20,8 +20,28 @@ class Home extends StatelessWidget {
           ),
         ),
       ),
-      body:
-          const Center(child: Text('ホーム画面', style: TextStyle(fontSize: 32.0))),
+      body:Column(
+          children: [
+            Center(
+              child: Container(
+                height:250,
+                width:double.infinity,
+                margin: const EdgeInsets.all(50),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: const LinearGradient(
+                      colors: [
+                        Colors.purple,
+                        Colors.purpleAccent,
+                      ]
+                  ),
+                ),
+                child: const Text('hello'),
+              ),
+            ),
+          ]
+      )
     );
   }
 }
