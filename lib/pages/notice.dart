@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:si_proto/models/app_user.dart';
 
 class Notice extends StatelessWidget {
-  const Notice(this.uid, {super.key});
-  final String uid;
+  const Notice(this.user, {super.key});
+  final AppUser user;
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:si_proto/components/custom_button.dart';
+import 'package:si_proto/models/app_user.dart';
 import 'package:si_proto/pages/top_page.dart';
 import 'package:si_proto/utils/constants_color.dart';
 import 'package:si_proto/components/custom_text_field.dart';
@@ -56,27 +58,40 @@ class SignIn extends StatelessWidget {
         const SizedBox(height: 48),
         SizedBox(
           width: double.infinity,
-          child: CustomButton(labelText: 'ログイン', onPressedFunction: () => _loginUser(email, password, context),),
+          child: CustomButton(
+            labelText: 'ログイン',
+            onPressedFunction: () => _loginUser(email, password, context),
+          ),
         ),
       ],
     );
   }
 
-  Future<void> _loginUser(String email, String password, BuildContext context) async {
+  Future<void> _loginUser(
+      String email, String password, BuildContext context) async {
     try {
       final User? user = (await FirebaseAuth.instance
-              .signInWithEmailAndPassword(
-                  email: email, password: password))
+              .signInWithEmailAndPassword(email: email, password: password))
           .user;
-      if (user != null &&
-          context.mounted) {
-        Navigator.push(
+      if (user == null) return;
+      Map<String, dynamic>? data = await _getAppUser(user.uid); //
+      if (data == null) return;
+      if (context.mounted) return;
+      Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TopPage(user.uid)),
-        );
-      }
+          MaterialPageRoute(
+            builder: (context) => TopPage(AppUser.fromJson(data)),
+          ));
     } catch (e) {
       //TODO:ログイン失敗時の処理
     }
+  }
+
+  Future<Map<String, dynamic>?> _getAppUser(String uid) async {
+    final docRef = FirebaseFirestore.instance
+        .collection("users")
+        .doc(uid); // DocumentReference
+    final docSnapshot = await docRef.get(); // DocumentSnapshot
+    return docSnapshot.exists ? docSnapshot.data() : null; //
   }
 }

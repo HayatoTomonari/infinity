@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:si_proto/models/app_user.dart';
 
 class Home extends StatelessWidget {
-  const Home(this.uid, {super.key});
-  final String uid;
+  const Home(this.user, {super.key});
+  final AppUser user;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class Home extends StatelessWidget {
                       ]
                   ),
                 ),
-                child: const Text('hello'),
+                child: Text(user.userName),
               ),
             ),
           ]

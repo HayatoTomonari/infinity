@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../models/app_user.dart';
+
 class Setting extends StatelessWidget {
-  const Setting(this.uid, {super.key});
-  final String uid;
+  const Setting(this.user, {super.key});
+  final AppUser user;
 
   @override
   Widget build(BuildContext context) {

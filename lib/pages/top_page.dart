@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:si_proto/models/app_user.dart';
 import 'package:si_proto/pages/home.dart';
 import 'package:si_proto/pages/notice.dart';
 import 'package:si_proto/pages/setting.dart';
 import 'package:si_proto/pages/payment.dart';
 
 class TopPage extends StatefulWidget {
-  const TopPage(this.uid, {super.key});
-  final String uid;
+  const TopPage(this.user, {super.key});
+  final AppUser user;
   @override
   State<TopPage> createState() => _TopPageState();
 }
@@ -24,10 +25,10 @@ class _TopPageState extends State<TopPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: [
-          Home(widget.uid),
-          Payment(widget.uid),
-          Notice(widget.uid),
-          Setting(widget.uid),
+          Home(widget.user),
+          Payment(widget.user),
+          Notice(widget.user),
+          Setting(widget.user),
         ][_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedIndex,
