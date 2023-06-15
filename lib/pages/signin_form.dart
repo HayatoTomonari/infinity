@@ -65,21 +65,7 @@ class SignIn extends StatelessWidget {
               ),
             ),
             onPressed: () async {
-              try {
-                final User? user = (await FirebaseAuth.instance
-                        .signInWithEmailAndPassword(
-                            email: email, password: password))
-                    .user;
-                if (user != null &&
-                    context.mounted) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => TopPage(user.uid)),
-                  );
-                }
-              } catch (e) {
-                //TODO:ログイン失敗時の処理
-              }
+              await _loginUser(email, password, context);
             },
             child: Text(
               'ログイン',
@@ -90,5 +76,23 @@ class SignIn extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Future<void> _loginUser(String email, String password, BuildContext context) async {
+    try {
+      final User? user = (await FirebaseAuth.instance
+              .signInWithEmailAndPassword(
+                  email: email, password: password))
+          .user;
+      if (user != null &&
+          context.mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => TopPage(user.uid)),
+        );
+      }
+    } catch (e) {
+      //TODO:ログイン失敗時の処理
+    }
   }
 }

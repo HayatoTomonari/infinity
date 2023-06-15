@@ -47,25 +47,7 @@ class SignUpForm extends StatelessWidget {
               ),
             ),
             onPressed: () async {
-              try {
-                final User? user = (await FirebaseAuth.instance
-                        .createUserWithEmailAndPassword(
-                            email: email, password: password))
-                    .user;
-                if (user != null) {
-                  //TODO:テスト用コード
-                  FirebaseFirestore.instance
-                      .collection('users')
-                      .doc(user.uid)
-                      .set({
-                    'userName': userName,
-                    'groupId': '1234',
-                    'assets': 500
-                  }); //
-                }
-              } catch (e) {
-                //TODO:ユーザー登録失敗時の処理。
-              }
+              await _registerUser(email, password, userName);
             },
             child: Text(
               'アカウント登録',
@@ -76,5 +58,27 @@ class SignUpForm extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Future<void> _registerUser(String email, String password, String userName) async {
+    try {
+      final User? user = (await FirebaseAuth.instance
+              .createUserWithEmailAndPassword(
+                  email: email, password: password))
+          .user;
+      if (user != null) {
+        //TODO:テスト用コード
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .set({
+          'userName': userName,
+          'groupId': '1234',
+          'assets': 500
+        }); //
+      }
+    } catch (e) {
+      //TODO:ユーザー登録失敗時の処理。
+    }
   }
 }
