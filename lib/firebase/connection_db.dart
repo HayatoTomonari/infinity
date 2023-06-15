@@ -16,9 +16,10 @@ class ConnectionDb {
           .user;
       if (user == null) return;
       if (!user.emailVerified && context.mounted) {
-          InfoDialog.snackBarNetral(context, 'メール認証が未完了です。\nメール記載のリンクを開いて、認証を完了してください。');
-          return;
-        }
+        InfoDialog.snackBarNetral(
+            context, 'メール認証が未完了です。\nメール記載のリンクを開いて、認証を完了してください。');
+        return;
+      }
       Map<String, dynamic>? data = await _getAppUser(user.uid); //
       if (data == null) return;
       if (context.mounted) {
@@ -48,7 +49,8 @@ class ConnectionDb {
         if (context.mounted) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ConfirmEmail(email, password)),
+            MaterialPageRoute(
+                builder: (context) => ConfirmEmail(email, password)),
           );
         }
       }
@@ -57,11 +59,11 @@ class ConnectionDb {
     }
   }
 
-  static Future<void> sendEmail(BuildContext context, String email,
-      String password) async {
+  static Future<void> sendConfirmEmail(
+      BuildContext context, String email, String password) async {
     try {
       final User? user = (await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password))
+              .signInWithEmailAndPassword(email: email, password: password))
           .user;
       if (user != null) {
         user.sendEmailVerification();
@@ -69,8 +71,22 @@ class ConnectionDb {
           InfoDialog.snackBarNetral(context, '$email\nに認証メールを送信しました。');
         }
       }
-    } on FirebaseAuthException catch (e) {
-      _showErrorRegisterMessage(context, e);
+    } on FirebaseAuthException {
+      String errorMessage = "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。";
+      InfoDialog.snackBarError(context, errorMessage);
+    }
+  }
+
+  static Future<void> sendResetPassword(
+      BuildContext context, String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      if (context.mounted) {
+        InfoDialog.snackBarNetral(context, '$email\nにパスワード再設定メールを送信しました。');
+      }
+    } on FirebaseAuthException {
+      String errorMessage = "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。";
+      InfoDialog.snackBarError(context, errorMessage);
     }
   }
 
