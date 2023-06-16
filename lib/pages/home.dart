@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:si_proto/models/app_user.dart';
+import 'package:si_proto/widgets/header.dart';
 
 class Home extends StatelessWidget {
   const Home(this.user, {super.key});
@@ -8,21 +9,9 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('future',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.purple,
-        automaticallyImplyLeading: false,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(30),
-            bottomRight: Radius.circular(30),
-          ),
-        ),
-      ),
       body:Column(
           children: [
+            const Header(),
             Center(
               child: Container(
                 height:250,
@@ -33,8 +22,8 @@ class Home extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   gradient: const LinearGradient(
                       colors: [
-                        Colors.purple,
-                        Colors.purpleAccent,
+                        Colors.deepPurple,
+                        Colors.pink,
                       ]
                   ),
                 ),
