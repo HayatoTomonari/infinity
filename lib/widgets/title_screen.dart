@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../utils/constants_text.dart';
+
 class TitleText extends StatelessWidget {
   const TitleText({super.key});
 
@@ -19,7 +21,7 @@ class TitleText extends StatelessWidget {
           children: [
             Transform.translate(
               offset: Offset(-(textStyle.letterSpacing! * .5), 0),
-              child: Text('infinity', style: textStyle),
+              child: Text(ConstantsText.appTitle, style: textStyle),
             ),
           ], // Edit from here...
         ).animate().fadeIn(delay: .8.seconds, duration: .7.seconds),
