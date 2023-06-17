@@ -49,7 +49,7 @@ class ConnectionDb {
       FirebaseFirestore.instance
           .collection('users')
           .doc(user.uid)
-          .set({'userName': userName, 'teamId': '', 'assets': 0});
+          .set({'userName': userName, 'teamId': '', 'assets': 0, 'email':user.email});
       user.sendEmailVerification();
       if (context.mounted) {
         Navigator.push(
