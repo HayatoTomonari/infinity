@@ -16,7 +16,7 @@ class _TeamCardState extends State<TeamCard> {
   final formatter = NumberFormat("#,###");
   Team team = const Team();
 
-  Future getVer() async {
+  Future getUser() async {
     AppUser getUser = await ConnectionDb.getAppUser();
     Team getTeam = await ConnectionDb.getTeam(getUser.teamId);
     setState(() {
@@ -27,7 +27,7 @@ class _TeamCardState extends State<TeamCard> {
   @override
   void initState() {
     super.initState();
-    getVer();
+    getUser();
   }
 
   @override
