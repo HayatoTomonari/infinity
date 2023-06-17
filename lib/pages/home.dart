@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:si_proto/widgets/header.dart';
 
-import '../widgets/team_assets.dart';
+import '../widgets/team_card.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -11,7 +11,7 @@ class Home extends StatelessWidget {
     return const Scaffold(
         body: Column(children: [
       Header(),
-      TeamAssets(),
+      TeamCard(),
     ]));
   }
 }
