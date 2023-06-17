@@ -4,6 +4,7 @@ import 'package:si_proto/widgets/title_screen.dart';
 import '../components/custom_button.dart';
 import '../components/custom_text_field.dart';
 import '../firebase/connection_db.dart';
+import '../utils/constants_color.dart';
 
 class ForgetPassword extends StatelessWidget {
   const ForgetPassword({super.key});
@@ -46,6 +47,8 @@ class ForgetPassword extends StatelessWidget {
                       obscureText: false,
                       onChangedFunction: (String value) => email = value,
                       icon: Icons.mail,
+                      textColor: ConstantsColor.lightTextColor,
+                      focusColor: ConstantsColor.lightFocusColor,
                     ),
                   ),
                   Padding(
@@ -57,6 +60,8 @@ class ForgetPassword extends StatelessWidget {
                         labelText: 'パスワード再設定メールを送信',
                         onPressedFunction: () =>
                             ConnectionDb.sendResetPassword(context, email),
+                        textColor: ConstantsColor.lightButtonTextColor,
+                        backColor: ConstantsColor.lightButtonBackColor,
                       ),
                     ),
                   ),

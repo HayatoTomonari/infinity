@@ -3,6 +3,7 @@ import 'package:si_proto/widgets/title_screen.dart';
 
 import '../components/custom_button.dart';
 import '../firebase/connection_db.dart';
+import '../utils/constants_color.dart';
 
 class ConfirmEmail extends StatelessWidget {
   const ConfirmEmail(this.email, this.password, {super.key});
@@ -39,6 +40,8 @@ class ConfirmEmail extends StatelessWidget {
                       child: CustomButton(
                         labelText: '確認メールを再送信する',
                         onPressedFunction: () => ConnectionDb.sendConfirmEmail(context, email, password),
+                        textColor: ConstantsColor.lightButtonTextColor,
+                        backColor: ConstantsColor.lightButtonBackColor,
                       ),
                     ),
                   ),
@@ -49,6 +52,8 @@ class ConfirmEmail extends StatelessWidget {
                       child: CustomButton(
                         labelText: 'メールアドレス認証完了',
                         onPressedFunction: () => ConnectionDb.loginUser(email, password, context),
+                        textColor: ConstantsColor.lightButtonTextColor,
+                        backColor: ConstantsColor.lightButtonBackColor,
                       ),
                     ),
                   ),

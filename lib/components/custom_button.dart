@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:si_proto/utils/constants_color.dart';
 
 class CustomButton extends StatelessWidget {
   final String labelText;
   final Function onPressedFunction;
+  final Color textColor;
+  final Color backColor;
 
   const CustomButton(
-      {Key? key, required this.labelText, required this.onPressedFunction})
+      {Key? key, required this.labelText, required this.onPressedFunction, required this.textColor, required this.backColor})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       style: TextButton.styleFrom(
-        foregroundColor: ConstantsColor.kButtonTextColor,
-        backgroundColor: ConstantsColor.kButtonBackColor,
+        foregroundColor: textColor,
+        backgroundColor: backColor,
         padding: const EdgeInsets.symmetric(vertical: 16),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -26,7 +27,7 @@ class CustomButton extends StatelessWidget {
       child: Text(
         labelText,
         style: Theme.of(context).textTheme.labelLarge!.copyWith(
-            color: ConstantsColor.kButtonTextColor, fontSize: 14, fontWeight: FontWeight.bold),
+            color: textColor, fontSize: 14, fontWeight: FontWeight.bold),
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:si_proto/components/custom_button.dart';
 import 'package:si_proto/components/custom_text_field.dart';
 import 'package:si_proto/firebase/connection_db.dart';
+import 'package:si_proto/utils/constants_color.dart';
 
 class SignUpForm extends StatelessWidget {
   const SignUpForm({super.key});
@@ -19,6 +20,8 @@ class SignUpForm extends StatelessWidget {
           obscureText: false,
           onChangedFunction: (String value) => email = value,
           icon: Icons.mail,
+          textColor: ConstantsColor.lightTextColor,
+          focusColor: ConstantsColor.lightFocusColor,
         ),
         const SizedBox(height: 48),
         CustomTextField(
@@ -26,7 +29,9 @@ class SignUpForm extends StatelessWidget {
           hintText: '6文字以上で入力してください。',
           obscureText: true,
           onChangedFunction: (String value) => password = value,
-          icon: Icons.lock_clock_outlined
+          icon: Icons.lock_clock_outlined,
+          textColor: ConstantsColor.lightTextColor,
+          focusColor: ConstantsColor.lightFocusColor,
         ),
         const SizedBox(height: 48),
         CustomTextField(
@@ -35,6 +40,8 @@ class SignUpForm extends StatelessWidget {
           obscureText: false,
           onChangedFunction: (String value) => userName = value,
           icon: Icons.account_circle,
+          textColor: ConstantsColor.lightTextColor,
+          focusColor: ConstantsColor.lightFocusColor,
         ),
         const SizedBox(height: 48),
         SizedBox(
@@ -43,6 +50,8 @@ class SignUpForm extends StatelessWidget {
             labelText: 'アカウント登録',
             onPressedFunction: () =>
                 ConnectionDb.registerUser(context, email, password, userName),
+            textColor: ConstantsColor.lightButtonTextColor,
+            backColor: ConstantsColor.lightButtonBackColor,
           ),
         ),
       ],

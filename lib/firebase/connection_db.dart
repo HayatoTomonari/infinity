@@ -46,11 +46,13 @@ class ConnectionDb {
         throw FirebaseAuthException(
             code: "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。");
       }
-      FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .set({'userName': userName, 'teamId': '', 'assets': 0, 'email':user.email});
-      user.sendEmailVerification();
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+        'userName': userName,
+        'teamId': '',
+        'assets': 0,
+        'email': user.email
+      });
+      await user.sendEmailVerification();
       if (context.mounted) {
         Navigator.push(
           context,
@@ -70,9 +72,31 @@ class ConnectionDb {
               .signInWithEmailAndPassword(email: email, password: password))
           .user;
       if (user != null) {
-        user.sendEmailVerification();
+        await user.sendEmailVerification();
         if (context.mounted) {
           InfoDialog.snackBarNetral(context, '$email\nに認証メールを送信しました。');
+        }
+      }
+    } on FirebaseAuthException {
+      String errorMessage = "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。";
+      InfoDialog.snackBarError(context, errorMessage);
+    }
+  }
+
+  static Future<void> updateEmail(BuildContext context, String email,
+      String newEmail, String password) async {
+    try {
+      final User? user = (await FirebaseAuth.instance
+              .signInWithEmailAndPassword(email: email, password: password))
+          .user;
+      if (user != null) {
+        await user.updateEmail(newEmail);
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .update({'email': newEmail});
+        if (context.mounted) {
+          await sendConfirmEmail(context, newEmail, password);
         }
       }
     } on FirebaseAuthException {

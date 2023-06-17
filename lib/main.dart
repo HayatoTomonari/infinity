@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
         colorScheme: ColorScheme.fromSwatch()
-            .copyWith(secondary: ConstantsColor.kFocusColor),
+            .copyWith(secondary: ConstantsColor.lightFocusColor),
       ),
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),

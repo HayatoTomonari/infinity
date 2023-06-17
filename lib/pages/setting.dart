@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:settings_ui/settings_ui.dart';
-
+import 'package:si_proto/pages/change_email.dart';
 
 class Setting extends StatefulWidget {
   const Setting({super.key});
@@ -41,6 +41,12 @@ class _SettingState extends State<Setting> {
             SettingsTile.navigation(
               leading: const Icon(Icons.mail),
               title: const Text('メールアドレスの変更'),
+              onPressed: (value) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ChangeEmail()),
+                );
+              },
             ),
             SettingsTile.navigation(
               leading: const Icon(Icons.lock_open),
