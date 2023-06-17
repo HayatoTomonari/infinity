@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:si_proto/widgets/Footer.dart';
 import 'package:si_proto/pages/signin_form.dart';
+import 'package:si_proto/widgets/title_screen.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -25,7 +26,7 @@ class WelcomePage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 130),
-                    child: Center(child: Text("infinity", style: TextStyle(fontSize: 100, fontWeight: FontWeight.bold))),
+                    child: TitleText(),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 32),

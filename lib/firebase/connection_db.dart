@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:si_proto/models/team.dart';
 import 'package:si_proto/pages/confirm_email.dart';
 
 import '../components/info_dialog.dart';
@@ -20,14 +21,16 @@ class ConnectionDb {
             context, 'メール認証が未完了です。\nメール記載のリンクを開いて、認証を完了してください。');
         return;
       }
-      Map<String, dynamic>? data = await _getAppUser(user.uid); //
-      if (data == null) return;
+      Map<String, dynamic>? userData = await _getAppUser(user.uid);
+      if (userData == null) return;
+      AppUser appUser = AppUser.fromJson(userData);
+      Team team = await _getTeam(appUser.teamId);
       if (context.mounted) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => TopPage(AppUser.fromJson(data)),
-            ));
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
+            return TopPage(appUser, team);
+          },
+        ));
       }
     } on FirebaseAuthException catch (e) {
       _showLoginErrorMessage(context, e);
@@ -90,11 +93,17 @@ class ConnectionDb {
     }
   }
 
+  static Future<Team> _getTeam(String teamId) async {
+    final docRef = FirebaseFirestore.instance.collection("teams").doc(teamId);
+    final docSnapshot = await docRef.get();
+    var data = docSnapshot.exists ? docSnapshot.data() : null;
+    if (data == null) return const Team();
+    return Team.fromJson(data);
+  }
+
   static Future<Map<String, dynamic>?> _getAppUser(String uid) async {
-    final docRef = FirebaseFirestore.instance
-        .collection("users")
-        .doc(uid); // DocumentReference
-    final docSnapshot = await docRef.get(); // DocumentSnapshot
+    final docRef = FirebaseFirestore.instance.collection("users").doc(uid);
+    final docSnapshot = await docRef.get();
     return docSnapshot.exists ? docSnapshot.data() : null; //
   }
 

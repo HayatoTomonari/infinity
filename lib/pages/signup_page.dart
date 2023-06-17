@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:si_proto/pages/signup_form.dart';
 
+import '../widgets/title_screen.dart';
+
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
   @override
@@ -24,7 +26,7 @@ class SignUpPage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 130),
-                    child: Center(child: Text("infinity", style: TextStyle(fontSize: 100, fontWeight: FontWeight.bold))),
+                    child: TitleText(),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 30),

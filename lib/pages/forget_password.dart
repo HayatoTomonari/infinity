@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:si_proto/widgets/title_screen.dart';
 
 import '../components/custom_button.dart';
 import '../components/custom_text_field.dart';
@@ -28,10 +29,7 @@ class ForgetPassword extends StatelessWidget {
                 children: [
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 130),
-                    child: Center(
-                        child: Text("infinity",
-                            style: TextStyle(
-                                fontSize: 100, fontWeight: FontWeight.bold))),
+                    child: TitleText(),
                   ),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 30),

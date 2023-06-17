@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:si_proto/utils/constants_color.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+
+import '../utils/constants_text.dart';
 
 class Header extends StatelessWidget {
   const Header({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const double height = 320;
+    const double height = 220;
     return SizedBox(
       height: height,
       child: Stack(
@@ -22,7 +24,7 @@ class Header extends StatelessWidget {
           Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: const EdgeInsets.only(top: 128),
+              padding: const EdgeInsets.only(top: 50),
               child: _HeaderTitle(),
             ),
           ),
@@ -35,24 +37,20 @@ class Header extends StatelessWidget {
 class _HeaderTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var textStyle = const TextStyle(fontFamily: 'Exo', color: Colors.white)
+        .copyWith(fontSize: 30, letterSpacing: 35, fontWeight: FontWeight.w700);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          'future',
-          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-            color: ConstantsColor.kTextColor,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          '未来の為のみんなの資産',
-          style: Theme.of(context)
-              .textTheme
-              .titleSmall!
-              .copyWith(color: ConstantsColor.kTextColor),
-        ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Transform.translate(
+              offset: Offset(-(textStyle.letterSpacing! * .5), 0),
+              child: Text(ConstantsText.appTitle, style: textStyle),
+            ),
+          ], // Edit from here...
+        ).animate().fadeIn(delay: .8.seconds, duration: .7.seconds)
       ],
     );
   }
@@ -99,8 +97,8 @@ class _HeaderBackground extends StatelessWidget {
             begin: FractionalOffset.topLeft,
             end: FractionalOffset.bottomRight,
             colors: [
-              Color(0xFF9866FD),
-              Color(0xFF8462FF),
+              Colors.deepPurple,
+              Colors.pink,
             ],
             stops: [0, 1],
           ),
@@ -119,12 +117,12 @@ class _HeaderCirclePainter extends CustomPainter {
       ..strokeWidth = 6;
 
     canvas.drawCircle(
-      Offset(size.width * 0.25, size.height * 0.4),
+      Offset(size.width * 0.25, size.height * 0.5),
       12,
       paint,
     );
     canvas.drawCircle(
-      Offset(size.width * 0.75, size.height * 0.2),
+      Offset(size.width * 0.75, size.height * 0.1),
       12,
       paint,
     );
