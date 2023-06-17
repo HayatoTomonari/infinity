@@ -1,19 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:si_proto/firebase/connection_db.dart';
+import 'package:si_proto/models/app_user.dart';
+import 'package:si_proto/models/team.dart';
 import 'package:si_proto/utils/constants_color.dart';
 import 'package:intl/intl.dart';
 
-import '../models/app_user.dart';
-import '../models/team.dart';
+class TeamAssets extends StatefulWidget {
+  const TeamAssets({super.key});
+  @override
+  State<TeamAssets> createState() => _TeamAssetsState();
+}
 
-class TeamAssets extends StatelessWidget {
-  const TeamAssets(this.user, this.team, {super.key});
-  final AppUser user;
-  final Team team;
+class _TeamAssetsState extends State<TeamAssets> {
+  final formatter = NumberFormat("#,###");
+  Team team = const Team();
+
+  Future getVer() async {
+    AppUser getUser = await ConnectionDb.getAppUser();
+    Team getTeam = await ConnectionDb.getTeam(getUser.teamId);
+    setState(() {
+      team = getTeam;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getVer();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final formatter = NumberFormat("#,###");
     String assets = formatter.format(team.assets);
     return Positioned(
       top: 150,
@@ -51,8 +69,7 @@ class TeamAssets extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsets.only(top: 15, left: 28),
+                      padding: const EdgeInsets.only(top: 15, left: 28),
                       child: Row(
                         children: [
                           Text(

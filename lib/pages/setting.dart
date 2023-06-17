@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:settings_ui/settings_ui.dart';
-import 'package:si_proto/models/team.dart';
 
-import '../models/app_user.dart';
 
 class Setting extends StatefulWidget {
-  const Setting(this.user, this.team, {super.key});
-  final AppUser user;
-  final Team team;
+  const Setting({super.key});
 
   @override
   State<Setting> createState() => _SettingState();
