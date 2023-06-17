@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:si_proto/components/info_dialog.dart';
 import 'package:si_proto/pages/change_email.dart';
+import 'package:si_proto/pages/welcome_page.dart';
 
 class Setting extends StatefulWidget {
   const Setting({super.key});
@@ -61,13 +64,13 @@ class _SettingState extends State<Setting> {
               leading: const Icon(Icons.color_lens_outlined),
               title: const Text('ダークテーマを有効にする'),
               initialValue: false,
-              onToggle: (value){},
+              onToggle: (value) {},
             ),
             SettingsTile.switchTile(
               leading: const Icon(Icons.notifications),
               title: const Text('通知設定を有効にする'),
               initialValue: false,
-              onToggle: (value){},
+              onToggle: (value) {},
             ),
           ],
         ),
@@ -110,6 +113,14 @@ class _SettingState extends State<Setting> {
             SettingsTile(
               leading: const Icon(Icons.login_outlined),
               title: const Text('ログアウト'),
+              onPressed: (value) async => {
+                await FirebaseAuth.instance.signOut(),
+                InfoDialog.snackBarSuccess(context, "ログアウトしました。"),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const WelcomePage()),
+                )
+              },
             ),
           ],
         ),
