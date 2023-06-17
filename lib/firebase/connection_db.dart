@@ -15,7 +15,10 @@ class ConnectionDb {
       final User? user = (await FirebaseAuth.instance
               .signInWithEmailAndPassword(email: email, password: password))
           .user;
-      if (user == null) throw FirebaseAuthException(code: "");
+      if (user == null) {
+        throw FirebaseAuthException(
+            code: "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。");
+      }
       if (!user.emailVerified && context.mounted) {
         InfoDialog.snackBarNetral(
             context, 'メール認証が未完了です。\nメール記載のリンクを開いて、認証を完了してください。');
@@ -39,19 +42,21 @@ class ConnectionDb {
       final User? user = (await FirebaseAuth.instance
               .createUserWithEmailAndPassword(email: email, password: password))
           .user;
-      if (user != null) {
-        FirebaseFirestore.instance
-            .collection('users')
-            .doc(user.uid)
-            .set({'userName': userName, 'teamId': '', 'assets': 0});
-        user.sendEmailVerification();
-        if (context.mounted) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ConfirmEmail(email, password)),
-          );
-        }
+      if (user == null) {
+        throw FirebaseAuthException(
+            code: "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。");
+      }
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .set({'userName': userName, 'teamId': '', 'assets': 0});
+      user.sendEmailVerification();
+      if (context.mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ConfirmEmail(email, password)),
+        );
       }
     } on FirebaseAuthException catch (e) {
       _showErrorRegisterMessage(context, e);
@@ -98,11 +103,11 @@ class ConnectionDb {
   }
 
   static Future<AppUser> getAppUser() async {
-    final auth = FirebaseAuth.instance;
-    final uid = auth.currentUser?.uid.toString();
+    final uid = FirebaseAuth.instance.currentUser?.uid.toString();
     final docRef = FirebaseFirestore.instance.collection("users").doc(uid);
     final docSnapshot = await docRef.get();
-    Map<String, dynamic>? data = docSnapshot.exists ? docSnapshot.data() : null; //
+    Map<String, dynamic>? data =
+        docSnapshot.exists ? docSnapshot.data() : null; //
     if (data == null) return const AppUser();
     return AppUser.fromJson(data);
   }
