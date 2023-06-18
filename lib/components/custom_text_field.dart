@@ -9,6 +9,8 @@ class CustomTextField extends StatelessWidget {
   final IconData icon;
   final Color textColor;
   final Color focusColor;
+  final String initialValue;
+  final bool enabled;
 
   const CustomTextField(
       {Key? key,
@@ -18,7 +20,9 @@ class CustomTextField extends StatelessWidget {
       required this.onChangedFunction,
       required this.icon,
       required this.textColor,
-      required this.focusColor})
+      required this.focusColor,
+      this.initialValue = '',
+      this.enabled = true})
       : super(key: key);
 
   @override
@@ -52,6 +56,8 @@ class CustomTextField extends StatelessWidget {
       onChanged: (String value) {
         onChangedFunction(value);
       },
+      controller: TextEditingController(text: initialValue),
+      enabled: enabled,
     );
   }
 }

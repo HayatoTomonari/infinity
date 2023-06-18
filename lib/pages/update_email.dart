@@ -50,10 +50,16 @@ class _UpdateEmailState extends State<UpdateEmail> {
               padding: const EdgeInsets.only(
                   top: 30, bottom: 10, right: 50, left: 50),
               child: SizedBox(
-                child: TextField(
-                  decoration: const InputDecoration(labelText: '現在のメールアドレス'),
+                child: CustomTextField(
+                  labelText: '現在のメールアドレス',
+                  hintText: '',
+                  obscureText: false,
+                  onChangedFunction: (String value) => {},
+                  icon: Icons.mail,
+                  textColor: ConstantsColor.darkTextColor,
+                  focusColor: ConstantsColor.darkFocusColor,
+                  initialValue: user.email,
                   enabled: false,
-                  controller: TextEditingController(text: user.email),
                 ),
               ),
             ),
