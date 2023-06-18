@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:si_proto/components/info_dialog.dart';
-import 'package:si_proto/pages/change_email.dart';
+import 'package:si_proto/pages/update_email.dart';
+import 'package:si_proto/pages/update_password.dart';
 import 'package:si_proto/pages/welcome_page.dart';
 
 class Setting extends StatefulWidget {
@@ -47,13 +48,19 @@ class _SettingState extends State<Setting> {
               onPressed: (value) {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ChangeEmail()),
+                  MaterialPageRoute(builder: (context) => const UpdateEmail()),
                 );
               },
             ),
             SettingsTile.navigation(
               leading: const Icon(Icons.lock_open),
               title: const Text('パスワードの変更'),
+              onPressed: (value) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const UpdatePassword()),
+                );
+              },
             ),
           ],
         ),

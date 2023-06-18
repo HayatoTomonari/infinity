@@ -6,14 +6,14 @@ import '../components/custom_text_field.dart';
 import '../firebase/connection_db.dart';
 import '../models/app_user.dart';
 
-class ChangeEmail extends StatefulWidget {
-  const ChangeEmail({super.key});
+class UpdateEmail extends StatefulWidget {
+  const UpdateEmail({super.key});
 
   @override
-  State<ChangeEmail> createState() => _ChangeEmailState();
+  State<UpdateEmail> createState() => _UpdateEmailState();
 }
 
-class _ChangeEmailState extends State<ChangeEmail> {
+class _UpdateEmailState extends State<UpdateEmail> {
   String password = "";
   String newEmail = "";
   AppUser user = const AppUser();

@@ -105,6 +105,24 @@ class ConnectionDb {
     }
   }
 
+  static Future<void> updatePassword(BuildContext context, String email,
+      String newPassword, String password) async {
+    try {
+      final User? user = (await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password))
+          .user;
+      if (user != null) {
+        await user.updatePassword(newPassword);
+        if (context.mounted) {
+          InfoDialog.snackBarSuccess(context, 'パスワードの変更が完了しました。');
+        }
+      }
+    } on FirebaseAuthException {
+      String errorMessage = "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。";
+      InfoDialog.snackBarError(context, errorMessage);
+    }
+  }
+
   static Future<void> sendResetPassword(
       BuildContext context, String email) async {
     try {
