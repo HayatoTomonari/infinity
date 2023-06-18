@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:si_proto/models/team.dart';
 import 'package:si_proto/pages/confirm_email.dart';
@@ -150,6 +151,12 @@ class ConnectionDb {
         docSnapshot.exists ? docSnapshot.data() : null; //
     if (data == null) return const AppUser();
     return AppUser.fromJson(data);
+  }
+
+  static Future<String> getImageUrl(String image) async {
+    final storage = FirebaseStorage.instance.refFromURL(image);
+    String imageUrl = await storage.getDownloadURL();
+    return imageUrl;
   }
 
   static void _showLoginErrorMessage(
