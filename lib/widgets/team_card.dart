@@ -63,7 +63,8 @@ class _TeamCardState extends State<TeamCard> {
                           Text(
                             team.teamName,
                             style: GoogleFonts.kameron(
-                                fontSize: 20, color: ConstantsColor.lightTextColor),
+                                fontSize: 20,
+                                color: ConstantsColor.lightTextColor),
                           )
                         ],
                       ),
@@ -75,7 +76,8 @@ class _TeamCardState extends State<TeamCard> {
                           Text(
                             '資産総額',
                             style: GoogleFonts.kameron(
-                                fontSize: 15, color: ConstantsColor.lightTextColor),
+                                fontSize: 15,
+                                color: ConstantsColor.lightTextColor),
                           )
                         ],
                       ),

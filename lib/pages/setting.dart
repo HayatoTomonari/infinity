@@ -58,7 +58,8 @@ class _SettingState extends State<Setting> {
               onPressed: (value) {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const UpdatePassword()),
+                  MaterialPageRoute(
+                      builder: (context) => const UpdatePassword()),
                 );
               },
             ),

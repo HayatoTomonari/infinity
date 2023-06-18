@@ -26,7 +26,7 @@ class WelcomePage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 130),
-                    child: TitleText(),
+                    child: TitleScreen(),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 32),

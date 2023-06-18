@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:si_proto/models/team.dart';
 import 'package:si_proto/pages/confirm_email.dart';
+import 'package:si_proto/utils/constants_db_connection,.dart';
+import 'package:si_proto/utils/constants_text.dart';
 
 import '../components/info_dialog.dart';
 import '../models/app_user.dart';
@@ -17,11 +19,11 @@ class ConnectionDb {
           .user;
       if (user == null) {
         throw FirebaseAuthException(
-            code: "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。");
+            code: ConstantsText.unexpectedError);
       }
       if (!user.emailVerified && context.mounted) {
         InfoDialog.snackBarNetral(
-            context, 'メール認証が未完了です。\nメール記載のリンクを開いて、認証を完了してください。');
+            context, ConstantsText.mailAuthUnfinished);
         return;
       }
       if (context.mounted) {
@@ -44,13 +46,13 @@ class ConnectionDb {
           .user;
       if (user == null) {
         throw FirebaseAuthException(
-            code: "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。");
+            code: ConstantsText.unexpectedError);
       }
-      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-        'userName': userName,
-        'teamId': '',
-        'assets': 0,
-        'email': user.email
+      await FirebaseFirestore.instance.collection(ConstantsDbConnection.dbCollectionUser).doc(user.uid).set({
+        ConstantsDbConnection.docUserName: userName,
+        ConstantsDbConnection.docTeamId: '',
+        ConstantsDbConnection.docAssets: 0,
+        ConstantsDbConnection.docEmail: user.email
       });
       await user.sendEmailVerification();
       if (context.mounted) {
@@ -78,8 +80,7 @@ class ConnectionDb {
         }
       }
     } on FirebaseAuthException {
-      String errorMessage = "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。";
-      InfoDialog.snackBarError(context, errorMessage);
+      InfoDialog.snackBarError(context, ConstantsText.unexpectedError);
     }
   }
 
@@ -92,16 +93,15 @@ class ConnectionDb {
       if (user != null) {
         await user.updateEmail(newEmail);
         await FirebaseFirestore.instance
-            .collection('users')
+            .collection(ConstantsDbConnection.dbCollectionUser)
             .doc(user.uid)
-            .update({'email': newEmail});
+            .update({ConstantsDbConnection.docEmail: newEmail});
         if (context.mounted) {
           await sendConfirmEmail(context, newEmail, password);
         }
       }
     } on FirebaseAuthException {
-      String errorMessage = "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。";
-      InfoDialog.snackBarError(context, errorMessage);
+      InfoDialog.snackBarError(context, ConstantsText.unexpectedError);
     }
   }
 
@@ -118,8 +118,7 @@ class ConnectionDb {
         }
       }
     } on FirebaseAuthException {
-      String errorMessage = "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。";
-      InfoDialog.snackBarError(context, errorMessage);
+      InfoDialog.snackBarError(context, ConstantsText.unexpectedError);
     }
   }
 
@@ -131,13 +130,12 @@ class ConnectionDb {
         InfoDialog.snackBarNetral(context, '$email\nにパスワード再設定メールを送信しました。');
       }
     } on FirebaseAuthException {
-      String errorMessage = "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。";
-      InfoDialog.snackBarError(context, errorMessage);
+      InfoDialog.snackBarError(context, ConstantsText.unexpectedError);
     }
   }
 
   static Future<Team> getTeam(String teamId) async {
-    final docRef = FirebaseFirestore.instance.collection("teams").doc(teamId);
+    final docRef = FirebaseFirestore.instance.collection(ConstantsDbConnection.dbCollectionTeams).doc(teamId);
     final docSnapshot = await docRef.get();
     Map<String, dynamic>? data = docSnapshot.exists ? docSnapshot.data() : null;
     if (data == null) return const Team();
@@ -146,7 +144,7 @@ class ConnectionDb {
 
   static Future<AppUser> getAppUser() async {
     final uid = FirebaseAuth.instance.currentUser?.uid.toString();
-    final docRef = FirebaseFirestore.instance.collection("users").doc(uid);
+    final docRef = FirebaseFirestore.instance.collection(ConstantsDbConnection.dbCollectionUser).doc(uid);
     final docSnapshot = await docRef.get();
     Map<String, dynamic>? data =
         docSnapshot.exists ? docSnapshot.data() : null; //
@@ -156,30 +154,30 @@ class ConnectionDb {
 
   static void _showLoginErrorMessage(
       BuildContext context, FirebaseAuthException e) {
-    String errorMessage = "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。";
+    String errorMessage = ConstantsText.unexpectedError;
     if (e.code == 'user-disabled') {
-      errorMessage = 'そのメールアドレスは利用できません。';
+      errorMessage = ConstantsText.userDisabled;
     } else if (e.code == 'invalid-email') {
-      errorMessage = 'メールアドレスが正しくありません。';
+      errorMessage = ConstantsText.invalidEmail;
     } else if (e.code == 'user-not-found') {
-      errorMessage = 'ユーザーが見つかりません。';
+      errorMessage = ConstantsText.userNotFound;
     } else if (e.code == 'wrong-password') {
-      errorMessage = 'パスワードが誤っています。';
+      errorMessage = ConstantsText.wrongPassword;
     }
     InfoDialog.snackBarError(context, errorMessage);
   }
 
   static void _showErrorRegisterMessage(
       BuildContext context, FirebaseAuthException e) {
-    String errorMessage = "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。";
+    String errorMessage = ConstantsText.unexpectedError;
     if (e.code == 'user-disabled') {
-      errorMessage = 'そのメールアドレスは利用できません。';
+      errorMessage = ConstantsText.userDisabled;
     } else if (e.code == 'invalid-email') {
-      errorMessage = 'メールアドレスの形式が正しくありません。';
+      errorMessage = ConstantsText.invalidEmail;
     } else if (e.code == 'email-already-in-use') {
-      errorMessage = 'このメールアドレスは既に使用されています。';
+      errorMessage = ConstantsText.emailAlreadyInUse;
     } else if (e.code == 'weak-password') {
-      errorMessage = 'パスワードは6文字以上で設定してください。';
+      errorMessage = ConstantsText.weakPassword;
     }
     InfoDialog.snackBarError(context, errorMessage);
   }

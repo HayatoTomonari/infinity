@@ -4,7 +4,6 @@ import 'package:si_proto/pages/notice.dart';
 import 'package:si_proto/pages/setting.dart';
 import 'package:si_proto/pages/payment.dart';
 
-
 class TopPage extends StatefulWidget {
   const TopPage({super.key});
   @override
