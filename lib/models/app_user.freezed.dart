@@ -24,6 +24,7 @@ mixin _$AppUser {
   String get userName => throw _privateConstructorUsedError;
   String get teamId => throw _privateConstructorUsedError;
   int get assets => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +36,12 @@ abstract class $AppUserCopyWith<$Res> {
   factory $AppUserCopyWith(AppUser value, $Res Function(AppUser) then) =
       _$AppUserCopyWithImpl<$Res, AppUser>;
   @useResult
-  $Res call({String userId, String userName, String teamId, int assets});
+  $Res call(
+      {String userId,
+      String userName,
+      String teamId,
+      int assets,
+      String email});
 }
 
 /// @nodoc
@@ -55,6 +61,7 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? userName = null,
     Object? teamId = null,
     Object? assets = null,
+    Object? email = null,
   }) {
     return _then(_value.copyWith(
       userId: null == userId
@@ -73,6 +80,10 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.assets
           : assets // ignore: cast_nullable_to_non_nullable
               as int,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -84,7 +95,12 @@ abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       __$$_AppUserCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String userId, String userName, String teamId, int assets});
+  $Res call(
+      {String userId,
+      String userName,
+      String teamId,
+      int assets,
+      String email});
 }
 
 /// @nodoc
@@ -101,6 +117,7 @@ class __$$_AppUserCopyWithImpl<$Res>
     Object? userName = null,
     Object? teamId = null,
     Object? assets = null,
+    Object? email = null,
   }) {
     return _then(_$_AppUser(
       userId: null == userId
@@ -119,6 +136,10 @@ class __$$_AppUserCopyWithImpl<$Res>
           ? _value.assets
           : assets // ignore: cast_nullable_to_non_nullable
               as int,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -130,7 +151,8 @@ class _$_AppUser with DiagnosticableTreeMixin implements _AppUser {
       {this.userId = '',
       this.userName = '',
       this.teamId = '',
-      this.assets = 0});
+      this.assets = 0,
+      this.email = ''});
 
   factory _$_AppUser.fromJson(Map<String, dynamic> json) =>
       _$$_AppUserFromJson(json);
@@ -147,10 +169,13 @@ class _$_AppUser with DiagnosticableTreeMixin implements _AppUser {
   @override
   @JsonKey()
   final int assets;
+  @override
+  @JsonKey()
+  final String email;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppUser(userId: $userId, userName: $userName, teamId: $teamId, assets: $assets)';
+    return 'AppUser(userId: $userId, userName: $userName, teamId: $teamId, assets: $assets, email: $email)';
   }
 
   @override
@@ -161,7 +186,8 @@ class _$_AppUser with DiagnosticableTreeMixin implements _AppUser {
       ..add(DiagnosticsProperty('userId', userId))
       ..add(DiagnosticsProperty('userName', userName))
       ..add(DiagnosticsProperty('teamId', teamId))
-      ..add(DiagnosticsProperty('assets', assets));
+      ..add(DiagnosticsProperty('assets', assets))
+      ..add(DiagnosticsProperty('email', email));
   }
 
   @override
@@ -173,13 +199,14 @@ class _$_AppUser with DiagnosticableTreeMixin implements _AppUser {
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
             (identical(other.teamId, teamId) || other.teamId == teamId) &&
-            (identical(other.assets, assets) || other.assets == assets));
+            (identical(other.assets, assets) || other.assets == assets) &&
+            (identical(other.email, email) || other.email == email));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, userId, userName, teamId, assets);
+      Object.hash(runtimeType, userId, userName, teamId, assets, email);
 
   @JsonKey(ignore: true)
   @override
@@ -200,7 +227,8 @@ abstract class _AppUser implements AppUser {
       {final String userId,
       final String userName,
       final String teamId,
-      final int assets}) = _$_AppUser;
+      final int assets,
+      final String email}) = _$_AppUser;
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$_AppUser.fromJson;
 
@@ -212,6 +240,8 @@ abstract class _AppUser implements AppUser {
   String get teamId;
   @override
   int get assets;
+  @override
+  String get email;
   @override
   @JsonKey(ignore: true)
   _$$_AppUserCopyWith<_$_AppUser> get copyWith =>

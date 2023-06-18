@@ -15,20 +15,19 @@ class ConnectionDb {
       final User? user = (await FirebaseAuth.instance
               .signInWithEmailAndPassword(email: email, password: password))
           .user;
-      if (user == null) return;
+      if (user == null) {
+        throw FirebaseAuthException(
+            code: "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。");
+      }
       if (!user.emailVerified && context.mounted) {
         InfoDialog.snackBarNetral(
             context, 'メール認証が未完了です。\nメール記載のリンクを開いて、認証を完了してください。');
         return;
       }
-      Map<String, dynamic>? userData = await _getAppUser(user.uid);
-      if (userData == null) return;
-      AppUser appUser = AppUser.fromJson(userData);
-      Team team = await _getTeam(appUser.teamId);
       if (context.mounted) {
         Navigator.push(context, MaterialPageRoute(
           builder: (context) {
-            return TopPage(appUser, team);
+            return const TopPage();
           },
         ));
       }
@@ -43,19 +42,23 @@ class ConnectionDb {
       final User? user = (await FirebaseAuth.instance
               .createUserWithEmailAndPassword(email: email, password: password))
           .user;
-      if (user != null) {
-        FirebaseFirestore.instance
-            .collection('users')
-            .doc(user.uid)
-            .set({'userName': userName, 'teamId': '', 'assets': 0});
-        user.sendEmailVerification();
-        if (context.mounted) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ConfirmEmail(email, password)),
-          );
-        }
+      if (user == null) {
+        throw FirebaseAuthException(
+            code: "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。");
+      }
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+        'userName': userName,
+        'teamId': '',
+        'assets': 0,
+        'email': user.email
+      });
+      await user.sendEmailVerification();
+      if (context.mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ConfirmEmail(email, password)),
+        );
       }
     } on FirebaseAuthException catch (e) {
       _showErrorRegisterMessage(context, e);
@@ -69,9 +72,31 @@ class ConnectionDb {
               .signInWithEmailAndPassword(email: email, password: password))
           .user;
       if (user != null) {
-        user.sendEmailVerification();
+        await user.sendEmailVerification();
         if (context.mounted) {
           InfoDialog.snackBarNetral(context, '$email\nに認証メールを送信しました。');
+        }
+      }
+    } on FirebaseAuthException {
+      String errorMessage = "予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。";
+      InfoDialog.snackBarError(context, errorMessage);
+    }
+  }
+
+  static Future<void> updateEmail(BuildContext context, String email,
+      String newEmail, String password) async {
+    try {
+      final User? user = (await FirebaseAuth.instance
+              .signInWithEmailAndPassword(email: email, password: password))
+          .user;
+      if (user != null) {
+        await user.updateEmail(newEmail);
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .update({'email': newEmail});
+        if (context.mounted) {
+          await sendConfirmEmail(context, newEmail, password);
         }
       }
     } on FirebaseAuthException {
@@ -93,18 +118,22 @@ class ConnectionDb {
     }
   }
 
-  static Future<Team> _getTeam(String teamId) async {
+  static Future<Team> getTeam(String teamId) async {
     final docRef = FirebaseFirestore.instance.collection("teams").doc(teamId);
     final docSnapshot = await docRef.get();
-    var data = docSnapshot.exists ? docSnapshot.data() : null;
+    Map<String, dynamic>? data = docSnapshot.exists ? docSnapshot.data() : null;
     if (data == null) return const Team();
     return Team.fromJson(data);
   }
 
-  static Future<Map<String, dynamic>?> _getAppUser(String uid) async {
+  static Future<AppUser> getAppUser() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid.toString();
     final docRef = FirebaseFirestore.instance.collection("users").doc(uid);
     final docSnapshot = await docRef.get();
-    return docSnapshot.exists ? docSnapshot.data() : null; //
+    Map<String, dynamic>? data =
+        docSnapshot.exists ? docSnapshot.data() : null; //
+    if (data == null) return const AppUser();
+    return AppUser.fromJson(data);
   }
 
   static void _showLoginErrorMessage(

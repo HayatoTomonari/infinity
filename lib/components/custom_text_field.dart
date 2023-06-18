@@ -7,6 +7,8 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
   final Function onChangedFunction;
   final IconData icon;
+  final Color textColor;
+  final Color focusColor;
 
   const CustomTextField(
       {Key? key,
@@ -14,31 +16,34 @@ class CustomTextField extends StatelessWidget {
       required this.hintText,
       required this.obscureText,
       required this.onChangedFunction,
-      required this.icon})
+      required this.icon,
+      required this.textColor,
+      required this.focusColor})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      style: const TextStyle(color: ConstantsColor.kTextColor),
+      style: TextStyle(color: textColor),
       decoration: InputDecoration(
         prefixIcon: Icon(icon),
         iconColor: ConstantsColor.kIconColor,
         labelText: labelText,
-        labelStyle: const TextStyle(color: ConstantsColor.kFocusColor),
+        labelStyle: TextStyle(color: focusColor),
         hintText: hintText,
-        hintStyle: TextStyle(color: ConstantsColor.kTextColor.withOpacity(0.3)),
+        hintStyle:
+            TextStyle(color: textColor.withOpacity(0.3)),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: ConstantsColor.kFocusColor,
+          borderSide: BorderSide(
+            color: focusColor,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: ConstantsColor.kTextColor,
+          borderSide: BorderSide(
+            color: textColor,
           ),
         ),
       ),

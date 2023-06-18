@@ -20,6 +20,8 @@ class SignIn extends StatelessWidget {
           obscureText: false,
           onChangedFunction: (String value) => email = value,
           icon: Icons.mail,
+          textColor: ConstantsColor.lightTextColor,
+          focusColor: ConstantsColor.lightFocusColor,
         ),
         const SizedBox(height: 48),
         CustomTextField(
@@ -28,6 +30,8 @@ class SignIn extends StatelessWidget {
           obscureText: true,
           onChangedFunction: (String value) => password = value,
           icon: Icons.lock_clock_outlined,
+          textColor: ConstantsColor.lightTextColor,
+          focusColor: ConstantsColor.lightFocusColor,
         ),
         const SizedBox(height: 4),
         Row(
@@ -38,7 +42,7 @@ class SignIn extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!
-                  .copyWith(color: ConstantsColor.kTextColor),
+                  .copyWith(color: ConstantsColor.lightTextColor),
             ),
             const SizedBox(width: 4),
             GestureDetector(
@@ -54,7 +58,7 @@ class SignIn extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .bodyMedium!
-                    .copyWith(color: ConstantsColor.kTextColor),
+                    .copyWith(color: ConstantsColor.lightTextColor),
               ),
             ),
           ],
@@ -66,6 +70,8 @@ class SignIn extends StatelessWidget {
             labelText: 'ログイン',
             onPressedFunction: () =>
                 ConnectionDb.loginUser(email, password, context),
+            textColor: ConstantsColor.lightButtonTextColor,
+            backColor: ConstantsColor.lightButtonBackColor,
           ),
         ),
       ],

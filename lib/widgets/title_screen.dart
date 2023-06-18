@@ -10,7 +10,7 @@ class TitleText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var textStyle = const TextStyle(fontFamily: 'Exo', color: Colors.white)
-        .copyWith(fontSize: 75, letterSpacing: 35, fontWeight: FontWeight.w700);
+        .copyWith(fontSize: 65, letterSpacing: 35, fontWeight: FontWeight.w700);
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
