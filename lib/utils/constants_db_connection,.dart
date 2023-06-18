@@ -5,4 +5,6 @@ class ConstantsDbConnection{
   static const docTeamId = 'teamId';
   static const docAssets = 'assets';
   static const docEmail = 'email';
+  static const docImageUrl = 'imageUrl';
+  static const docPhone = 'phone';
 }

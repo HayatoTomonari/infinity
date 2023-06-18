@@ -53,7 +53,8 @@ class ConnectionDb {
         ConstantsDbConnection.docUserName: userName,
         ConstantsDbConnection.docTeamId: '',
         ConstantsDbConnection.docAssets: 0,
-        ConstantsDbConnection.docEmail: user.email
+        ConstantsDbConnection.docEmail: user.email,
+        ConstantsDbConnection.docImageUrl: ConstantsText.defaultImage
       });
       await user.sendEmailVerification();
       if (context.mounted) {

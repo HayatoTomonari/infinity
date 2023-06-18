@@ -9,4 +9,5 @@ class ConstantsText {
   static const wrongPassword = 'パスワードが誤っています';
   static const emailAlreadyInUse = 'このメールアドレスは既に使用されています';
   static const weakPassword = 'パスワードは6文字以上で設定してください';
+  static const defaultImage = 'gs://siproject-c5cd0.appspot.com/unknownUser.png';
 }
