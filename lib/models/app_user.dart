@@ -13,6 +13,8 @@ class AppUser with _$AppUser {
     @Default('') String teamId,
     @Default(0) int assets,
     @Default('') String email,
+    @Default('') String imageUrl,
+    @Default('') String phone,
   }) = _AppUser;
 
   factory AppUser.fromJson(Map<String, dynamic> json) => _$AppUserFromJson(json);
