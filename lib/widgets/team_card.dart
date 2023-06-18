@@ -32,10 +32,7 @@ class _TeamCardState extends State<TeamCard> {
   @override
   Widget build(BuildContext context) {
     String assets = formatter.format(team.assets);
-    return Positioned(
-      top: 150,
-      left: 30,
-      child: GestureDetector(
+    return GestureDetector(
         onTap: () {},
         child: Container(
             height: 261,
@@ -93,7 +90,6 @@ class _TeamCardState extends State<TeamCard> {
                 ),
               ),
             )),
-      ),
     );
   }
 }
