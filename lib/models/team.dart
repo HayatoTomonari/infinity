@@ -11,6 +11,7 @@ class Team with _$Team {
     @Default('') String teamId,
     @Default('') String teamName,
     @Default(0) int assets,
+    @Default('') String imageUrl,
   }) = _Team;
 
   factory Team.fromJson(Map<String, dynamic> json) => _$TeamFromJson(json);

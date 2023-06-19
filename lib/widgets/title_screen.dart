@@ -4,13 +4,14 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import '../utils/constants_text.dart';
 
-class TitleText extends StatelessWidget {
-  const TitleText({super.key});
+class TitleScreen extends StatelessWidget {
+  const TitleScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var textStyle = const TextStyle(fontFamily: 'Exo', color: Colors.white)
-        .copyWith(fontSize: 65, letterSpacing: 35, fontWeight: FontWeight.w700);
+    TextStyle textStyle =
+        const TextStyle(fontFamily: 'Exo', color: Colors.white).copyWith(
+            fontSize: 65, letterSpacing: 35, fontWeight: FontWeight.w700);
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,7 +26,7 @@ class TitleText extends StatelessWidget {
             ),
           ], // Edit from here...
         ).animate().fadeIn(delay: .8.seconds, duration: .7.seconds),
-        Text('可能性は無限大。',
+        Text(ConstantsText.appSubTitle,
                 style: textStyle.copyWith(
                     fontSize: 24,
                     letterSpacing: 20,

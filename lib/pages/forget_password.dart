@@ -30,7 +30,7 @@ class ForgetPassword extends StatelessWidget {
                 children: [
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 130),
-                    child: TitleText(),
+                    child: TitleScreen(),
                   ),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 30),

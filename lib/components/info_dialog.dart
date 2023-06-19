@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart' as toast;
 import 'package:get/get.dart' as getx;
-import 'package:google_fonts/google_fonts.dart';
 
 class InfoDialog {
   static Future<bool?> dialogConfirmation(
@@ -145,7 +144,7 @@ class InfoDialog {
             Text(
               message,
               textAlign: TextAlign.center,
-              style: GoogleFonts.poppins(
+              style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey[700],
               ),

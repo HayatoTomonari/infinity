@@ -23,6 +23,7 @@ mixin _$Team {
   String get teamId => throw _privateConstructorUsedError;
   String get teamName => throw _privateConstructorUsedError;
   int get assets => throw _privateConstructorUsedError;
+  String get imageUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,7 @@ abstract class $TeamCopyWith<$Res> {
   factory $TeamCopyWith(Team value, $Res Function(Team) then) =
       _$TeamCopyWithImpl<$Res, Team>;
   @useResult
-  $Res call({String teamId, String teamName, int assets});
+  $Res call({String teamId, String teamName, int assets, String imageUrl});
 }
 
 /// @nodoc
@@ -53,6 +54,7 @@ class _$TeamCopyWithImpl<$Res, $Val extends Team>
     Object? teamId = null,
     Object? teamName = null,
     Object? assets = null,
+    Object? imageUrl = null,
   }) {
     return _then(_value.copyWith(
       teamId: null == teamId
@@ -67,6 +69,10 @@ class _$TeamCopyWithImpl<$Res, $Val extends Team>
           ? _value.assets
           : assets // ignore: cast_nullable_to_non_nullable
               as int,
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -77,7 +83,7 @@ abstract class _$$_TeamCopyWith<$Res> implements $TeamCopyWith<$Res> {
       __$$_TeamCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String teamId, String teamName, int assets});
+  $Res call({String teamId, String teamName, int assets, String imageUrl});
 }
 
 /// @nodoc
@@ -92,6 +98,7 @@ class __$$_TeamCopyWithImpl<$Res> extends _$TeamCopyWithImpl<$Res, _$_Team>
     Object? teamId = null,
     Object? teamName = null,
     Object? assets = null,
+    Object? imageUrl = null,
   }) {
     return _then(_$_Team(
       teamId: null == teamId
@@ -106,6 +113,10 @@ class __$$_TeamCopyWithImpl<$Res> extends _$TeamCopyWithImpl<$Res, _$_Team>
           ? _value.assets
           : assets // ignore: cast_nullable_to_non_nullable
               as int,
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -113,7 +124,11 @@ class __$$_TeamCopyWithImpl<$Res> extends _$TeamCopyWithImpl<$Res, _$_Team>
 /// @nodoc
 @JsonSerializable()
 class _$_Team with DiagnosticableTreeMixin implements _Team {
-  const _$_Team({this.teamId = '', this.teamName = '', this.assets = 0});
+  const _$_Team(
+      {this.teamId = '',
+      this.teamName = '',
+      this.assets = 0,
+      this.imageUrl = ''});
 
   factory _$_Team.fromJson(Map<String, dynamic> json) => _$$_TeamFromJson(json);
 
@@ -126,10 +141,13 @@ class _$_Team with DiagnosticableTreeMixin implements _Team {
   @override
   @JsonKey()
   final int assets;
+  @override
+  @JsonKey()
+  final String imageUrl;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Team(teamId: $teamId, teamName: $teamName, assets: $assets)';
+    return 'Team(teamId: $teamId, teamName: $teamName, assets: $assets, imageUrl: $imageUrl)';
   }
 
   @override
@@ -139,7 +157,8 @@ class _$_Team with DiagnosticableTreeMixin implements _Team {
       ..add(DiagnosticsProperty('type', 'Team'))
       ..add(DiagnosticsProperty('teamId', teamId))
       ..add(DiagnosticsProperty('teamName', teamName))
-      ..add(DiagnosticsProperty('assets', assets));
+      ..add(DiagnosticsProperty('assets', assets))
+      ..add(DiagnosticsProperty('imageUrl', imageUrl));
   }
 
   @override
@@ -150,12 +169,15 @@ class _$_Team with DiagnosticableTreeMixin implements _Team {
             (identical(other.teamId, teamId) || other.teamId == teamId) &&
             (identical(other.teamName, teamName) ||
                 other.teamName == teamName) &&
-            (identical(other.assets, assets) || other.assets == assets));
+            (identical(other.assets, assets) || other.assets == assets) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, teamId, teamName, assets);
+  int get hashCode =>
+      Object.hash(runtimeType, teamId, teamName, assets, imageUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -173,7 +195,10 @@ class _$_Team with DiagnosticableTreeMixin implements _Team {
 
 abstract class _Team implements Team {
   const factory _Team(
-      {final String teamId, final String teamName, final int assets}) = _$_Team;
+      {final String teamId,
+      final String teamName,
+      final int assets,
+      final String imageUrl}) = _$_Team;
 
   factory _Team.fromJson(Map<String, dynamic> json) = _$_Team.fromJson;
 
@@ -183,6 +208,8 @@ abstract class _Team implements Team {
   String get teamName;
   @override
   int get assets;
+  @override
+  String get imageUrl;
   @override
   @JsonKey(ignore: true)
   _$$_TeamCopyWith<_$_Team> get copyWith => throw _privateConstructorUsedError;
