@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:si_proto/components/custom_future_builder.dart';
 import 'package:si_proto/firebase/connection_db.dart';
 import 'package:si_proto/models/app_user.dart';
 import 'package:si_proto/models/team.dart';
@@ -14,82 +15,87 @@ class TeamCard extends StatefulWidget {
 class _TeamCardState extends State<TeamCard> {
   final formatter = NumberFormat("#,###");
   Team team = const Team();
+  late Future<bool> waitingProcess;
 
-  Future getUser() async {
+  Future<bool> getUser() async {
     AppUser getUser = await ConnectionDb.getAppUser();
     Team getTeam = await ConnectionDb.getTeam(getUser.teamId);
     setState(() {
       team = getTeam;
     });
+    return true;
   }
 
   @override
   void initState() {
     super.initState();
-    getUser();
+    waitingProcess = getUser();
   }
 
   @override
   Widget build(BuildContext context) {
     String assets = formatter.format(team.assets);
-    return GestureDetector(
-        onTap: () {},
-        child: Container(
-            height: 261,
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 50),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.0),
-            ),
-            child: Card(
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    gradient: const LinearGradient(colors: [
-                      Colors.deepPurple,
-                      Colors.pink,
-                    ])),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16, left: 28),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            team.teamName,
-                              style: const TextStyle(fontSize: 20, color: ConstantsColor.lightTextColor)
-                          )
-                        ],
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 15, left: 28),
-                      child: Row(
-                        children: [
-                          Text(
-                            '資産総額',
-                            style: TextStyle(fontSize: 15, color: ConstantsColor.lightTextColor)
-                          )
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 1, bottom: 35, left: 28),
-                      child: Row(
-                        children: [
-                          Text(
-                            '$assets 円',
-                              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: ConstantsColor.lightTextColor)
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+    return CustomFutureBuilder(
+        waitingProcess,
+        GestureDetector(
+          onTap: () {},
+          child: Container(
+              height: 261,
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 50),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.0),
               ),
-            )),
-    );
+              child: Card(
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      gradient: const LinearGradient(colors: [
+                        Colors.deepPurple,
+                        Colors.pink,
+                      ])),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16, left: 28),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(team.teamName,
+                                style: const TextStyle(
+                                    fontSize: 20,
+                                    color: ConstantsColor.lightTextColor))
+                          ],
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 15, left: 28),
+                        child: Row(
+                          children: [
+                            Text('資産総額',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: ConstantsColor.lightTextColor))
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(top: 1, bottom: 35, left: 28),
+                        child: Row(
+                          children: [
+                            Text('$assets 円',
+                                style: const TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                    color: ConstantsColor.lightTextColor)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )),
+        ));
   }
 }
