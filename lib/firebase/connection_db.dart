@@ -19,12 +19,10 @@ class ConnectionDb {
               .signInWithEmailAndPassword(email: email, password: password))
           .user;
       if (user == null) {
-        throw FirebaseAuthException(
-            code: ConstantsText.unexpectedError);
+        throw FirebaseAuthException(code: ConstantsText.unexpectedError);
       }
       if (!user.emailVerified && context.mounted) {
-        InfoDialog.snackBarNetral(
-            context, ConstantsText.mailAuthUnfinished);
+        InfoDialog.snackBarNetral(context, ConstantsText.mailAuthUnfinished);
         return;
       }
       if (context.mounted) {
@@ -46,10 +44,12 @@ class ConnectionDb {
               .createUserWithEmailAndPassword(email: email, password: password))
           .user;
       if (user == null) {
-        throw FirebaseAuthException(
-            code: ConstantsText.unexpectedError);
+        throw FirebaseAuthException(code: ConstantsText.unexpectedError);
       }
-      await FirebaseFirestore.instance.collection(ConstantsDbConnection.dbCollectionUser).doc(user.uid).set({
+      await FirebaseFirestore.instance
+          .collection(ConstantsDbConnection.dbCollectionUser)
+          .doc(user.uid)
+          .set({
         ConstantsDbConnection.docUserName: userName,
         ConstantsDbConnection.docTeamId: '',
         ConstantsDbConnection.docAssets: 0,
@@ -107,11 +107,27 @@ class ConnectionDb {
     }
   }
 
+  static Future<void> updateProfile(
+      BuildContext context, String userName) async {
+    try {
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      await FirebaseFirestore.instance
+          .collection(ConstantsDbConnection.dbCollectionUser)
+          .doc(uid)
+          .update({ConstantsDbConnection.docUserName: userName});
+      if (context.mounted) {
+        InfoDialog.snackBarSuccess(context, 'プロフィールを保存しました');
+      }
+    } on FirebaseAuthException {
+      InfoDialog.snackBarError(context, ConstantsText.unexpectedError);
+    }
+  }
+
   static Future<void> updatePassword(BuildContext context, String email,
       String newPassword, String password) async {
     try {
       final User? user = (await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password))
+              .signInWithEmailAndPassword(email: email, password: password))
           .user;
       if (user != null) {
         await user.updatePassword(newPassword);
@@ -137,7 +153,9 @@ class ConnectionDb {
   }
 
   static Future<Team> getTeam(String teamId) async {
-    final docRef = FirebaseFirestore.instance.collection(ConstantsDbConnection.dbCollectionTeams).doc(teamId);
+    final docRef = FirebaseFirestore.instance
+        .collection(ConstantsDbConnection.dbCollectionTeams)
+        .doc(teamId);
     final docSnapshot = await docRef.get();
     Map<String, dynamic>? data = docSnapshot.exists ? docSnapshot.data() : null;
     if (data == null) return const Team();
@@ -146,7 +164,9 @@ class ConnectionDb {
 
   static Future<AppUser> getAppUser() async {
     final uid = FirebaseAuth.instance.currentUser?.uid.toString();
-    final docRef = FirebaseFirestore.instance.collection(ConstantsDbConnection.dbCollectionUser).doc(uid);
+    final docRef = FirebaseFirestore.instance
+        .collection(ConstantsDbConnection.dbCollectionUser)
+        .doc(uid);
     final docSnapshot = await docRef.get();
     Map<String, dynamic>? data =
         docSnapshot.exists ? docSnapshot.data() : null; //

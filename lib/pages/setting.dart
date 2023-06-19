@@ -5,6 +5,7 @@ import 'package:settings_ui/settings_ui.dart';
 import 'package:si_proto/components/info_dialog.dart';
 import 'package:si_proto/pages/update_email.dart';
 import 'package:si_proto/pages/update_password.dart';
+import 'package:si_proto/pages/update_profile.dart';
 import 'package:si_proto/pages/welcome_page.dart';
 
 class Setting extends StatefulWidget {
@@ -41,6 +42,12 @@ class _SettingState extends State<Setting> {
             SettingsTile.navigation(
               leading: const Icon(Icons.account_circle),
               title: const Text('プロフィール編集'),
+              onPressed: (value) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const UpdateProfile()),
+                );
+              },
             ),
             SettingsTile.navigation(
               leading: const Icon(Icons.mail),
