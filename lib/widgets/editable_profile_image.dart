@@ -8,8 +8,9 @@ import 'package:si_proto/components/custom_future_builder.dart';
 
 class EditableProfileImage extends StatefulWidget {
   final String imagePath;
+  final Function(Uint8List) action;
 
-  const EditableProfileImage({Key? key, required this.imagePath})
+  const EditableProfileImage({Key? key, required this.imagePath, required this.action})
       : super(key: key);
 
   @override
@@ -113,6 +114,7 @@ class _EditableProfileImageState extends State<EditableProfileImage> {
       Uint8List imageBytes = await pickedFile.readAsBytes();
       setState(() {
         bytes = imageBytes;
+        widget.action(imageBytes);
       });
     }
   }
