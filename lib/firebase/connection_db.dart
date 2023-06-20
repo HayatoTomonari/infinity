@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -6,6 +8,7 @@ import 'package:si_proto/models/team.dart';
 import 'package:si_proto/pages/confirm_email.dart';
 import 'package:si_proto/utils/constants_db_connection,.dart';
 import 'package:si_proto/utils/constants_text.dart';
+import 'package:uuid/uuid.dart';
 
 import '../components/info_dialog.dart';
 import '../models/app_user.dart';
@@ -108,13 +111,14 @@ class ConnectionDb {
   }
 
   static Future<void> updateProfile(
-      BuildContext context, String userName) async {
+      BuildContext context, String userName, Uint8List data) async {
     try {
       final uid = FirebaseAuth.instance.currentUser?.uid;
       await FirebaseFirestore.instance
           .collection(ConstantsDbConnection.dbCollectionUser)
           .doc(uid)
           .update({ConstantsDbConnection.docUserName: userName});
+      await uploadImage(uid, data);
       if (context.mounted) {
         InfoDialog.snackBarSuccess(context, 'プロフィールを保存しました');
       }
@@ -150,6 +154,27 @@ class ConnectionDb {
     } on FirebaseAuthException {
       InfoDialog.snackBarError(context, ConstantsText.unexpectedError);
     }
+  }
+
+  static Future<void> uploadImage(String? uid, Uint8List data) async {
+    if (data.isEmpty) {
+      return;
+    }
+    AppUser user = await getAppUser();
+    String uuid = const Uuid().v4();
+    final storageRef = FirebaseStorage.instance.ref().child(uuid);
+    await storageRef.putData(data);
+    String bucket = storageRef.bucket;
+    await deleteImage(user.imageUrl);
+    await FirebaseFirestore.instance
+        .collection(ConstantsDbConnection.dbCollectionUser)
+        .doc(uid)
+        .update({ConstantsDbConnection.docImageUrl: 'gs://$bucket/$uuid'});
+  }
+
+  static Future<void> deleteImage(String imageUrl) async {
+    final storageRef = FirebaseStorage.instance.ref().child(imageUrl);
+    await storageRef.delete();
   }
 
   static Future<Team> getTeam(String teamId) async {
