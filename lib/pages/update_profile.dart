@@ -6,7 +6,7 @@ import '../components/custom_future_builder.dart';
 import '../components/custom_text_field.dart';
 import '../firebase/connection_db.dart';
 import '../models/app_user.dart';
-import '../widgets/profile_edit.dart';
+import '../widgets/editable_profile_image.dart';
 
 class UpdateProfile extends StatefulWidget {
   const UpdateProfile({super.key});
@@ -53,7 +53,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 50),
-              child: ProfileEdit(imagePath: imagePath, onClicked: () => {}),
+              child: EditableProfileImage(imagePath: imagePath, onClicked: () => {}),
             ),
             const SizedBox(height: 48),
             Padding(

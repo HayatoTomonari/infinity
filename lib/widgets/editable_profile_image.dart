@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ProfileEdit extends StatefulWidget {
+class EditableProfileImage extends StatefulWidget {
   final String imagePath;
   final VoidCallback onClicked;
 
-  const ProfileEdit({
+  const EditableProfileImage({
     Key? key,
     required this.imagePath,
     required this.onClicked,
   }) : super(key: key);
 
   @override
-  State<ProfileEdit> createState() => _ProfileEditState();
+  State<EditableProfileImage> createState() => _EditableProfileImageState();
 }
 
-class _ProfileEditState extends State<ProfileEdit> {
+class _EditableProfileImageState extends State<EditableProfileImage> {
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme.primary;
