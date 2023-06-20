@@ -18,14 +18,13 @@ class UpdateProfile extends StatefulWidget {
 class _UpdateProfileState extends State<UpdateProfile> {
   String userName = '';
   String imagePath = '';
-  AppUser user = const AppUser();
   late Future<bool> waitingProcess;
 
   Future<bool> getUser() async {
     AppUser appUser = await ConnectionDb.getAppUser();
     String imageUrl = await ConnectionDb.getImageUrl(appUser.imageUrl);
     setState(() {
-      user = appUser;
+      userName = appUser.userName;
       imagePath = imageUrl;
     });
     return true;
@@ -66,7 +65,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 icon: Icons.drive_file_rename_outline,
                 textColor: ConstantsColor.darkTextColor,
                 focusColor: ConstantsColor.darkFocusColor,
-                initialValue: user.userName,
+                initialValue: userName,
               ),
             ),
             const SizedBox(height: 48),
