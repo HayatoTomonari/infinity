@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:si_proto/models/team_model.dart';
-import 'package:si_proto/pages/confirm_email.dart';
+import 'package:si_proto/pages/confirm_email_page.dart';
 import 'package:si_proto/utils/constants_db_text,.dart';
 import 'package:si_proto/utils/constants_text.dart';
 import 'package:uuid/uuid.dart';
@@ -64,7 +64,7 @@ class ConnectionDb {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => ConfirmEmail(email, password)),
+              builder: (context) => ConfirmEmailPage(email, password)),
         );
       }
     } on FirebaseAuthException catch (e) {

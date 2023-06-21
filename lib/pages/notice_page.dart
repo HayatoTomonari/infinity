@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../widgets/header_widget.dart';
 
-class Notice extends StatelessWidget {
-  const Notice({super.key});
+class NoticePage extends StatelessWidget {
+  const NoticePage({super.key});
 
   @override
   Widget build(BuildContext context) {

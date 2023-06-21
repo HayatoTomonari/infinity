@@ -10,14 +10,14 @@ import '../firebase/connection_db.dart';
 import '../models/user_model.dart';
 import '../widgets/editable_image_widget.dart';
 
-class UpdateProfile extends StatefulWidget {
-  const UpdateProfile({super.key});
+class UpdateProfilePage extends StatefulWidget {
+  const UpdateProfilePage({super.key});
 
   @override
-  State<UpdateProfile> createState() => _UpdateProfileState();
+  State<UpdateProfilePage> createState() => _UpdateProfilePageState();
 }
 
-class _UpdateProfileState extends State<UpdateProfile> {
+class _UpdateProfilePageState extends State<UpdateProfilePage> {
   String userName = '';
   String imagePath = '';
   Uint8List imageData = Uint8List(0);

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:si_proto/pages/home.dart';
-import 'package:si_proto/pages/notice.dart';
-import 'package:si_proto/pages/setting.dart';
-import 'package:si_proto/pages/payment.dart';
+import 'package:si_proto/widgets/top_page_widget.dart';
+import 'package:si_proto/pages/notice_page.dart';
+import 'package:si_proto/pages/setting_page.dart';
+import 'package:si_proto/pages/payment_page.dart';
 
 class TopPage extends StatefulWidget {
   const TopPage({super.key});
@@ -23,10 +23,10 @@ class _TopPageState extends State<TopPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: [
-          const Home(),
-          const Payment(),
-          const Notice(),
-          const Setting(),
+          const TopPageWidget(),
+          const PaymentPage(),
+          const NoticePage(),
+          const SettingPage(),
         ][_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedIndex,

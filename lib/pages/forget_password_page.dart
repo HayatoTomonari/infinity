@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:si_proto/widgets/title_screen_widget.dart';
 
 import '../components/custom_button.dart';
+import '../components/custom_text_field.dart';
 import '../firebase/connection_db.dart';
 import '../utils/constants_color.dart';
 
-class ConfirmEmail extends StatelessWidget {
-  const ConfirmEmail(this.email, this.password, {super.key});
-  final String email;
-  final String password;
+class ForgetPasswordPage extends StatelessWidget {
+  const ForgetPasswordPage({super.key});
   @override
   Widget build(BuildContext context) {
+    String email = "";
     return Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -29,32 +29,37 @@ class ConfirmEmail extends StatelessWidget {
               child: Column(
                 children: [
                   const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 130),
-                      child: TitleScreenWidget()),
-                  Text('$email\nに確認メールを送信しました。\nメール記載のリンクを開いて、認証を完了してください。'),
+                    padding: EdgeInsets.symmetric(vertical: 130),
+                    child: TitleScreenWidget(),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 30),
+                    child: Center(
+                        child: Text("パスワード再設定メールを送信",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold))),
+                  ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 50, vertical: 10),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: CustomButton(
-                        labelText: '確認メールを再送信する',
-                        onPressedFunction: () => ConnectionDb.sendConfirmEmail(
-                            context, email, password),
-                        textColor: ConstantsColor.lightButtonTextColor,
-                        backColor: ConstantsColor.lightButtonBackColor,
-                      ),
+                    padding: const EdgeInsets.symmetric(horizontal: 50),
+                    child: CustomTextField(
+                      labelText: 'メールアドレス',
+                      hintText: 'メールアドレスを入力してください。',
+                      obscureText: false,
+                      onChangedFunction: (String value) => email = value,
+                      icon: Icons.mail,
+                      textColor: ConstantsColor.lightTextColor,
+                      focusColor: ConstantsColor.lightFocusColor,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 50, vertical: 10),
+                        horizontal: 50, vertical: 30),
                     child: SizedBox(
                       width: double.infinity,
                       child: CustomButton(
-                        labelText: 'メールアドレス認証完了',
+                        labelText: 'パスワード再設定メールを送信',
                         onPressedFunction: () =>
-                            ConnectionDb.loginUser(email, password, context),
+                            ConnectionDb.sendResetPassword(context, email),
                         textColor: ConstantsColor.lightButtonTextColor,
                         backColor: ConstantsColor.lightButtonBackColor,
                       ),
