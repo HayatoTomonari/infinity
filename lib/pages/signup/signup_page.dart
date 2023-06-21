@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:si_proto/widgets/login_footer_widget.dart';
-import 'package:si_proto/widgets/signin_form_widget.dart';
-import 'package:si_proto/widgets/title_screen_widget.dart';
+import 'package:si_proto/widgets/signup_form_widget.dart';
 
-class WelcomePage extends StatelessWidget {
-  const WelcomePage({super.key});
+import '../../widgets/title_screen_widget.dart';
+
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,12 +29,15 @@ class WelcomePage extends StatelessWidget {
                     child: TitleScreenWidget(),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 32),
-                    child: SignInFormWidget(),
+                    padding: EdgeInsets.symmetric(vertical: 30),
+                    child: Center(
+                        child: Text("新規アカウント登録",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold))),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    child: LoginFooterWidget(),
+                    padding: EdgeInsets.symmetric(horizontal: 32),
+                    child: SignUpFormWidget(),
                   ),
                 ],
               ),

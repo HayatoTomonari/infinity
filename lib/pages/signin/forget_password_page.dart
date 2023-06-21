@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:si_proto/widgets/title_screen_widget.dart';
 
-import '../components/custom_button.dart';
-import '../components/custom_text_field.dart';
-import '../firebase/connection_db.dart';
-import '../utils/constants_color.dart';
+import '../../components/custom_button.dart';
+import '../../components/custom_text_field.dart';
+import '../../firebase/connection_db.dart';
+import '../../utils/constants_color.dart';
 
 class ForgetPasswordPage extends StatelessWidget {
   const ForgetPasswordPage({super.key});

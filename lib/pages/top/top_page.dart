@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:si_proto/widgets/top_page_widget.dart';
-import 'package:si_proto/pages/notice_page.dart';
-import 'package:si_proto/pages/setting_page.dart';
-import 'package:si_proto/pages/payment_page.dart';
+import 'package:si_proto/pages/notice/notice_page.dart';
+import 'package:si_proto/pages/setting/setting_page.dart';
+import 'package:si_proto/pages/payment/payment_page.dart';
 
 class TopPage extends StatefulWidget {
   const TopPage({super.key});

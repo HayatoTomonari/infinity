@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:si_proto/utils/constants_color.dart';
 
-import '../components/custom_button.dart';
-import '../components/custom_future_builder.dart';
-import '../components/custom_text_field.dart';
-import '../firebase/connection_db.dart';
-import '../models/user_model.dart';
+import '../../components/custom_button.dart';
+import '../../components/custom_future_builder.dart';
+import '../../components/custom_text_field.dart';
+import '../../firebase/connection_db.dart';
+import '../../models/user_model.dart';
 
 class UpdateEmailPage extends StatefulWidget {
   const UpdateEmailPage({super.key});

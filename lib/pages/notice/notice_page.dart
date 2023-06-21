@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/header_widget.dart';
+import '../../widgets/header_widget.dart';
 
 class NoticePage extends StatelessWidget {
   const NoticePage({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:si_proto/utils/constants_color.dart';
-import 'package:si_proto/pages/signup_page.dart';
+import 'package:si_proto/pages/signup/signup_page.dart';
 
 class LoginFooterWidget extends StatelessWidget {
   const LoginFooterWidget({super.key});

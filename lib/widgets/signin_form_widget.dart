@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:si_proto/components/custom_button.dart';
 import 'package:si_proto/firebase/connection_db.dart';
-import 'package:si_proto/pages/forget_password_page.dart';
+import 'package:si_proto/pages/signin/forget_password_page.dart';
 import 'package:si_proto/utils/constants_color.dart';
 import 'package:si_proto/components/custom_text_field.dart';
 

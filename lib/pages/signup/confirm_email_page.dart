@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:si_proto/widgets/title_screen_widget.dart';
 
-import '../components/custom_button.dart';
-import '../firebase/connection_db.dart';
-import '../utils/constants_color.dart';
+import '../../components/custom_button.dart';
+import '../../firebase/connection_db.dart';
+import '../../utils/constants_color.dart';
 
 class ConfirmEmailPage extends StatelessWidget {
   const ConfirmEmailPage(this.email, this.password, {super.key});

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:si_proto/components/info_dialog.dart';
-import 'package:si_proto/pages/update_email_page.dart';
-import 'package:si_proto/pages/update_password_page.dart';
-import 'package:si_proto/pages/update_profile_page.dart';
-import 'package:si_proto/pages/welcome_page.dart';
+import 'package:si_proto/pages/setting/update_email_page.dart';
+import 'package:si_proto/pages/setting/update_password_page.dart';
+import 'package:si_proto/pages/setting/update_profile_page.dart';
+import 'package:si_proto/pages/signin/signin_page.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -133,7 +133,7 @@ class _SettingPageState extends State<SettingPage> {
                 InfoDialog.snackBarSuccess(context, "ログアウトしました。"),
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const WelcomePage()),
+                  MaterialPageRoute(builder: (context) => const SignInPage()),
                 )
               },
             ),
