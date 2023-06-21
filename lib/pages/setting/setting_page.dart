@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:si_proto/components/info_dialog.dart';
-import 'package:si_proto/pages/update_email.dart';
-import 'package:si_proto/pages/update_password.dart';
-import 'package:si_proto/pages/update_profile.dart';
-import 'package:si_proto/pages/welcome_page.dart';
+import 'package:si_proto/pages/setting/update_email_page.dart';
+import 'package:si_proto/pages/setting/update_password_page.dart';
+import 'package:si_proto/pages/setting/update_profile_page.dart';
+import 'package:si_proto/pages/signin/signin_page.dart';
 
-class Setting extends StatefulWidget {
-  const Setting({super.key});
+class SettingPage extends StatefulWidget {
+  const SettingPage({super.key});
 
   @override
-  State<Setting> createState() => _SettingState();
+  State<SettingPage> createState() => _SettingPageState();
 }
 
-class _SettingState extends State<Setting> {
+class _SettingPageState extends State<SettingPage> {
   String version = '';
 
   Future getVer() async {
@@ -45,7 +45,7 @@ class _SettingState extends State<Setting> {
               onPressed: (value) {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const UpdateProfile()),
+                  MaterialPageRoute(builder: (context) => const UpdateProfilePage()),
                 );
               },
             ),
@@ -55,7 +55,7 @@ class _SettingState extends State<Setting> {
               onPressed: (value) {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const UpdateEmail()),
+                  MaterialPageRoute(builder: (context) => const UpdateEmailPage()),
                 );
               },
             ),
@@ -66,7 +66,7 @@ class _SettingState extends State<Setting> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const UpdatePassword()),
+                      builder: (context) => const UpdatePasswordPage()),
                 );
               },
             ),
@@ -133,7 +133,7 @@ class _SettingState extends State<Setting> {
                 InfoDialog.snackBarSuccess(context, "ログアウトしました。"),
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const WelcomePage()),
+                  MaterialPageRoute(builder: (context) => const SignInPage()),
                 )
               },
             ),

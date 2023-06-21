@@ -3,28 +3,28 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:si_proto/utils/constants_color.dart';
 
-import '../components/custom_button.dart';
-import '../components/custom_future_builder.dart';
-import '../components/custom_text_field.dart';
-import '../firebase/connection_db.dart';
-import '../models/app_user.dart';
-import '../widgets/editable_profile_image.dart';
+import '../../components/custom_button.dart';
+import '../../components/custom_future_builder.dart';
+import '../../components/custom_text_field.dart';
+import '../../firebase/connection_db.dart';
+import '../../models/user_model.dart';
+import '../../widgets/editable_image_widget.dart';
 
-class UpdateProfile extends StatefulWidget {
-  const UpdateProfile({super.key});
+class UpdateProfilePage extends StatefulWidget {
+  const UpdateProfilePage({super.key});
 
   @override
-  State<UpdateProfile> createState() => _UpdateProfileState();
+  State<UpdateProfilePage> createState() => _UpdateProfilePageState();
 }
 
-class _UpdateProfileState extends State<UpdateProfile> {
+class _UpdateProfilePageState extends State<UpdateProfilePage> {
   String userName = '';
   String imagePath = '';
   Uint8List imageData = Uint8List(0);
   late Future<bool> waitingProcess;
 
   Future<bool> getUser() async {
-    AppUser appUser = await ConnectionDb.getAppUser();
+    UserModel appUser = await ConnectionDb.getUserModel();
     String imageUrl = await ConnectionDb.getImageUrl(appUser.imageUrl);
     setState(() {
       userName = appUser.userName;
@@ -57,7 +57,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 50),
-                  child: EditableProfileImage(
+                  child: EditableImageWidget(
                     imagePath: imagePath,
                     action: (imageData) => this.imageData = imageData,
                   ),

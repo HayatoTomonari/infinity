@@ -2,17 +2,17 @@ import 'package:flutter/foundation.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'team.freezed.dart';
-part 'team.g.dart';
+part 'team_model.freezed.dart';
+part 'team_model.g.dart';
 
 @freezed
-class Team with _$Team {
-  const factory Team({
+class TeamModel with _$TeamModel {
+  const factory TeamModel({
     @Default('') String teamId,
     @Default('') String teamName,
     @Default(0) int assets,
     @Default('') String imageUrl,
-  }) = _Team;
+  }) = _TeamModel;
 
-  factory Team.fromJson(Map<String, dynamic> json) => _$TeamFromJson(json);
+  factory TeamModel.fromJson(Map<String, dynamic> json) => _$TeamModelFromJson(json);
 }

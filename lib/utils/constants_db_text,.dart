@@ -1,4 +1,4 @@
-class ConstantsDbConnection{
+class ConstantsDbText{
   static const dbCollectionUser = 'users';
   static const dbCollectionTeams = 'teams';
   static const docUserName = 'userName';

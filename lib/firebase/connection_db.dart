@@ -4,15 +4,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:si_proto/models/team.dart';
-import 'package:si_proto/pages/confirm_email.dart';
-import 'package:si_proto/utils/constants_db_connection,.dart';
+import 'package:si_proto/models/team_model.dart';
+import 'package:si_proto/pages/signup/confirm_email_page.dart';
+import 'package:si_proto/utils/constants_db_text,.dart';
 import 'package:si_proto/utils/constants_text.dart';
 import 'package:uuid/uuid.dart';
 
 import '../components/info_dialog.dart';
-import '../models/app_user.dart';
-import '../pages/top_page.dart';
+import '../models/user_model.dart';
+import '../pages/top/top_page.dart';
 
 class ConnectionDb {
   static Future<void> loginUser(
@@ -50,21 +50,21 @@ class ConnectionDb {
         throw FirebaseAuthException(code: ConstantsText.unexpectedError);
       }
       await FirebaseFirestore.instance
-          .collection(ConstantsDbConnection.dbCollectionUser)
+          .collection(ConstantsDbText.dbCollectionUser)
           .doc(user.uid)
           .set({
-        ConstantsDbConnection.docUserName: userName,
-        ConstantsDbConnection.docTeamId: '',
-        ConstantsDbConnection.docAssets: 0,
-        ConstantsDbConnection.docEmail: user.email,
-        ConstantsDbConnection.docImageUrl: ConstantsText.defaultImage
+        ConstantsDbText.docUserName: userName,
+        ConstantsDbText.docTeamId: '',
+        ConstantsDbText.docAssets: 0,
+        ConstantsDbText.docEmail: user.email,
+        ConstantsDbText.docImageUrl: ConstantsText.defaultImage
       });
       await user.sendEmailVerification();
       if (context.mounted) {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => ConfirmEmail(email, password)),
+              builder: (context) => ConfirmEmailPage(email, password)),
         );
       }
     } on FirebaseAuthException catch (e) {
@@ -98,9 +98,9 @@ class ConnectionDb {
       if (user != null) {
         await user.updateEmail(newEmail);
         await FirebaseFirestore.instance
-            .collection(ConstantsDbConnection.dbCollectionUser)
+            .collection(ConstantsDbText.dbCollectionUser)
             .doc(user.uid)
-            .update({ConstantsDbConnection.docEmail: newEmail});
+            .update({ConstantsDbText.docEmail: newEmail});
         if (context.mounted) {
           await sendConfirmEmail(context, newEmail, password);
         }
@@ -115,9 +115,9 @@ class ConnectionDb {
     try {
       final uid = FirebaseAuth.instance.currentUser?.uid;
       await FirebaseFirestore.instance
-          .collection(ConstantsDbConnection.dbCollectionUser)
+          .collection(ConstantsDbText.dbCollectionUser)
           .doc(uid)
-          .update({ConstantsDbConnection.docUserName: userName});
+          .update({ConstantsDbText.docUserName: userName});
       await uploadImage(uid, data);
       if (context.mounted) {
         InfoDialog.snackBarSuccess(context, 'プロフィールを保存しました');
@@ -160,16 +160,18 @@ class ConnectionDb {
     if (data.isEmpty) {
       return;
     }
-    AppUser user = await getAppUser();
+    UserModel user = await getUserModel();
     String uuid = const Uuid().v4();
     final storageRef = FirebaseStorage.instance.ref().child(uuid);
     await storageRef.putData(data);
     String bucket = storageRef.bucket;
-    await deleteImage(user.imageUrl);
+    if (user.imageUrl != ConstantsText.defaultImage) {
+      await deleteImage(user.imageUrl);
+    }
     await FirebaseFirestore.instance
-        .collection(ConstantsDbConnection.dbCollectionUser)
+        .collection(ConstantsDbText.dbCollectionUser)
         .doc(uid)
-        .update({ConstantsDbConnection.docImageUrl: 'gs://$bucket/$uuid'});
+        .update({ConstantsDbText.docImageUrl: 'gs://$bucket/$uuid'});
   }
 
   static Future<void> deleteImage(String imageUrl) async {
@@ -177,26 +179,26 @@ class ConnectionDb {
     await storageRef.delete();
   }
 
-  static Future<Team> getTeam(String teamId) async {
+  static Future<TeamModel> getTeamModel(String teamId) async {
     final docRef = FirebaseFirestore.instance
-        .collection(ConstantsDbConnection.dbCollectionTeams)
+        .collection(ConstantsDbText.dbCollectionTeams)
         .doc(teamId);
     final docSnapshot = await docRef.get();
     Map<String, dynamic>? data = docSnapshot.exists ? docSnapshot.data() : null;
-    if (data == null) return const Team();
-    return Team.fromJson(data);
+    if (data == null) return const TeamModel();
+    return TeamModel.fromJson(data);
   }
 
-  static Future<AppUser> getAppUser() async {
+  static Future<UserModel> getUserModel() async {
     final uid = FirebaseAuth.instance.currentUser?.uid.toString();
     final docRef = FirebaseFirestore.instance
-        .collection(ConstantsDbConnection.dbCollectionUser)
+        .collection(ConstantsDbText.dbCollectionUser)
         .doc(uid);
     final docSnapshot = await docRef.get();
     Map<String, dynamic>? data =
         docSnapshot.exists ? docSnapshot.data() : null; //
-    if (data == null) return const AppUser();
-    return AppUser.fromJson(data);
+    if (data == null) return const UserModel();
+    return UserModel.fromJson(data);
   }
 
   static Future<String> getImageUrl(String image) async {

@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:si_proto/components/custom_future_builder.dart';
 import 'package:si_proto/firebase/connection_db.dart';
-import 'package:si_proto/models/app_user.dart';
-import 'package:si_proto/models/team.dart';
+import 'package:si_proto/models/user_model.dart';
+import 'package:si_proto/models/team_model.dart';
 import 'package:si_proto/utils/constants_color.dart';
 import 'package:intl/intl.dart';
 
-class TeamCard extends StatefulWidget {
-  const TeamCard({super.key});
+class TeamCardWidget extends StatefulWidget {
+  const TeamCardWidget({super.key});
   @override
-  State<TeamCard> createState() => _TeamCardState();
+  State<TeamCardWidget> createState() => _TeamCardWidgetState();
 }
 
-class _TeamCardState extends State<TeamCard> {
+class _TeamCardWidgetState extends State<TeamCardWidget> {
   final formatter = NumberFormat("#,###");
-  Team team = const Team();
+  TeamModel team = const TeamModel();
   late Future<bool> waitingProcess;
 
   Future<bool> getUser() async {
-    AppUser getUser = await ConnectionDb.getAppUser();
-    Team getTeam = await ConnectionDb.getTeam(getUser.teamId);
+    UserModel getUser = await ConnectionDb.getUserModel();
+    TeamModel getTeam = await ConnectionDb.getTeamModel(getUser.teamId);
     setState(() {
       team = getTeam;
     });

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:si_proto/components/custom_button.dart';
 import 'package:si_proto/firebase/connection_db.dart';
-import 'package:si_proto/pages/forget_password.dart';
+import 'package:si_proto/pages/signin/forget_password_page.dart';
 import 'package:si_proto/utils/constants_color.dart';
 import 'package:si_proto/components/custom_text_field.dart';
 
-class SignIn extends StatelessWidget {
-  const SignIn({super.key});
+class SignInFormWidget extends StatelessWidget {
+  const SignInFormWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class SignIn extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ForgetPassword()),
+                      builder: (context) => const ForgetPasswordPage()),
                 );
               },
               child: Text(

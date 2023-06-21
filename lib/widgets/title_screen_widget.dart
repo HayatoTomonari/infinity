@@ -4,8 +4,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import '../utils/constants_text.dart';
 
-class TitleScreen extends StatelessWidget {
-  const TitleScreen({super.key});
+class TitleScreenWidget extends StatelessWidget {
+  const TitleScreenWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

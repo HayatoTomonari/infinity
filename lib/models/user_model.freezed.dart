@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'app_user.dart';
+part of 'user_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-AppUser _$AppUserFromJson(Map<String, dynamic> json) {
-  return _AppUser.fromJson(json);
+UserModel _$UserModelFromJson(Map<String, dynamic> json) {
+  return _UserModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$AppUser {
+mixin _$UserModel {
   String get userId => throw _privateConstructorUsedError;
   String get userName => throw _privateConstructorUsedError;
   String get teamId => throw _privateConstructorUsedError;
@@ -30,13 +30,14 @@ mixin _$AppUser {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AppUserCopyWith<AppUser> get copyWith => throw _privateConstructorUsedError;
+  $UserModelCopyWith<UserModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AppUserCopyWith<$Res> {
-  factory $AppUserCopyWith(AppUser value, $Res Function(AppUser) then) =
-      _$AppUserCopyWithImpl<$Res, AppUser>;
+abstract class $UserModelCopyWith<$Res> {
+  factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
+      _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
   $Res call(
       {String userId,
@@ -49,9 +50,9 @@ abstract class $AppUserCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
-    implements $AppUserCopyWith<$Res> {
-  _$AppUserCopyWithImpl(this._value, this._then);
+class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
+    implements $UserModelCopyWith<$Res> {
+  _$UserModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -103,10 +104,10 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
 }
 
 /// @nodoc
-abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
-  factory _$$_AppUserCopyWith(
-          _$_AppUser value, $Res Function(_$_AppUser) then) =
-      __$$_AppUserCopyWithImpl<$Res>;
+abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
+  factory _$$_UserModelCopyWith(
+          _$_UserModel value, $Res Function(_$_UserModel) then) =
+      __$$_UserModelCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -120,10 +121,11 @@ abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_AppUserCopyWithImpl<$Res>
-    extends _$AppUserCopyWithImpl<$Res, _$_AppUser>
-    implements _$$_AppUserCopyWith<$Res> {
-  __$$_AppUserCopyWithImpl(_$_AppUser _value, $Res Function(_$_AppUser) _then)
+class __$$_UserModelCopyWithImpl<$Res>
+    extends _$UserModelCopyWithImpl<$Res, _$_UserModel>
+    implements _$$_UserModelCopyWith<$Res> {
+  __$$_UserModelCopyWithImpl(
+      _$_UserModel _value, $Res Function(_$_UserModel) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -137,7 +139,7 @@ class __$$_AppUserCopyWithImpl<$Res>
     Object? imageUrl = null,
     Object? phone = null,
   }) {
-    return _then(_$_AppUser(
+    return _then(_$_UserModel(
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -172,8 +174,8 @@ class __$$_AppUserCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_AppUser with DiagnosticableTreeMixin implements _AppUser {
-  const _$_AppUser(
+class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
+  const _$_UserModel(
       {this.userId = '',
       this.userName = '',
       this.teamId = '',
@@ -182,8 +184,8 @@ class _$_AppUser with DiagnosticableTreeMixin implements _AppUser {
       this.imageUrl = '',
       this.phone = ''});
 
-  factory _$_AppUser.fromJson(Map<String, dynamic> json) =>
-      _$$_AppUserFromJson(json);
+  factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
+      _$$_UserModelFromJson(json);
 
   @override
   @JsonKey()
@@ -209,14 +211,14 @@ class _$_AppUser with DiagnosticableTreeMixin implements _AppUser {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppUser(userId: $userId, userName: $userName, teamId: $teamId, assets: $assets, email: $email, imageUrl: $imageUrl, phone: $phone)';
+    return 'UserModel(userId: $userId, userName: $userName, teamId: $teamId, assets: $assets, email: $email, imageUrl: $imageUrl, phone: $phone)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'AppUser'))
+      ..add(DiagnosticsProperty('type', 'UserModel'))
       ..add(DiagnosticsProperty('userId', userId))
       ..add(DiagnosticsProperty('userName', userName))
       ..add(DiagnosticsProperty('teamId', teamId))
@@ -230,7 +232,7 @@ class _$_AppUser with DiagnosticableTreeMixin implements _AppUser {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AppUser &&
+            other is _$_UserModel &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
@@ -250,28 +252,29 @@ class _$_AppUser with DiagnosticableTreeMixin implements _AppUser {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AppUserCopyWith<_$_AppUser> get copyWith =>
-      __$$_AppUserCopyWithImpl<_$_AppUser>(this, _$identity);
+  _$$_UserModelCopyWith<_$_UserModel> get copyWith =>
+      __$$_UserModelCopyWithImpl<_$_UserModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AppUserToJson(
+    return _$$_UserModelToJson(
       this,
     );
   }
 }
 
-abstract class _AppUser implements AppUser {
-  const factory _AppUser(
+abstract class _UserModel implements UserModel {
+  const factory _UserModel(
       {final String userId,
       final String userName,
       final String teamId,
       final int assets,
       final String email,
       final String imageUrl,
-      final String phone}) = _$_AppUser;
+      final String phone}) = _$_UserModel;
 
-  factory _AppUser.fromJson(Map<String, dynamic> json) = _$_AppUser.fromJson;
+  factory _UserModel.fromJson(Map<String, dynamic> json) =
+      _$_UserModel.fromJson;
 
   @override
   String get userId;
@@ -289,6 +292,6 @@ abstract class _AppUser implements AppUser {
   String get phone;
   @override
   @JsonKey(ignore: true)
-  _$$_AppUserCopyWith<_$_AppUser> get copyWith =>
+  _$$_UserModelCopyWith<_$_UserModel> get copyWith =>
       throw _privateConstructorUsedError;
 }

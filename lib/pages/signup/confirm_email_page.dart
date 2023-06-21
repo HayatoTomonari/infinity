@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:si_proto/widgets/title_screen.dart';
+import 'package:si_proto/widgets/title_screen_widget.dart';
 
-import '../components/custom_button.dart';
-import '../firebase/connection_db.dart';
-import '../utils/constants_color.dart';
+import '../../components/custom_button.dart';
+import '../../firebase/connection_db.dart';
+import '../../utils/constants_color.dart';
 
-class ConfirmEmail extends StatelessWidget {
-  const ConfirmEmail(this.email, this.password, {super.key});
+class ConfirmEmailPage extends StatelessWidget {
+  const ConfirmEmailPage(this.email, this.password, {super.key});
   final String email;
   final String password;
   @override
@@ -30,7 +30,7 @@ class ConfirmEmail extends StatelessWidget {
                 children: [
                   const Padding(
                       padding: EdgeInsets.symmetric(vertical: 130),
-                      child: TitleScreen()),
+                      child: TitleScreenWidget()),
                   Text('$email\nに確認メールを送信しました。\nメール記載のリンクを開いて、認証を完了してください。'),
                   Padding(
                     padding: const EdgeInsets.symmetric(
