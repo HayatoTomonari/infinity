@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:si_proto/widgets/header.dart';
+import 'package:si_proto/widgets/header_widget.dart';
 
-import '../widgets/team_card.dart';
+import '../widgets/team_card_widget.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -10,8 +10,8 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
         body: Column(children: [
-      Header(),
-      TeamCard(),
+      HeaderWidget(),
+      TeamCardWidget(),
     ]));
   }
 }

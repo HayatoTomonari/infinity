@@ -6,13 +6,13 @@ import 'package:si_proto/models/team.dart';
 import 'package:si_proto/utils/constants_color.dart';
 import 'package:intl/intl.dart';
 
-class TeamCard extends StatefulWidget {
-  const TeamCard({super.key});
+class TeamCardWidget extends StatefulWidget {
+  const TeamCardWidget({super.key});
   @override
-  State<TeamCard> createState() => _TeamCardState();
+  State<TeamCardWidget> createState() => _TeamCardWidgetState();
 }
 
-class _TeamCardState extends State<TeamCard> {
+class _TeamCardWidgetState extends State<TeamCardWidget> {
   final formatter = NumberFormat("#,###");
   Team team = const Team();
   late Future<bool> waitingProcess;

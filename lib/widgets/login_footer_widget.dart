@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:si_proto/utils/constants_color.dart';
 import 'package:si_proto/pages/signup_page.dart';
 
-class Footer extends StatelessWidget {
-  const Footer({super.key});
+class LoginFooterWidget extends StatelessWidget {
+  const LoginFooterWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

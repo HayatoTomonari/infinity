@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:si_proto/widgets/title_screen.dart';
+import 'package:si_proto/widgets/title_screen_widget.dart';
 
 import '../components/custom_button.dart';
 import '../components/custom_text_field.dart';
@@ -30,7 +30,7 @@ class ForgetPassword extends StatelessWidget {
                 children: [
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 130),
-                    child: TitleScreen(),
+                    child: TitleScreenWidget(),
                   ),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 30),

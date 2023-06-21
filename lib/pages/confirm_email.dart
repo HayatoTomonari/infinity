@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:si_proto/widgets/title_screen.dart';
+import 'package:si_proto/widgets/title_screen_widget.dart';
 
 import '../components/custom_button.dart';
 import '../firebase/connection_db.dart';
@@ -30,7 +30,7 @@ class ConfirmEmail extends StatelessWidget {
                 children: [
                   const Padding(
                       padding: EdgeInsets.symmetric(vertical: 130),
-                      child: TitleScreen()),
+                      child: TitleScreenWidget()),
                   Text('$email\nに確認メールを送信しました。\nメール記載のリンクを開いて、認証を完了してください。'),
                   Padding(
                     padding: const EdgeInsets.symmetric(

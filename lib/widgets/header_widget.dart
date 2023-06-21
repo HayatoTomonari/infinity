@@ -3,8 +3,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import '../utils/constants_text.dart';
 
-class Header extends StatelessWidget {
-  const Header({super.key});
+class HeaderWidget extends StatelessWidget {
+  const HeaderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

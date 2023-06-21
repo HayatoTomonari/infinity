@@ -5,8 +5,8 @@ import 'package:si_proto/pages/forget_password.dart';
 import 'package:si_proto/utils/constants_color.dart';
 import 'package:si_proto/components/custom_text_field.dart';
 
-class SignIn extends StatelessWidget {
-  const SignIn({super.key});
+class SignInFormWidget extends StatelessWidget {
+  const SignInFormWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

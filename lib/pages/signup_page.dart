@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:si_proto/pages/signup_form.dart';
+import 'package:si_proto/widgets/signup_form_widget.dart';
 
-import '../widgets/title_screen.dart';
+import '../widgets/title_screen_widget.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
@@ -26,7 +26,7 @@ class SignUpPage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 130),
-                    child: TitleScreen(),
+                    child: TitleScreenWidget(),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 30),
@@ -37,7 +37,7 @@ class SignUpPage extends StatelessWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 32),
-                    child: SignUpForm(),
+                    child: SignUpFormWidget(),
                   ),
                 ],
               ),

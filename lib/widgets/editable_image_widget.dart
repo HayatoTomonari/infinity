@@ -6,18 +6,18 @@ import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:si_proto/components/custom_future_builder.dart';
 
-class EditableProfileImage extends StatefulWidget {
+class EditableImageWidget extends StatefulWidget {
   final String imagePath;
   final Function(Uint8List) action;
 
-  const EditableProfileImage({Key? key, required this.imagePath, required this.action})
+  const EditableImageWidget({Key? key, required this.imagePath, required this.action})
       : super(key: key);
 
   @override
-  State<EditableProfileImage> createState() => _EditableProfileImageState();
+  State<EditableImageWidget> createState() => _EditableImageWidgetState();
 }
 
-class _EditableProfileImageState extends State<EditableProfileImage> {
+class _EditableImageWidgetState extends State<EditableImageWidget> {
   Uint8List bytes = Uint8List(0);
   late Future<bool> waitingProcess;
 

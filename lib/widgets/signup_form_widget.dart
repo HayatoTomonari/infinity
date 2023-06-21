@@ -4,8 +4,8 @@ import 'package:si_proto/components/custom_text_field.dart';
 import 'package:si_proto/firebase/connection_db.dart';
 import 'package:si_proto/utils/constants_color.dart';
 
-class SignUpForm extends StatelessWidget {
-  const SignUpForm({super.key});
+class SignUpFormWidget extends StatelessWidget {
+  const SignUpFormWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:si_proto/widgets/Footer.dart';
-import 'package:si_proto/pages/signin_form.dart';
-import 'package:si_proto/widgets/title_screen.dart';
+import 'package:si_proto/widgets/login_footer_widget.dart';
+import 'package:si_proto/widgets/signin_form_widget.dart';
+import 'package:si_proto/widgets/title_screen_widget.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -26,15 +26,15 @@ class WelcomePage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 130),
-                    child: TitleScreen(),
+                    child: TitleScreenWidget(),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 32),
-                    child: SignIn(),
+                    child: SignInFormWidget(),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
-                    child: Footer(),
+                    child: LoginFooterWidget(),
                   ),
                 ],
               ),
