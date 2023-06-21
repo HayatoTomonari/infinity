@@ -20,10 +20,16 @@ TeamModel _$TeamModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TeamModel {
-  String get teamId => throw _privateConstructorUsedError;
   String get teamName => throw _privateConstructorUsedError;
-  int get assets => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
+  int get assets => throw _privateConstructorUsedError;
+  int get goalAmount => throw _privateConstructorUsedError;
+  int get monthDeposit => throw _privateConstructorUsedError;
+  int get recruitmentNumbers => throw _privateConstructorUsedError;
+  bool get isPublic => throw _privateConstructorUsedError;
+  @DateTimeConverter()
+  dynamic get startDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +42,16 @@ abstract class $TeamModelCopyWith<$Res> {
   factory $TeamModelCopyWith(TeamModel value, $Res Function(TeamModel) then) =
       _$TeamModelCopyWithImpl<$Res, TeamModel>;
   @useResult
-  $Res call({String teamId, String teamName, int assets, String imageUrl});
+  $Res call(
+      {String teamName,
+      String description,
+      String imageUrl,
+      int assets,
+      int goalAmount,
+      int monthDeposit,
+      int recruitmentNumbers,
+      bool isPublic,
+      @DateTimeConverter() dynamic startDate});
 }
 
 /// @nodoc
@@ -52,28 +67,53 @@ class _$TeamModelCopyWithImpl<$Res, $Val extends TeamModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? teamId = null,
     Object? teamName = null,
-    Object? assets = null,
+    Object? description = null,
     Object? imageUrl = null,
+    Object? assets = null,
+    Object? goalAmount = null,
+    Object? monthDeposit = null,
+    Object? recruitmentNumbers = null,
+    Object? isPublic = null,
+    Object? startDate = freezed,
   }) {
     return _then(_value.copyWith(
-      teamId: null == teamId
-          ? _value.teamId
-          : teamId // ignore: cast_nullable_to_non_nullable
-              as String,
       teamName: null == teamName
           ? _value.teamName
           : teamName // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
       assets: null == assets
           ? _value.assets
           : assets // ignore: cast_nullable_to_non_nullable
               as int,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+      goalAmount: null == goalAmount
+          ? _value.goalAmount
+          : goalAmount // ignore: cast_nullable_to_non_nullable
+              as int,
+      monthDeposit: null == monthDeposit
+          ? _value.monthDeposit
+          : monthDeposit // ignore: cast_nullable_to_non_nullable
+              as int,
+      recruitmentNumbers: null == recruitmentNumbers
+          ? _value.recruitmentNumbers
+          : recruitmentNumbers // ignore: cast_nullable_to_non_nullable
+              as int,
+      isPublic: null == isPublic
+          ? _value.isPublic
+          : isPublic // ignore: cast_nullable_to_non_nullable
+              as bool,
+      startDate: freezed == startDate
+          ? _value.startDate
+          : startDate // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ) as $Val);
   }
 }
@@ -85,7 +125,16 @@ abstract class _$$_TeamModelCopyWith<$Res> implements $TeamModelCopyWith<$Res> {
       __$$_TeamModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String teamId, String teamName, int assets, String imageUrl});
+  $Res call(
+      {String teamName,
+      String description,
+      String imageUrl,
+      int assets,
+      int goalAmount,
+      int monthDeposit,
+      int recruitmentNumbers,
+      bool isPublic,
+      @DateTimeConverter() dynamic startDate});
 }
 
 /// @nodoc
@@ -99,28 +148,50 @@ class __$$_TeamModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? teamId = null,
     Object? teamName = null,
-    Object? assets = null,
+    Object? description = null,
     Object? imageUrl = null,
+    Object? assets = null,
+    Object? goalAmount = null,
+    Object? monthDeposit = null,
+    Object? recruitmentNumbers = null,
+    Object? isPublic = null,
+    Object? startDate = freezed,
   }) {
     return _then(_$_TeamModel(
-      teamId: null == teamId
-          ? _value.teamId
-          : teamId // ignore: cast_nullable_to_non_nullable
-              as String,
       teamName: null == teamName
           ? _value.teamName
           : teamName // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
       assets: null == assets
           ? _value.assets
           : assets // ignore: cast_nullable_to_non_nullable
               as int,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+      goalAmount: null == goalAmount
+          ? _value.goalAmount
+          : goalAmount // ignore: cast_nullable_to_non_nullable
+              as int,
+      monthDeposit: null == monthDeposit
+          ? _value.monthDeposit
+          : monthDeposit // ignore: cast_nullable_to_non_nullable
+              as int,
+      recruitmentNumbers: null == recruitmentNumbers
+          ? _value.recruitmentNumbers
+          : recruitmentNumbers // ignore: cast_nullable_to_non_nullable
+              as int,
+      isPublic: null == isPublic
+          ? _value.isPublic
+          : isPublic // ignore: cast_nullable_to_non_nullable
+              as bool,
+      startDate: freezed == startDate ? _value.startDate! : startDate,
     ));
   }
 }
@@ -129,30 +200,50 @@ class __$$_TeamModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_TeamModel with DiagnosticableTreeMixin implements _TeamModel {
   const _$_TeamModel(
-      {this.teamId = '',
-      this.teamName = '',
+      {this.teamName = '',
+      this.description = '',
+      this.imageUrl = '',
       this.assets = 0,
-      this.imageUrl = ''});
+      this.goalAmount = 0,
+      this.monthDeposit = 0,
+      this.recruitmentNumbers = 0,
+      this.isPublic = true,
+      @DateTimeConverter() this.startDate});
 
   factory _$_TeamModel.fromJson(Map<String, dynamic> json) =>
       _$$_TeamModelFromJson(json);
 
   @override
   @JsonKey()
-  final String teamId;
+  final String teamName;
   @override
   @JsonKey()
-  final String teamName;
+  final String description;
+  @override
+  @JsonKey()
+  final String imageUrl;
   @override
   @JsonKey()
   final int assets;
   @override
   @JsonKey()
-  final String imageUrl;
+  final int goalAmount;
+  @override
+  @JsonKey()
+  final int monthDeposit;
+  @override
+  @JsonKey()
+  final int recruitmentNumbers;
+  @override
+  @JsonKey()
+  final bool isPublic;
+  @override
+  @DateTimeConverter()
+  final dynamic startDate;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'TeamModel(teamId: $teamId, teamName: $teamName, assets: $assets, imageUrl: $imageUrl)';
+    return 'TeamModel(teamName: $teamName, description: $description, imageUrl: $imageUrl, assets: $assets, goalAmount: $goalAmount, monthDeposit: $monthDeposit, recruitmentNumbers: $recruitmentNumbers, isPublic: $isPublic, startDate: $startDate)';
   }
 
   @override
@@ -160,10 +251,15 @@ class _$_TeamModel with DiagnosticableTreeMixin implements _TeamModel {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'TeamModel'))
-      ..add(DiagnosticsProperty('teamId', teamId))
       ..add(DiagnosticsProperty('teamName', teamName))
+      ..add(DiagnosticsProperty('description', description))
+      ..add(DiagnosticsProperty('imageUrl', imageUrl))
       ..add(DiagnosticsProperty('assets', assets))
-      ..add(DiagnosticsProperty('imageUrl', imageUrl));
+      ..add(DiagnosticsProperty('goalAmount', goalAmount))
+      ..add(DiagnosticsProperty('monthDeposit', monthDeposit))
+      ..add(DiagnosticsProperty('recruitmentNumbers', recruitmentNumbers))
+      ..add(DiagnosticsProperty('isPublic', isPublic))
+      ..add(DiagnosticsProperty('startDate', startDate));
   }
 
   @override
@@ -171,18 +267,37 @@ class _$_TeamModel with DiagnosticableTreeMixin implements _TeamModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TeamModel &&
-            (identical(other.teamId, teamId) || other.teamId == teamId) &&
             (identical(other.teamName, teamName) ||
                 other.teamName == teamName) &&
-            (identical(other.assets, assets) || other.assets == assets) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl));
+                other.imageUrl == imageUrl) &&
+            (identical(other.assets, assets) || other.assets == assets) &&
+            (identical(other.goalAmount, goalAmount) ||
+                other.goalAmount == goalAmount) &&
+            (identical(other.monthDeposit, monthDeposit) ||
+                other.monthDeposit == monthDeposit) &&
+            (identical(other.recruitmentNumbers, recruitmentNumbers) ||
+                other.recruitmentNumbers == recruitmentNumbers) &&
+            (identical(other.isPublic, isPublic) ||
+                other.isPublic == isPublic) &&
+            const DeepCollectionEquality().equals(other.startDate, startDate));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, teamId, teamName, assets, imageUrl);
+  int get hashCode => Object.hash(
+      runtimeType,
+      teamName,
+      description,
+      imageUrl,
+      assets,
+      goalAmount,
+      monthDeposit,
+      recruitmentNumbers,
+      isPublic,
+      const DeepCollectionEquality().hash(startDate));
 
   @JsonKey(ignore: true)
   @override
@@ -200,22 +315,38 @@ class _$_TeamModel with DiagnosticableTreeMixin implements _TeamModel {
 
 abstract class _TeamModel implements TeamModel {
   const factory _TeamModel(
-      {final String teamId,
-      final String teamName,
+      {final String teamName,
+      final String description,
+      final String imageUrl,
       final int assets,
-      final String imageUrl}) = _$_TeamModel;
+      final int goalAmount,
+      final int monthDeposit,
+      final int recruitmentNumbers,
+      final bool isPublic,
+      @DateTimeConverter() final dynamic startDate}) = _$_TeamModel;
 
   factory _TeamModel.fromJson(Map<String, dynamic> json) =
       _$_TeamModel.fromJson;
 
   @override
-  String get teamId;
-  @override
   String get teamName;
+  @override
+  String get description;
+  @override
+  String get imageUrl;
   @override
   int get assets;
   @override
-  String get imageUrl;
+  int get goalAmount;
+  @override
+  int get monthDeposit;
+  @override
+  int get recruitmentNumbers;
+  @override
+  bool get isPublic;
+  @override
+  @DateTimeConverter()
+  dynamic get startDate;
   @override
   @JsonKey(ignore: true)
   _$$_TeamModelCopyWith<_$_TeamModel> get copyWith =>
