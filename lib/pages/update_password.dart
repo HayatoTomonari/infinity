@@ -5,7 +5,7 @@ import 'package:si_proto/utils/constants_color.dart';
 import '../components/custom_button.dart';
 import '../components/custom_text_field.dart';
 import '../firebase/connection_db.dart';
-import '../models/app_user.dart';
+import '../models/user_model.dart';
 
 class UpdatePassword extends StatefulWidget {
   const UpdatePassword({super.key});
@@ -18,11 +18,11 @@ class _UpdatePasswordState extends State<UpdatePassword> {
   String password = "";
   String email = "";
   String newPassword = "";
-  AppUser user = const AppUser();
+  UserModel user = const UserModel();
   late Future<bool> waitingProcess;
 
   Future<bool> getUser() async {
-    AppUser getUser = await ConnectionDb.getAppUser();
+    UserModel getUser = await ConnectionDb.getUserModel();
     setState(() {
       user = getUser;
     });

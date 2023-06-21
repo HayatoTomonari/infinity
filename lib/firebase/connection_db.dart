@@ -4,14 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:si_proto/models/team.dart';
+import 'package:si_proto/models/team_model.dart';
 import 'package:si_proto/pages/confirm_email.dart';
 import 'package:si_proto/utils/constants_db_text,.dart';
 import 'package:si_proto/utils/constants_text.dart';
 import 'package:uuid/uuid.dart';
 
 import '../components/info_dialog.dart';
-import '../models/app_user.dart';
+import '../models/user_model.dart';
 import '../pages/top_page.dart';
 
 class ConnectionDb {
@@ -160,7 +160,7 @@ class ConnectionDb {
     if (data.isEmpty) {
       return;
     }
-    AppUser user = await getAppUser();
+    UserModel user = await getUserModel();
     String uuid = const Uuid().v4();
     final storageRef = FirebaseStorage.instance.ref().child(uuid);
     await storageRef.putData(data);
@@ -179,17 +179,17 @@ class ConnectionDb {
     await storageRef.delete();
   }
 
-  static Future<Team> getTeam(String teamId) async {
+  static Future<TeamModel> getTeamModel(String teamId) async {
     final docRef = FirebaseFirestore.instance
         .collection(ConstantsDbText.dbCollectionTeams)
         .doc(teamId);
     final docSnapshot = await docRef.get();
     Map<String, dynamic>? data = docSnapshot.exists ? docSnapshot.data() : null;
-    if (data == null) return const Team();
-    return Team.fromJson(data);
+    if (data == null) return const TeamModel();
+    return TeamModel.fromJson(data);
   }
 
-  static Future<AppUser> getAppUser() async {
+  static Future<UserModel> getUserModel() async {
     final uid = FirebaseAuth.instance.currentUser?.uid.toString();
     final docRef = FirebaseFirestore.instance
         .collection(ConstantsDbText.dbCollectionUser)
@@ -197,8 +197,8 @@ class ConnectionDb {
     final docSnapshot = await docRef.get();
     Map<String, dynamic>? data =
         docSnapshot.exists ? docSnapshot.data() : null; //
-    if (data == null) return const AppUser();
-    return AppUser.fromJson(data);
+    if (data == null) return const UserModel();
+    return UserModel.fromJson(data);
   }
 
   static Future<String> getImageUrl(String image) async {

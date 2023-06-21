@@ -7,7 +7,7 @@ import '../components/custom_button.dart';
 import '../components/custom_future_builder.dart';
 import '../components/custom_text_field.dart';
 import '../firebase/connection_db.dart';
-import '../models/app_user.dart';
+import '../models/user_model.dart';
 import '../widgets/editable_image_widget.dart';
 
 class UpdateProfile extends StatefulWidget {
@@ -24,7 +24,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
   late Future<bool> waitingProcess;
 
   Future<bool> getUser() async {
-    AppUser appUser = await ConnectionDb.getAppUser();
+    UserModel appUser = await ConnectionDb.getUserModel();
     String imageUrl = await ConnectionDb.getImageUrl(appUser.imageUrl);
     setState(() {
       userName = appUser.userName;

@@ -5,7 +5,7 @@ import '../components/custom_button.dart';
 import '../components/custom_future_builder.dart';
 import '../components/custom_text_field.dart';
 import '../firebase/connection_db.dart';
-import '../models/app_user.dart';
+import '../models/user_model.dart';
 
 class UpdateEmail extends StatefulWidget {
   const UpdateEmail({super.key});
@@ -17,11 +17,11 @@ class UpdateEmail extends StatefulWidget {
 class _UpdateEmailState extends State<UpdateEmail> {
   String password = "";
   String newEmail = "";
-  AppUser user = const AppUser();
+  UserModel user = const UserModel();
   late Future<bool> waitingProcess;
 
   Future<bool> getUser() async {
-    AppUser getUser = await ConnectionDb.getAppUser();
+    UserModel getUser = await ConnectionDb.getUserModel();
     setState(() {
       user = getUser;
     });
