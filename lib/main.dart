@@ -5,11 +5,14 @@ import 'package:si_proto/pages/signin/signin_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:si_proto/utils/constants_text.dart';
 import 'firebase/firebase_options.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+  initializeDateFormatting('ja_JP').then((_) {
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
