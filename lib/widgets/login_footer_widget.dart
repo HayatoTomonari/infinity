@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:si_proto/utils/constants_color.dart';
 import 'package:si_proto/pages/signup/signup_page.dart';
+import 'package:si_proto/utils/constants_text.dart';
 
 class LoginFooterWidget extends StatelessWidget {
   const LoginFooterWidget({super.key});
@@ -11,7 +12,7 @@ class LoginFooterWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          '新しく始める方は',
+          ConstantsText.howToStartNew,
           style: Theme.of(context)
               .textTheme
               .bodyMedium!
@@ -26,7 +27,7 @@ class LoginFooterWidget extends StatelessWidget {
             );
           },
           child: Text(
-            'こちら',
+            ConstantsText.here,
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium!

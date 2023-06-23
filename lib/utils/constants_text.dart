@@ -16,4 +16,6 @@ class ConstantsText {
   static const date = '日';
   static const selectFromPhotos = '写真から選択';
   static const takePicture = '写真を撮影';
+  static const howToStartNew = '新しく始める方は';
+  static const here = 'こちら';
 }
