@@ -13,6 +13,7 @@ import 'package:uuid/uuid.dart';
 import '../components/info_dialog.dart';
 import '../models/user_model.dart';
 import '../pages/top/top_page.dart';
+import '../utils/constants_validate_text.dart';
 
 class ConnectionDb {
   static Future<void> loginUser(
@@ -25,7 +26,7 @@ class ConnectionDb {
         throw FirebaseAuthException(code: ConstantsText.unexpectedError);
       }
       if (!user.emailVerified && context.mounted) {
-        InfoDialog.snackBarNetral(context, ConstantsText.mailAuthUnfinished);
+        InfoDialog.snackBarNetral(context, ConstantsValidateText.mailAuthUnfinished);
         return;
       }
       if (context.mounted) {
@@ -242,13 +243,13 @@ class ConnectionDb {
       BuildContext context, FirebaseAuthException e) {
     String errorMessage = ConstantsText.unexpectedError;
     if (e.code == 'user-disabled') {
-      errorMessage = ConstantsText.userDisabled;
+      errorMessage = ConstantsValidateText.userDisabled;
     } else if (e.code == 'invalid-email') {
-      errorMessage = ConstantsText.invalidEmail;
+      errorMessage = ConstantsValidateText.invalidEmail;
     } else if (e.code == 'user-not-found') {
-      errorMessage = ConstantsText.userNotFound;
+      errorMessage = ConstantsValidateText.userNotFound;
     } else if (e.code == 'wrong-password') {
-      errorMessage = ConstantsText.wrongPassword;
+      errorMessage = ConstantsValidateText.wrongPassword;
     }
     InfoDialog.snackBarError(context, errorMessage);
   }
@@ -257,13 +258,13 @@ class ConnectionDb {
       BuildContext context, FirebaseAuthException e) {
     String errorMessage = ConstantsText.unexpectedError;
     if (e.code == 'user-disabled') {
-      errorMessage = ConstantsText.userDisabled;
+      errorMessage = ConstantsValidateText.userDisabled;
     } else if (e.code == 'invalid-email') {
-      errorMessage = ConstantsText.invalidEmail;
+      errorMessage = ConstantsValidateText.invalidEmail;
     } else if (e.code == 'email-already-in-use') {
-      errorMessage = ConstantsText.emailAlreadyInUse;
+      errorMessage = ConstantsValidateText.emailAlreadyInUse;
     } else if (e.code == 'weak-password') {
-      errorMessage = ConstantsText.weakPassword;
+      errorMessage = ConstantsValidateText.weakPassword;
     }
     InfoDialog.snackBarError(context, errorMessage);
   }
