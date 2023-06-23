@@ -72,6 +72,37 @@ class ConnectionDb {
     }
   }
 
+  static Future<void> registerTeam(
+      BuildContext context, TeamModel teamModel) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(ConstantsDbText.dbCollectionTeams)
+          .doc(const Uuid().v4())
+          .set({
+        'teamName': teamModel.teamName,
+        'description': teamModel.description,
+        'imageUrl': teamModel.imageUrl,
+        'assets': teamModel.assets,
+        'goalAmount': teamModel.goalAmount,
+        'monthDeposit': teamModel.monthDeposit,
+        'recruitmentNumbers': teamModel.recruitmentNumbers,
+        'isPublic': teamModel.isPublic,
+        'startDate': teamModel.startDate
+      });
+      //TODO:画像アップロード
+      if (context.mounted) {
+        InfoDialog.snackBarSuccess(context, 'チームの作成が完了しました。');
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
+            return const TopPage();
+          },
+        ));
+      }
+    } on FirebaseAuthException catch (e) {
+      _showErrorRegisterMessage(context, e);
+    }
+  }
+
   static Future<void> sendConfirmEmail(
       BuildContext context, String email, String password) async {
     try {
