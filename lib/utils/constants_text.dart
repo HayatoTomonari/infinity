@@ -18,4 +18,10 @@ class ConstantsText {
   static const takePicture = '写真を撮影';
   static const howToStartNew = '新しく始める方は';
   static const here = 'こちら';
+  static const mailAddress = 'メールアドレス';
+  static const pleaseEnterYourEmail = 'メールアドレスを入力してください。';
+  static const password = 'パスワード';
+  static const pleaseEnterYourPassword = 'パスワードを入力してください。';
+  static const forgotYourPassword = 'パスワードを忘れた方は';
+  static const login = 'ログイン';
 }
