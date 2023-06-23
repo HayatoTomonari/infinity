@@ -1,28 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:si_proto/utils/constants_text.dart';
 
 import '../components/custom_drop_down.dart';
 import '../components/custom_drop_down_item.dart';
 
 class DatePickerWidget extends StatefulWidget {
-  const DatePickerWidget({Key? key, required this.action}) : super(key: key);
-  final Function(DateTime) action;
+  const DatePickerWidget({Key? key, required this.dateTimeUpdateFunc}) : super(key: key);
+  final Function(DateTime) dateTimeUpdateFunc;
 
   @override
   State<DatePickerWidget> createState() => _DatePickerWidgetState();
 }
 
 class _DatePickerWidgetState extends State<DatePickerWidget> {
-  List<String> _getMonthDateList(DateTime date) {
-    return List<String>.generate(
-        DateTime(date.year, date.month + 1, 1)
-            .subtract(const Duration(days: 1))
-            .day,
-        (i) => DateTime(date.year, date.month, 1)
-            .add(Duration(days: i))
-            .day
-            .toString());
-  }
-
   @override
   Widget build(BuildContext context) {
     DateTime date = DateTime.now();
@@ -30,7 +20,8 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
     final monthSettingNotifier = ValueNotifier<String>(date.month.toString());
     final dateSettingNotifier = ValueNotifier<String>(date.day.toString());
     List<String> targetMonthDateList = _getMonthDateList(date);
-    List<String> targetYearDateList = List.generate(10, (i) => (date.year + i).toString());
+    List<String> targetYearDateList =
+        List.generate(10, (i) => (date.year + i).toString());
     return Row(
       children: [
         Padding(
@@ -47,10 +38,8 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                 targetMonthDateList = _getMonthDateList(DateTime(
                     int.parse(yearSettingNotifier.value),
                     int.parse(monthSettingNotifier.value)));
-                widget.action(DateTime(
-                    int.parse(yearSettingNotifier.value),
-                    int.parse(monthSettingNotifier.value),
-                    int.parse(dateSettingNotifier.value)));
+                _updateDateTime(yearSettingNotifier, monthSettingNotifier,
+                    dateSettingNotifier);
               },
             ),
           ),
@@ -58,7 +47,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         const Padding(
           padding: EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 5),
           child: Text(
-            '年',
+            ConstantsText.year,
             style: TextStyle(fontSize: 15),
           ),
         ),
@@ -76,10 +65,8 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                 targetMonthDateList = _getMonthDateList(DateTime(
                     int.parse(yearSettingNotifier.value),
                     int.parse(monthSettingNotifier.value)));
-                widget.action(DateTime(
-                    int.parse(yearSettingNotifier.value),
-                    int.parse(monthSettingNotifier.value),
-                    int.parse(dateSettingNotifier.value)));
+                _updateDateTime(yearSettingNotifier, monthSettingNotifier,
+                    dateSettingNotifier);
               },
             ),
           ),
@@ -87,7 +74,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         const Padding(
           padding: EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 5),
           child: Text(
-            '月',
+            ConstantsText.month,
             style: TextStyle(fontSize: 15),
           ),
         ),
@@ -102,10 +89,8 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
               children: targetMonthDateList,
               onChanged: (String value) {
                 dateSettingNotifier.value = value;
-                widget.action(DateTime(
-                    int.parse(yearSettingNotifier.value),
-                    int.parse(monthSettingNotifier.value),
-                    int.parse(dateSettingNotifier.value)));
+                _updateDateTime(yearSettingNotifier, monthSettingNotifier,
+                    dateSettingNotifier);
               },
             ),
           ),
@@ -113,11 +98,32 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         const Padding(
           padding: EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 5),
           child: Text(
-            '日',
+            ConstantsText.date,
             style: TextStyle(fontSize: 15),
           ),
         ),
       ],
     );
+  }
+
+  List<String> _getMonthDateList(DateTime date) {
+    return List<String>.generate(
+        DateTime(date.year, date.month + 1, 1)
+            .subtract(const Duration(days: 1))
+            .day,
+        (i) => DateTime(date.year, date.month, 1)
+            .add(Duration(days: i))
+            .day
+            .toString());
+  }
+
+  void _updateDateTime(
+      ValueNotifier<String> yearSettingNotifier,
+      ValueNotifier<String> monthSettingNotifier,
+      ValueNotifier<String> dateSettingNotifier) {
+    widget.dateTimeUpdateFunc(DateTime(
+        int.parse(yearSettingNotifier.value),
+        int.parse(monthSettingNotifier.value),
+        int.parse(dateSettingNotifier.value)));
   }
 }

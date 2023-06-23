@@ -11,4 +11,7 @@ class ConstantsText {
   static const weakPassword = 'パスワードは6文字以上で設定してください';
   static const defaultImage = 'gs://siproject-c5cd0.appspot.com/unknownUser.png';
   static const defaultTeamImage = 'gs://siproject-c5cd0.appspot.com/noImageTeam.jpg';
+  static const year = '年';
+  static const month = '月';
+  static const date = '日';
 }

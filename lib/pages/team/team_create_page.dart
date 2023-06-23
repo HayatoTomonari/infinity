@@ -252,7 +252,7 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
                       ),
                     ),
                     DatePickerWidget(
-                      action: (DateTime dateTime) =>
+                      dateTimeUpdateFunc: (DateTime dateTime) =>
                           startDate = dateTime.toString(),
                     )
                   ],
