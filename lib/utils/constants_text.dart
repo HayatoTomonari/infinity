@@ -19,4 +19,6 @@ class ConstantsText {
   static const userName = 'ユーザーネーム';
   static const canBeChangedLater = '後から変更可能です。';
   static const accountRegistration = 'アカウント登録';
+  static const totalAssets = '資産総額';
+  static const yen = '円';
 }

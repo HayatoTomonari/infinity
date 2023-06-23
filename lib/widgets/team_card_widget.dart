@@ -5,6 +5,7 @@ import 'package:si_proto/models/user_model.dart';
 import 'package:si_proto/models/team_model.dart';
 import 'package:si_proto/utils/constants_color.dart';
 import 'package:intl/intl.dart';
+import 'package:si_proto/utils/constants_text.dart';
 
 class TeamCardWidget extends StatefulWidget {
   const TeamCardWidget({super.key});
@@ -14,14 +15,14 @@ class TeamCardWidget extends StatefulWidget {
 
 class _TeamCardWidgetState extends State<TeamCardWidget> {
   final formatter = NumberFormat("#,###");
-  TeamModel team = const TeamModel();
+  TeamModel teamModel = const TeamModel();
   late Future<bool> waitingProcess;
 
-  Future<bool> getUser() async {
+  Future<bool> getTeamModel() async {
     UserModel getUser = await ConnectionDb.getUserModel();
     TeamModel getTeam = await ConnectionDb.getTeamModel(getUser.teamId);
     setState(() {
-      team = getTeam;
+      teamModel = getTeam;
     });
     return true;
   }
@@ -29,12 +30,12 @@ class _TeamCardWidgetState extends State<TeamCardWidget> {
   @override
   void initState() {
     super.initState();
-    waitingProcess = getUser();
+    waitingProcess = getTeamModel();
   }
 
   @override
   Widget build(BuildContext context) {
-    String assets = formatter.format(team.assets);
+    String assets = formatter.format(teamModel.assets);
     return CustomFutureBuilder(
         waitingProcess,
         GestureDetector(
@@ -61,7 +62,7 @@ class _TeamCardWidgetState extends State<TeamCardWidget> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(team.teamName,
+                            Text(teamModel.teamName,
                                 style: const TextStyle(
                                     fontSize: 20,
                                     color: ConstantsColor.lightTextColor))
@@ -72,7 +73,7 @@ class _TeamCardWidgetState extends State<TeamCardWidget> {
                         padding: EdgeInsets.only(top: 15, left: 28),
                         child: Row(
                           children: [
-                            Text('資産総額',
+                            Text(ConstantsText.totalAssets,
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: ConstantsColor.lightTextColor))
@@ -84,7 +85,7 @@ class _TeamCardWidgetState extends State<TeamCardWidget> {
                             const EdgeInsets.only(top: 1, bottom: 35, left: 28),
                         child: Row(
                           children: [
-                            Text('$assets 円',
+                            Text('$assets ${ConstantsText.yen}',
                                 style: const TextStyle(
                                     fontSize: 30,
                                     fontWeight: FontWeight.bold,
