@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:si_proto/components/custom_future_builder.dart';
+import 'package:si_proto/utils/constants_text.dart';
 
 class EditableImageWidget extends StatefulWidget {
   final String imagePath;
-  final Function(Uint8List) action;
+  final Function(Uint8List) imageBytesUpdateFunc;
 
-  const EditableImageWidget({Key? key, required this.imagePath, required this.action})
+  const EditableImageWidget(
+      {Key? key, required this.imagePath, required this.imageBytesUpdateFunc})
       : super(key: key);
 
   @override
@@ -21,7 +23,7 @@ class _EditableImageWidgetState extends State<EditableImageWidget> {
   Uint8List bytes = Uint8List(0);
   late Future<bool> waitingProcess;
 
-  Future<bool> networkImageToBytes() async {
+  Future<bool> dataBaseImageToBytes() async {
     final response = await get(Uri.parse(widget.imagePath));
     setState(() {
       bytes = response.bodyBytes;
@@ -32,7 +34,7 @@ class _EditableImageWidgetState extends State<EditableImageWidget> {
   @override
   void initState() {
     super.initState();
-    waitingProcess = networkImageToBytes();
+    waitingProcess = dataBaseImageToBytes();
   }
 
   @override
@@ -97,7 +99,10 @@ class _EditableImageWidgetState extends State<EditableImageWidget> {
           return SimpleDialog(
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(15))),
-            children: ["写真から選択", "写真を撮影"].asMap().entries.map((e) {
+            children: [
+              ConstantsText.selectFromPhotos,
+              ConstantsText.takePicture
+            ].asMap().entries.map((e) {
               return SimpleDialogOption(
                 child: ListTile(
                   title: Text(e.value),
@@ -114,7 +119,7 @@ class _EditableImageWidgetState extends State<EditableImageWidget> {
       Uint8List imageBytes = await pickedFile.readAsBytes();
       setState(() {
         bytes = imageBytes;
-        widget.action(imageBytes);
+        widget.imageBytesUpdateFunc(imageBytes);
       });
     }
   }

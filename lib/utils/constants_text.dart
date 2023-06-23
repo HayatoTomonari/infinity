@@ -14,4 +14,6 @@ class ConstantsText {
   static const year = '年';
   static const month = '月';
   static const date = '日';
+  static const selectFromPhotos = '写真から選択';
+  static const takePicture = '写真を撮影';
 }

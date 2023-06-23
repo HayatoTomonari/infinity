@@ -73,7 +73,7 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
                   padding: const EdgeInsets.only(top: 50, bottom: 50),
                   child: EditableImageWidget(
                     imagePath: imagePath,
-                    action: (imageData) => this.imageData = imageData,
+                    imageBytesUpdateFunc: (imageData) => this.imageData = imageData,
                   ),
                 ),
                 Padding(

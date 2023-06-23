@@ -59,7 +59,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                   padding: const EdgeInsets.only(top: 50),
                   child: EditableImageWidget(
                     imagePath: imagePath,
-                    action: (imageData) => this.imageData = imageData,
+                    imageBytesUpdateFunc: (imageData) => this.imageData = imageData,
                   ),
                 ),
                 const SizedBox(height: 48),
