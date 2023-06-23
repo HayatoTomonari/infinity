@@ -15,4 +15,8 @@ class ConstantsText {
   static const pleaseEnterYourPassword = 'パスワードを入力してください。';
   static const forgotYourPassword = 'パスワードを忘れた方は';
   static const login = 'ログイン';
+  static const pleaseEnterLeastSixChars = ('6文字以上で入力してください。');
+  static const userName = 'ユーザーネーム';
+  static const canBeChangedLater = '後から変更可能です。';
+  static const accountRegistration = 'アカウント登録';
 }
