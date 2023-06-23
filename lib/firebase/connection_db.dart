@@ -58,7 +58,7 @@ class ConnectionDb {
         ConstantsDbText.docTeamId: '',
         ConstantsDbText.docAssets: 0,
         ConstantsDbText.docEmail: user.email,
-        ConstantsDbText.docImageUrl: ConstantsText.defaultImage
+        ConstantsDbText.docImageUrl: ConstantsDbText.defaultUserImage
       });
       await user.sendEmailVerification();
       if (context.mounted) {
@@ -197,7 +197,7 @@ class ConnectionDb {
     final storageRef = FirebaseStorage.instance.ref().child(uuid);
     await storageRef.putData(data);
     String bucket = storageRef.bucket;
-    if (user.imageUrl != ConstantsText.defaultImage) {
+    if (user.imageUrl != ConstantsDbText.defaultUserImage) {
       await deleteImage(user.imageUrl);
     }
     await FirebaseFirestore.instance

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:si_proto/components/custom_number_field.dart';
 import 'package:si_proto/pages/team/team_create_confirm_page.dart';
 import 'package:si_proto/utils/constants_color.dart';
-import 'package:si_proto/utils/constants_text.dart';
+import 'package:si_proto/utils/constants_db_text,.dart';
 import 'package:si_proto/widgets/date_picker_widget.dart';
 
 import '../../components/custom_button.dart';
@@ -39,7 +39,7 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
 
   Future<bool> getTeamDefaultImage() async {
     String imageUrl =
-        await ConnectionDb.getImageUrl(ConstantsText.defaultTeamImage);
+        await ConnectionDb.getImageUrl(ConstantsDbText.defaultTeamImage);
     setState(() {
       imagePath = imageUrl;
     });

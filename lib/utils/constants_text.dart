@@ -2,8 +2,6 @@ class ConstantsText {
   static const appTitle = "infinity";
   static const appSubTitle = "可能性は無限大。";
   static const unexpectedError = '予期せぬエラーが発生しました。\nしばらく時間を置いてから再度お試しください。';
-  static const defaultImage = 'gs://siproject-c5cd0.appspot.com/unknownUser.png';
-  static const defaultTeamImage = 'gs://siproject-c5cd0.appspot.com/noImageTeam.jpg';
   static const year = '年';
   static const month = '月';
   static const date = '日';
