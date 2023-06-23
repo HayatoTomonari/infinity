@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:si_proto/pages/team/team_page.dart';
 import 'package:si_proto/widgets/top_page_widget.dart';
 import 'package:si_proto/pages/notice/notice_page.dart';
 import 'package:si_proto/pages/setting/setting_page.dart';
@@ -24,6 +25,7 @@ class _TopPageState extends State<TopPage> {
     return Scaffold(
         body: [
           const TopPageWidget(),
+          const TeamPage(),
           const PaymentPage(),
           const NoticePage(),
           const SettingPage(),
@@ -33,6 +35,7 @@ class _TopPageState extends State<TopPage> {
           onTap: _onItemTapped,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ホーム'),
+            BottomNavigationBarItem(icon: Icon(Icons.supervisor_account), label: 'チーム'),
             BottomNavigationBarItem(icon: Icon(Icons.payment), label: '入金'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.notifications), label: 'お知らせ'),

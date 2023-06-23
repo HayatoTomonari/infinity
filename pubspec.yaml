@@ -36,6 +36,8 @@ dependencies:
   path_provider: ^2.0.15
   http: ^0.13.6
   uuid: ^3.0.7
+  mirai_dropdown_menu: ^0.0.6+2
+  font_awesome_flutter: ^10.4.0
 
 dev_dependencies:
   flutter_test:
