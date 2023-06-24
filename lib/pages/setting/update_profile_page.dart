@@ -8,6 +8,7 @@ import '../../components/custom_future_builder.dart';
 import '../../components/custom_text_field.dart';
 import '../../firebase/connection_db.dart';
 import '../../models/user_model.dart';
+import '../../utils/constants_text.dart';
 import '../../widgets/editable_image_widget.dart';
 
 class UpdateProfilePage extends StatefulWidget {
@@ -23,7 +24,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   Uint8List imageData = Uint8List(0);
   late Future<bool> waitingProcess;
 
-  Future<bool> getUser() async {
+  Future<bool> getUserNameAndImagePath() async {
     UserModel appUser = await ConnectionDb.getUserModel();
     String imageUrl = await ConnectionDb.getImageUrl(appUser.imageUrl);
     setState(() {
@@ -36,14 +37,14 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   @override
   void initState() {
     super.initState();
-    waitingProcess = getUser();
+    waitingProcess = getUserNameAndImagePath();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('プロフィール編集'),
+          title: const Text(ConstantsText.profileEdit),
           centerTitle: true,
           flexibleSpace: Container(
             decoration: const BoxDecoration(
@@ -59,7 +60,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                   padding: const EdgeInsets.only(top: 50),
                   child: EditableImageWidget(
                     imagePath: imagePath,
-                    imageBytesUpdateFunc: (imageData) => this.imageData = imageData,
+                    imageBytesUpdateFunc: (imageData) =>
+                        this.imageData = imageData,
                   ),
                 ),
                 const SizedBox(height: 48),
@@ -67,7 +69,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
                   child: CustomTextField(
-                    labelText: 'ユーザーネーム',
+                    labelText: ConstantsText.userName,
                     hintText: '',
                     obscureText: false,
                     onChangedFunction: (String value) => userName = value,
@@ -84,11 +86,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                   child: SizedBox(
                     width: double.infinity,
                     child: CustomButton(
-                      labelText: 'プロフィールを保存',
+                      labelText: ConstantsText.saveProfile,
                       onPressedFunction: () => ConnectionDb.updateProfile(
-                          context,
-                          userName,
-                          imageData),
+                          context, userName, imageData),
                       textColor: ConstantsColor.darkButtonTextColor,
                       backColor: ConstantsColor.darkButtonBackColor,
                     ),
