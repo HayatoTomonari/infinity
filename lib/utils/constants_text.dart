@@ -48,4 +48,7 @@ class ConstantsText {
   static const changingPassword = 'パスワードを変更する';
   static const saveProfile = 'プロフィールを保存';
   static const sendPasswordResetEmail = 'パスワード再設定メールを送信';
-}
+  static const checkVerificationEmail = '\nに確認メールを送信しました。\nメール記載のリンクを開いて、認証を完了してください。';
+  static const resendConfirmEmail = '確認メールを再送信する';
+  static const emailVerificationCompleted = 'メールアドレス認証完了';
+ }
