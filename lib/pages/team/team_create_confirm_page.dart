@@ -9,6 +9,7 @@ import '../../components/custom_text_field.dart';
 import '../../firebase/connection_db.dart';
 import '../../models/team_model.dart';
 import '../../utils/constants_color.dart';
+import '../top/top_page.dart';
 
 class TeamCreateConfirmPage extends StatelessWidget {
   const TeamCreateConfirmPage({required this.teamModel, super.key});
@@ -163,8 +164,7 @@ class TeamCreateConfirmPage extends StatelessWidget {
                 width: double.infinity,
                 child: CustomButton(
                   labelText: ConstantsText.creatingTeam,
-                  onPressedFunction: () async =>
-                      {await ConnectionDb.registerTeam(context, teamModel)},
+                  onPressedFunction: () async => {await _registerTeam(context)},
                   textColor: ConstantsColor.darkButtonTextColor,
                   backColor: ConstantsColor.darkButtonBackColor,
                 ),
@@ -172,5 +172,16 @@ class TeamCreateConfirmPage extends StatelessWidget {
             ),
           ],
         )));
+  }
+
+  _registerTeam(BuildContext context) async {
+    bool result = await ConnectionDb.registerTeam(context, teamModel);
+    if (context.mounted && result) {
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return const TopPage();
+        },
+      ));
+    }
   }
 }

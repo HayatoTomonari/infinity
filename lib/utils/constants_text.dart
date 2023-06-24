@@ -78,4 +78,5 @@ class ConstantsText {
   static const publicSettingDescription = '非公開にするとアプリ内の検索で表示されません。';
   static const startDateDescription = '開始日になると募集が打ち切られ、メンバーの預金が開始されます。';
   static const confirmInputContent = '入力内容確認';
+  static const teamCreationComplete = 'チームの作成が完了しました。';
 }

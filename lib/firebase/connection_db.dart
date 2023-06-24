@@ -11,7 +11,6 @@ import 'package:uuid/uuid.dart';
 
 import '../components/info_dialog.dart';
 import '../models/user_model.dart';
-import '../pages/top/top_page.dart';
 import '../utils/constants_validate_text.dart';
 
 class ConnectionDb {
@@ -63,34 +62,31 @@ class ConnectionDb {
     }
   }
 
-  static Future<void> registerTeam(
+  static Future<bool> registerTeam(
       BuildContext context, TeamModel teamModel) async {
     try {
       await FirebaseFirestore.instance
           .collection(ConstantsDbText.dbCollectionTeams)
           .doc(const Uuid().v4())
           .set({
-        'teamName': teamModel.teamName,
-        'description': teamModel.description,
-        'imageUrl': teamModel.imageUrl,
-        'assets': teamModel.assets,
-        'goalAmount': teamModel.goalAmount,
-        'monthDeposit': teamModel.monthDeposit,
-        'recruitmentNumbers': teamModel.recruitmentNumbers,
-        'isPublic': teamModel.isPublic,
-        'startDate': teamModel.startDate
+        ConstantsDbText.docTeamName: teamModel.teamName,
+        ConstantsDbText.docDescription: teamModel.description,
+        ConstantsDbText.docImageUrl: teamModel.imageUrl,
+        ConstantsDbText.docAssets: teamModel.assets,
+        ConstantsDbText.docGoalAmount: teamModel.goalAmount,
+        ConstantsDbText.docMonthDeposit: teamModel.monthDeposit,
+        ConstantsDbText.docRecruitmentNumbers: teamModel.recruitmentNumbers,
+        ConstantsDbText.docIsPublic: teamModel.isPublic,
+        ConstantsDbText.docStartDate: teamModel.startDate
       });
       //TODO:画像アップロード
       if (context.mounted) {
-        InfoDialog.snackBarSuccess(context, 'チームの作成が完了しました。');
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) {
-            return const TopPage();
-          },
-        ));
+        InfoDialog.snackBarSuccess(context, ConstantsText.teamCreationComplete);
       }
+      return true;
     } on FirebaseAuthException catch (e) {
       _showErrorRegisterMessage(context, e);
+      return false;
     }
   }
 
