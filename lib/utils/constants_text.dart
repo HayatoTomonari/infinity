@@ -38,4 +38,7 @@ class ConstantsText {
   static const openSourceLicense = 'オープンソースライセンス';
   static const applicationInformation = 'アプリ情報';
   static const applicationVersion = 'アプリバージョン';
+  static const currentEmail = '現在のメールアドレス';
+  static const newEmail = '新しいメールアドレス';
+  static const sendConfirmEmail = '確認メールを送信';
 }
