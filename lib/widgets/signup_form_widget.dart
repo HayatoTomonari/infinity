@@ -3,7 +3,11 @@ import 'package:si_proto/components/custom_button.dart';
 import 'package:si_proto/components/custom_text_field.dart';
 import 'package:si_proto/firebase/connection_db.dart';
 import 'package:si_proto/utils/constants_color.dart';
+import 'package:si_proto/utils/constants_text.dart';
 
+import '../pages/signup/confirm_email_page.dart';
+
+//TODO:登録する項目を増やす。(電話番号とか)
 class SignUpFormWidget extends StatelessWidget {
   const SignUpFormWidget({super.key});
 
@@ -15,8 +19,8 @@ class SignUpFormWidget extends StatelessWidget {
     return Column(
       children: [
         CustomTextField(
-          labelText: 'メールアドレス',
-          hintText: 'メールアドレスを入力してください。',
+          labelText: ConstantsText.mailAddress,
+          hintText: ConstantsText.pleaseEnterYourEmail,
           obscureText: false,
           onChangedFunction: (String value) => email = value,
           icon: Icons.mail,
@@ -25,8 +29,8 @@ class SignUpFormWidget extends StatelessWidget {
         ),
         const SizedBox(height: 48),
         CustomTextField(
-          labelText: 'パスワード',
-          hintText: '6文字以上で入力してください。',
+          labelText: ConstantsText.password,
+          hintText: ConstantsText.pleaseEnterLeastSixChars,
           obscureText: true,
           onChangedFunction: (String value) => password = value,
           icon: Icons.lock_clock_outlined,
@@ -35,8 +39,8 @@ class SignUpFormWidget extends StatelessWidget {
         ),
         const SizedBox(height: 48),
         CustomTextField(
-          labelText: 'ユーザーネーム',
-          hintText: '後から変更可能です。',
+          labelText: ConstantsText.userName,
+          hintText: ConstantsText.canBeChangedLater,
           obscureText: false,
           onChangedFunction: (String value) => userName = value,
           icon: Icons.account_circle,
@@ -47,14 +51,27 @@ class SignUpFormWidget extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           child: CustomButton(
-            labelText: 'アカウント登録',
+            labelText: ConstantsText.accountRegistration,
             onPressedFunction: () =>
-                ConnectionDb.registerUser(context, email, password, userName),
+                _registerUser(context, email, password, userName),
             textColor: ConstantsColor.lightButtonTextColor,
             backColor: ConstantsColor.lightButtonBackColor,
           ),
         ),
       ],
     );
+  }
+
+  void _registerUser(BuildContext context, String email, String password,
+      String userName) async {
+    bool result =
+        await ConnectionDb.registerUser(context, email, password, userName);
+    if (context.mounted && result) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ConfirmEmailPage(email, password)),
+      );
+    }
   }
 }

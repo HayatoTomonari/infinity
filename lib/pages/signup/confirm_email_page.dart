@@ -4,6 +4,8 @@ import 'package:si_proto/widgets/title_screen_widget.dart';
 import '../../components/custom_button.dart';
 import '../../firebase/connection_db.dart';
 import '../../utils/constants_color.dart';
+import '../../utils/constants_text.dart';
+import '../top/top_page.dart';
 
 class ConfirmEmailPage extends StatelessWidget {
   const ConfirmEmailPage(this.email, this.password, {super.key});
@@ -31,14 +33,14 @@ class ConfirmEmailPage extends StatelessWidget {
                   const Padding(
                       padding: EdgeInsets.symmetric(vertical: 130),
                       child: TitleScreenWidget()),
-                  Text('$email\nに確認メールを送信しました。\nメール記載のリンクを開いて、認証を完了してください。'),
+                  Text('$email${ConstantsText.checkVerificationEmail}'),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 50, vertical: 10),
                     child: SizedBox(
                       width: double.infinity,
                       child: CustomButton(
-                        labelText: '確認メールを再送信する',
+                        labelText: ConstantsText.resendConfirmEmail,
                         onPressedFunction: () => ConnectionDb.sendConfirmEmail(
                             context, email, password),
                         textColor: ConstantsColor.lightButtonTextColor,
@@ -52,9 +54,8 @@ class ConfirmEmailPage extends StatelessWidget {
                     child: SizedBox(
                       width: double.infinity,
                       child: CustomButton(
-                        labelText: 'メールアドレス認証完了',
-                        onPressedFunction: () =>
-                            ConnectionDb.loginUser(email, password, context),
+                        labelText: ConstantsText.emailVerificationCompleted,
+                        onPressedFunction: () => _userLogin(context),
                         textColor: ConstantsColor.lightButtonTextColor,
                         backColor: ConstantsColor.lightButtonBackColor,
                       ),
@@ -65,5 +66,16 @@ class ConfirmEmailPage extends StatelessWidget {
             ),
           ),
         ));
+  }
+
+  void _userLogin(BuildContext context) async {
+    bool result = await ConnectionDb.loginUser(context, email, password);
+    if (context.mounted && result) {
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return const TopPage();
+        },
+      ));
+    }
   }
 }

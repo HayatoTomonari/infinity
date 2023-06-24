@@ -6,6 +6,7 @@ import '../../components/custom_future_builder.dart';
 import '../../components/custom_text_field.dart';
 import '../../firebase/connection_db.dart';
 import '../../models/user_model.dart';
+import '../../utils/constants_text.dart';
 
 class UpdateEmailPage extends StatefulWidget {
   const UpdateEmailPage({super.key});
@@ -17,13 +18,13 @@ class UpdateEmailPage extends StatefulWidget {
 class _UpdateEmailPageState extends State<UpdateEmailPage> {
   String password = "";
   String newEmail = "";
-  UserModel user = const UserModel();
+  UserModel userModel = const UserModel();
   late Future<bool> waitingProcess;
 
-  Future<bool> getUser() async {
+  Future<bool> getUserModel() async {
     UserModel getUser = await ConnectionDb.getUserModel();
     setState(() {
-      user = getUser;
+      userModel = getUser;
     });
     return true;
   }
@@ -31,14 +32,14 @@ class _UpdateEmailPageState extends State<UpdateEmailPage> {
   @override
   void initState() {
     super.initState();
-    waitingProcess = getUser();
+    waitingProcess = getUserModel();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('メールアドレス変更'),
+          title: const Text(ConstantsText.changeEmail),
           centerTitle: true,
           flexibleSpace: Container(
             decoration: const BoxDecoration(
@@ -56,14 +57,14 @@ class _UpdateEmailPageState extends State<UpdateEmailPage> {
                       top: 30, bottom: 10, right: 50, left: 50),
                   child: SizedBox(
                     child: CustomTextField(
-                      labelText: '現在のメールアドレス',
+                      labelText: ConstantsText.currentEmail,
                       hintText: '',
                       obscureText: false,
                       onChangedFunction: (String value) => {},
                       icon: Icons.mail,
                       textColor: ConstantsColor.darkTextColor,
                       focusColor: ConstantsColor.darkFocusColor,
-                      initialValue: user.email,
+                      initialValue: userModel.email,
                       enabled: false,
                     ),
                   ),
@@ -73,8 +74,8 @@ class _UpdateEmailPageState extends State<UpdateEmailPage> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
                   child: CustomTextField(
-                    labelText: 'パスワード',
-                    hintText: 'パスワードを入力してください。',
+                    labelText: ConstantsText.password,
+                    hintText: ConstantsText.pleaseEnterYourPassword,
                     obscureText: true,
                     onChangedFunction: (String value) => password = value,
                     icon: Icons.lock_clock_outlined,
@@ -87,8 +88,8 @@ class _UpdateEmailPageState extends State<UpdateEmailPage> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 5, horizontal: 50),
                   child: CustomTextField(
-                    labelText: '新しいメールアドレス',
-                    hintText: '新しいメールアドレス',
+                    labelText: ConstantsText.newEmail,
+                    hintText: ConstantsText.newEmail,
                     obscureText: false,
                     onChangedFunction: (String value) => newEmail = value,
                     icon: Icons.mail,
@@ -103,9 +104,9 @@ class _UpdateEmailPageState extends State<UpdateEmailPage> {
                   child: SizedBox(
                     width: double.infinity,
                     child: CustomButton(
-                      labelText: '確認メールを送信',
+                      labelText: ConstantsText.sendConfirmEmail,
                       onPressedFunction: () => ConnectionDb.updateEmail(
-                          context, user.email, newEmail, password),
+                          context, userModel.email, newEmail, password),
                       textColor: ConstantsColor.darkButtonTextColor,
                       backColor: ConstantsColor.darkButtonBackColor,
                     ),

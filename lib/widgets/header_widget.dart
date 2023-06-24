@@ -37,8 +37,9 @@ class HeaderWidget extends StatelessWidget {
 class _HeaderTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var textStyle = const TextStyle(fontFamily: 'Exo', color: Colors.white)
-        .copyWith(fontSize: 30, letterSpacing: 35, fontWeight: FontWeight.w700);
+    TextStyle textStyle =
+        const TextStyle(fontFamily: 'Exo', color: Colors.white).copyWith(
+            fontSize: 30, letterSpacing: 35, fontWeight: FontWeight.w700);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

@@ -5,6 +5,8 @@ import 'package:si_proto/pages/notice/notice_page.dart';
 import 'package:si_proto/pages/setting/setting_page.dart';
 import 'package:si_proto/pages/payment/payment_page.dart';
 
+import '../../utils/constants_text.dart';
+
 class TopPage extends StatefulWidget {
   const TopPage({super.key});
   @override
@@ -34,12 +36,17 @@ class _TopPageState extends State<TopPage> {
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ホーム'),
-            BottomNavigationBarItem(icon: Icon(Icons.supervisor_account), label: 'チーム'),
-            BottomNavigationBarItem(icon: Icon(Icons.payment), label: '入金'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.notifications), label: 'お知らせ'),
-            BottomNavigationBarItem(icon: Icon(Icons.settings), label: '設定'),
+                icon: Icon(Icons.home), label: ConstantsText.home),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.supervisor_account),
+                label: ConstantsText.team),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.payment), label: ConstantsText.payment),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.notifications), label: ConstantsText.notice),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.settings), label: ConstantsText.setting),
           ],
           type: BottomNavigationBarType.fixed,
         ));

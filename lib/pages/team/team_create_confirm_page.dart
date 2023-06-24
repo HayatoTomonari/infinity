@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:si_proto/utils/constants_text.dart';
 
 import '../../components/custom_button.dart';
 import '../../components/custom_long_text_field.dart';
@@ -8,6 +9,7 @@ import '../../components/custom_text_field.dart';
 import '../../firebase/connection_db.dart';
 import '../../models/team_model.dart';
 import '../../utils/constants_color.dart';
+import '../top/top_page.dart';
 
 class TeamCreateConfirmPage extends StatelessWidget {
   const TeamCreateConfirmPage({required this.teamModel, super.key});
@@ -18,11 +20,12 @@ class TeamCreateConfirmPage extends StatelessWidget {
     final dateFormatter = DateFormat('yyyy/MM/dd(E)', "ja_JP");
     final numberFormatter = NumberFormat("#,###");
     String startDate = dateFormatter.format(teamModel.startDate);
-    String isPublic = teamModel.isPublic ? '公開' : '非公開';
+    String isPublic =
+        teamModel.isPublic ? ConstantsText.public : ConstantsText.private;
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text('チーム登録確認'),
+          title: const Text(ConstantsText.teamRegistrationConfirm),
           centerTitle: true,
           flexibleSpace: Container(
             decoration: const BoxDecoration(
@@ -36,8 +39,8 @@ class TeamCreateConfirmPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
               child: CustomTextField(
-                labelText: 'チーム名称',
-                hintText: '例:軽井沢別荘シェア購入チーム',
+                labelText: ConstantsText.teamName,
+                hintText: ConstantsText.exampleTeamName,
                 obscureText: false,
                 onChangedFunction: (String value) => {},
                 icon: Icons.drive_file_rename_outline,
@@ -50,7 +53,7 @@ class TeamCreateConfirmPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
               child: CustomLongTextField(
-                labelText: 'チーム説明',
+                labelText: ConstantsText.teamDescription,
                 hintText: '',
                 onChangedFunction: (String value) => {},
                 textColor: ConstantsColor.darkTextColor,
@@ -67,17 +70,18 @@ class TeamCreateConfirmPage extends StatelessWidget {
                   child: SizedBox(
                     width: 200,
                     child: CustomNumberField(
-                      labelText: '目標金額',
+                      labelText: ConstantsText.goalAmount,
                       onChangedFunction: (String value) => {},
                       textColor: ConstantsColor.darkTextColor,
                       focusColor: ConstantsColor.darkFocusColor,
-                      initialValue: numberFormatter.format(teamModel.goalAmount),
+                      initialValue:
+                          numberFormatter.format(teamModel.goalAmount),
                       enabled: false,
                     ),
                   ),
                 ),
                 const Text(
-                  '円',
+                  ConstantsText.yen,
                   style: TextStyle(fontSize: 15),
                 ),
               ],
@@ -90,17 +94,18 @@ class TeamCreateConfirmPage extends StatelessWidget {
                   child: SizedBox(
                     width: 200,
                     child: CustomNumberField(
-                      labelText: '月預金',
+                      labelText: ConstantsText.monthDeposit,
                       onChangedFunction: (String value) => {},
                       textColor: ConstantsColor.darkTextColor,
                       focusColor: ConstantsColor.darkFocusColor,
-                      initialValue: numberFormatter.format(teamModel.monthDeposit),
+                      initialValue:
+                          numberFormatter.format(teamModel.monthDeposit),
                       enabled: false,
                     ),
                   ),
                 ),
                 const Text(
-                  '円',
+                  ConstantsText.yen,
                   style: TextStyle(fontSize: 15),
                 ),
               ],
@@ -113,17 +118,18 @@ class TeamCreateConfirmPage extends StatelessWidget {
                   child: SizedBox(
                     width: 200,
                     child: CustomNumberField(
-                      labelText: '募集人数',
+                      labelText: ConstantsText.recruitmentNumbers,
                       onChangedFunction: (String value) => {},
                       textColor: ConstantsColor.darkTextColor,
                       focusColor: ConstantsColor.darkFocusColor,
-                      initialValue: numberFormatter.format(teamModel.recruitmentNumbers),
+                      initialValue:
+                          numberFormatter.format(teamModel.recruitmentNumbers),
                       enabled: false,
                     ),
                   ),
                 ),
                 const Text(
-                  '人',
+                  ConstantsText.person,
                   style: TextStyle(fontSize: 15),
                 ),
               ],
@@ -134,7 +140,7 @@ class TeamCreateConfirmPage extends StatelessWidget {
                   padding: const EdgeInsets.only(
                       top: 10, bottom: 10, left: 50, right: 20),
                   child: Text(
-                    'チーム公開設定:$isPublic',
+                    '${ConstantsText.teamVisibilitySettings}$isPublic',
                     style: const TextStyle(fontSize: 15),
                   ),
                 ),
@@ -146,7 +152,7 @@ class TeamCreateConfirmPage extends StatelessWidget {
                   padding:
                       const EdgeInsets.only(bottom: 15, left: 50, right: 5),
                   child: Text(
-                    '開始日:$startDate',
+                    '${ConstantsText.startDate}$startDate',
                     style: const TextStyle(fontSize: 15),
                   ),
                 ),
@@ -157,9 +163,8 @@ class TeamCreateConfirmPage extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: CustomButton(
-                  labelText: 'チームを作成する',
-                  onPressedFunction: () async =>
-                      {await ConnectionDb.registerTeam(context, teamModel)},
+                  labelText: ConstantsText.creatingTeam,
+                  onPressedFunction: () async => {await _registerTeam(context)},
                   textColor: ConstantsColor.darkButtonTextColor,
                   backColor: ConstantsColor.darkButtonBackColor,
                 ),
@@ -167,5 +172,16 @@ class TeamCreateConfirmPage extends StatelessWidget {
             ),
           ],
         )));
+  }
+
+  _registerTeam(BuildContext context) async {
+    bool result = await ConnectionDb.registerTeam(context, teamModel);
+    if (context.mounted && result) {
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return const TopPage();
+        },
+      ));
+    }
   }
 }
