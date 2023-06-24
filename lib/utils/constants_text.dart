@@ -56,4 +56,17 @@ class ConstantsText {
   static const payment = '入金';
   static const notice = 'お知らせ';
   static const setting = '設定';
+  static const public = '公開';
+  static const private = '非公開';
+  static const teamRegistrationConfirm = 'チーム登録確認';
+  static const teamName = 'チーム名称';
+  static const teamDescription = 'チーム説明';
+  static const goalAmount = '目標金額';
+  static const monthDeposit = '月預金';
+  static const recruitmentNumbers = '募集人数';
+  static const person = '人';
+  static const teamVisibilitySettings = 'チーム公開設定:';
+  static const startDate = '開始日:';
+  static const creatingTeam = 'チームを作成する';
+  static const exampleTeamName = '例:軽井沢別荘シェア購入チーム';
  }
