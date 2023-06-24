@@ -47,4 +47,5 @@ class ConstantsText {
   static const pleaseEnterNewPassword = '新しいパスワードを入力してください。';
   static const changingPassword = 'パスワードを変更する';
   static const saveProfile = 'プロフィールを保存';
+  static const sendPasswordResetEmail = 'パスワード再設定メールを送信';
 }

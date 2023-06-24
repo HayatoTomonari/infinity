@@ -5,6 +5,7 @@ import '../../components/custom_button.dart';
 import '../../components/custom_text_field.dart';
 import '../../firebase/connection_db.dart';
 import '../../utils/constants_color.dart';
+import '../../utils/constants_text.dart';
 
 class ForgetPasswordPage extends StatelessWidget {
   const ForgetPasswordPage({super.key});
@@ -35,15 +36,15 @@ class ForgetPasswordPage extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 30),
                     child: Center(
-                        child: Text("パスワード再設定メールを送信",
+                        child: Text(ConstantsText.sendPasswordResetEmail,
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold))),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50),
                     child: CustomTextField(
-                      labelText: 'メールアドレス',
-                      hintText: 'メールアドレスを入力してください。',
+                      labelText: ConstantsText.mailAddress,
+                      hintText: ConstantsText.pleaseEnterYourEmail,
                       obscureText: false,
                       onChangedFunction: (String value) => email = value,
                       icon: Icons.mail,
@@ -57,7 +58,7 @@ class ForgetPasswordPage extends StatelessWidget {
                     child: SizedBox(
                       width: double.infinity,
                       child: CustomButton(
-                        labelText: 'パスワード再設定メールを送信',
+                        labelText: ConstantsText.sendPasswordResetEmail,
                         onPressedFunction: () =>
                             ConnectionDb.sendResetPassword(context, email),
                         textColor: ConstantsColor.lightButtonTextColor,
