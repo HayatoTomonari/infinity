@@ -6,13 +6,15 @@ import 'package:si_proto/utils/constants_color.dart';
 import 'package:si_proto/components/custom_text_field.dart';
 import 'package:si_proto/utils/constants_text.dart';
 
+import '../pages/top/top_page.dart';
+
 class SignInFormWidget extends StatelessWidget {
   const SignInFormWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    String email = "";
-    String password = "";
+    String email = '';
+    String password = '';
     return Column(
       children: [
         CustomTextField(
@@ -69,13 +71,23 @@ class SignInFormWidget extends StatelessWidget {
           width: double.infinity,
           child: CustomButton(
             labelText: ConstantsText.login,
-            onPressedFunction: () =>
-                ConnectionDb.loginUser(email, password, context),
+            onPressedFunction: () => _userLogin(context, email, password),
             textColor: ConstantsColor.lightButtonTextColor,
             backColor: ConstantsColor.lightButtonBackColor,
           ),
         ),
       ],
     );
+  }
+
+  void _userLogin(BuildContext context, String email, String password) async {
+    bool result = await ConnectionDb.loginUser(context, email, password);
+    if (context.mounted && result) {
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return const TopPage();
+        },
+      ));
+    }
   }
 }

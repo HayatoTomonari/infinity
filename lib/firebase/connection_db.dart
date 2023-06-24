@@ -16,8 +16,8 @@ import '../pages/top/top_page.dart';
 import '../utils/constants_validate_text.dart';
 
 class ConnectionDb {
-  static Future<void> loginUser(
-      String email, String password, BuildContext context) async {
+  static Future<bool> loginUser(
+      BuildContext context, String email, String password) async {
     try {
       final User? user = (await FirebaseAuth.instance
               .signInWithEmailAndPassword(email: email, password: password))
@@ -26,18 +26,14 @@ class ConnectionDb {
         throw FirebaseAuthException(code: ConstantsText.unexpectedError);
       }
       if (!user.emailVerified && context.mounted) {
-        InfoDialog.snackBarNetral(context, ConstantsValidateText.mailAuthUnfinished);
-        return;
+        InfoDialog.snackBarNetral(
+            context, ConstantsValidateText.mailAuthUnfinished);
+        return false;
       }
-      if (context.mounted) {
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) {
-            return const TopPage();
-          },
-        ));
-      }
+      return true;
     } on FirebaseAuthException catch (e) {
       _showLoginErrorMessage(context, e);
+      return false;
     }
   }
 

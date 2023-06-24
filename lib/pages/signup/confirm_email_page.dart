@@ -5,6 +5,7 @@ import '../../components/custom_button.dart';
 import '../../firebase/connection_db.dart';
 import '../../utils/constants_color.dart';
 import '../../utils/constants_text.dart';
+import '../top/top_page.dart';
 
 class ConfirmEmailPage extends StatelessWidget {
   const ConfirmEmailPage(this.email, this.password, {super.key});
@@ -54,8 +55,7 @@ class ConfirmEmailPage extends StatelessWidget {
                       width: double.infinity,
                       child: CustomButton(
                         labelText: ConstantsText.emailVerificationCompleted,
-                        onPressedFunction: () =>
-                            ConnectionDb.loginUser(email, password, context),
+                        onPressedFunction: () => _userLogin(context),
                         textColor: ConstantsColor.lightButtonTextColor,
                         backColor: ConstantsColor.lightButtonBackColor,
                       ),
@@ -66,5 +66,16 @@ class ConfirmEmailPage extends StatelessWidget {
             ),
           ),
         ));
+  }
+
+  void _userLogin(BuildContext context) async {
+    bool result = await ConnectionDb.loginUser(context, email, password);
+    if (context.mounted && result) {
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return const TopPage();
+        },
+      ));
+    }
   }
 }
