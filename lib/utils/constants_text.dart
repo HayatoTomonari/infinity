@@ -69,4 +69,13 @@ class ConstantsText {
   static const startDate = '開始日:';
   static const creatingTeam = 'チームを作成する';
   static const exampleTeamName = '例:軽井沢別荘シェア購入チーム';
- }
+  static const exampleTeamDescription = '詳細内容:\n\n参加条件:\n\nその他:\n\n';
+  static const newCreateTeam = '新規チーム作成';
+  static const tenThousandYen = '万円';
+  static const goalAmountDescription = '目標金額は万単位で設定してください。';
+  static const monthDepositDescription = '月預金とは、参加メンバーが1カ月に一度、チームに預金する設定額です。';
+  static const recruitmentNumbersDescription = '資金の使い道に応じて適切な参加人数を設定してください。\n共同購入などをお考えの場合は共同購入出来る人数を調べておく必要があります。';
+  static const publicSettingDescription = '非公開にするとアプリ内の検索で表示されません。';
+  static const startDateDescription = '開始日になると募集が打ち切られ、メンバーの預金が開始されます。';
+  static const confirmInputContent = '入力内容確認';
+}

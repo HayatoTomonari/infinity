@@ -5,6 +5,8 @@ import 'package:si_proto/components/custom_number_field.dart';
 import 'package:si_proto/pages/team/team_create_confirm_page.dart';
 import 'package:si_proto/utils/constants_color.dart';
 import 'package:si_proto/utils/constants_db_text,.dart';
+import 'package:si_proto/utils/constants_text.dart';
+import 'package:si_proto/utils/constants_validate_text.dart';
 import 'package:si_proto/widgets/date_picker_widget.dart';
 
 import '../../components/custom_button.dart';
@@ -26,9 +28,9 @@ class TeamCreatePage extends StatefulWidget {
 }
 
 class _TeamCreatePageState extends State<TeamCreatePage> {
-  final publicSettingNotifier = ValueNotifier<String>('公開');
+  final publicSettingNotifier = ValueNotifier<String>(ConstantsText.public);
   String teamName = '';
-  String description = '詳細内容:\n\n参加条件:\n\nその他:\n\n';
+  String description = ConstantsText.exampleTeamDescription;
   String imagePath = '';
   String goalAmount = '0';
   String monthDeposit = '0';
@@ -56,7 +58,7 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('新規チーム作成'),
+          title: const Text(ConstantsText.newCreateTeam),
           centerTitle: true,
           flexibleSpace: Container(
             decoration: const BoxDecoration(
@@ -73,15 +75,16 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
                   padding: const EdgeInsets.only(top: 50, bottom: 50),
                   child: EditableImageWidget(
                     imagePath: imagePath,
-                    imageBytesUpdateFunc: (imageData) => this.imageData = imageData,
+                    imageBytesUpdateFunc: (imageData) =>
+                        this.imageData = imageData,
                   ),
                 ),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
                   child: CustomTextField(
-                    labelText: 'チーム名称',
-                    hintText: '例:軽井沢別荘シェア購入チーム',
+                    labelText: ConstantsText.teamName,
+                    hintText: ConstantsText.exampleTeamName,
                     obscureText: false,
                     onChangedFunction: (String value) => teamName = value,
                     icon: Icons.drive_file_rename_outline,
@@ -93,7 +96,7 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
                   child: CustomLongTextField(
-                    labelText: 'チーム説明',
+                    labelText: ConstantsText.teamDescription,
                     hintText: '',
                     onChangedFunction: (String value) => description = value,
                     textColor: ConstantsColor.darkTextColor,
@@ -109,7 +112,7 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
                       child: SizedBox(
                         width: 200,
                         child: CustomNumberField(
-                          labelText: '目標金額',
+                          labelText: ConstantsText.goalAmount,
                           onChangedFunction: (String value) =>
                               goalAmount = value,
                           textColor: ConstantsColor.darkTextColor,
@@ -119,7 +122,7 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
                       ),
                     ),
                     const Text(
-                      '万円',
+                      ConstantsText.tenThousandYen,
                       style: TextStyle(fontSize: 15),
                     ),
                   ],
@@ -129,7 +132,7 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
                     Padding(
                       padding: EdgeInsets.only(bottom: 15, left: 50, right: 5),
                       child: Text(
-                        '目標金額は万単位で設定してください。',
+                        ConstantsText.goalAmountDescription,
                         style: TextStyle(fontSize: 10),
                       ),
                     ),
@@ -143,7 +146,7 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
                       child: SizedBox(
                         width: 200,
                         child: CustomNumberField(
-                          labelText: '月預金',
+                          labelText: ConstantsText.monthDeposit,
                           onChangedFunction: (String value) =>
                               monthDeposit = value,
                           textColor: ConstantsColor.darkTextColor,
@@ -153,7 +156,7 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
                       ),
                     ),
                     const Text(
-                      '円',
+                      ConstantsText.yen,
                       style: TextStyle(fontSize: 15),
                     ),
                   ],
@@ -163,7 +166,7 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
                     Padding(
                       padding: EdgeInsets.only(bottom: 15, left: 50, right: 5),
                       child: Text(
-                        '月預金とは、参加メンバーが1カ月に一度、チームに預金する設定額です。',
+                        ConstantsText.monthDepositDescription,
                         style: TextStyle(fontSize: 10),
                       ),
                     ),
@@ -177,7 +180,7 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
                       child: SizedBox(
                         width: 200,
                         child: CustomNumberField(
-                          labelText: '募集人数',
+                          labelText: ConstantsText.recruitmentNumbers,
                           onChangedFunction: (String value) =>
                               recruitmentNumbers = value,
                           textColor: ConstantsColor.darkTextColor,
@@ -187,7 +190,7 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
                       ),
                     ),
                     const Text(
-                      '人',
+                      ConstantsText.person,
                       style: TextStyle(fontSize: 15),
                     ),
                   ],
@@ -197,7 +200,7 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
                     Padding(
                       padding: EdgeInsets.only(bottom: 15, left: 50, right: 5),
                       child: Text(
-                        '資金の使い道に応じて適切な参加人数を設定してください。\n共同購入などをお考えの場合は共同購入出来る人数を調べておく必要があります。',
+                        ConstantsText.recruitmentNumbersDescription,
                         style: TextStyle(fontSize: 10),
                       ),
                     ),
@@ -209,7 +212,7 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
                       padding: EdgeInsets.only(
                           top: 10, bottom: 10, left: 50, right: 20),
                       child: Text(
-                        'チーム公開設定',
+                        ConstantsText.teamVisibilitySettings,
                         style: TextStyle(fontSize: 15),
                       ),
                     ),
@@ -221,7 +224,10 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
                           valueNotifier: publicSettingNotifier,
                           itemWidgetBuilder: (int index, String item) =>
                               CustomDropDownItem(item: item),
-                          children: const ['公開', '非公開'],
+                          children: const [
+                            ConstantsText.public,
+                            ConstantsText.private
+                          ],
                           onChanged: (String value) {
                             publicSettingNotifier.value = value;
                           },
@@ -235,7 +241,7 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
                     Padding(
                       padding: EdgeInsets.only(bottom: 15, left: 50, right: 5),
                       child: Text(
-                        '非公開にするとアプリ内の検索で表示されません。',
+                        ConstantsText.publicSettingDescription,
                         style: TextStyle(fontSize: 10),
                       ),
                     ),
@@ -247,7 +253,7 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
                       padding: EdgeInsets.only(
                           top: 10, bottom: 10, left: 50, right: 20),
                       child: Text(
-                        '開始日',
+                        ConstantsText.startDate,
                         style: TextStyle(fontSize: 15),
                       ),
                     ),
@@ -262,7 +268,7 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
                     Padding(
                       padding: EdgeInsets.only(bottom: 15, left: 50, right: 5),
                       child: Text(
-                        '開始日になると募集が打ち切られ、メンバーの預金が開始されます。',
+                        ConstantsText.startDateDescription,
                         style: TextStyle(fontSize: 10),
                       ),
                     ),
@@ -274,8 +280,8 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
                   child: SizedBox(
                     width: double.infinity,
                     child: CustomButton(
-                      labelText: '入力内容確認',
-                      onPressedFunction: () => _register(),
+                      labelText: ConstantsText.confirmInputContent,
+                      onPressedFunction: () => _registerTeamModel(),
                       textColor: ConstantsColor.darkButtonTextColor,
                       backColor: ConstantsColor.darkButtonBackColor,
                     ),
@@ -285,8 +291,8 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
             ))));
   }
 
-  void _register() async {
-    if (!_validateTeam()) {
+  void _registerTeamModel() async {
+    if (!_validateTeamModel()) {
       return;
     }
     TeamModel teamModel = _convertTeamModel();
@@ -305,52 +311,57 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
         description: description,
         imageUrl: imagePath,
         assets: 0,
+        //FIXME:入力が万円の為、10000を掛けている。
         goalAmount: int.parse(goalAmount) * 10000,
         monthDeposit: int.parse(monthDeposit),
         recruitmentNumbers: int.parse(recruitmentNumbers),
-        isPublic: publicSettingNotifier.value == '公開',
+        isPublic: publicSettingNotifier.value == ConstantsText.public,
         startDate: DateTime.parse(startDate));
   }
 
-  bool _validateTeam() {
+  bool _validateTeamModel() {
     if (teamName.isEmpty) {
-      InfoDialog.snackBarError(context, 'チーム名称を入力してください。');
+      InfoDialog.snackBarError(context, ConstantsValidateText.invalidTeamName);
       return false;
     }
     int? amount = int.tryParse(goalAmount);
     if (amount == null) {
-      InfoDialog.snackBarError(context, '目標金額が数値のみで入力されていないか、設定できる上限を超えています。');
+      InfoDialog.snackBarError(
+          context, ConstantsValidateText.invalidGoalAmount);
       return false;
     }
     if (amount < 0) {
-      InfoDialog.snackBarError(context, '目標金額は1万円以上で入力してください。');
+      InfoDialog.snackBarError(context, ConstantsValidateText.zeroGoalAmount);
       return false;
     }
     int? deposit = int.tryParse(monthDeposit);
     if (deposit == null) {
-      InfoDialog.snackBarError(context, '月預金が数値のみで入力されていないか、設定できる上限を超えています。');
+      InfoDialog.snackBarError(
+          context, ConstantsValidateText.invalidMonthDeposit);
       return false;
     }
     if (deposit < 0) {
-      InfoDialog.snackBarError(context, '月預金は1円以上で入力してください。');
+      InfoDialog.snackBarError(context, ConstantsValidateText.zeroMonthDeposit);
       return false;
     }
     int? numbers = int.tryParse(recruitmentNumbers);
     if (numbers == null) {
-      InfoDialog.snackBarError(context, '募集人数が数値のみで入力されていないか、設定できる上限を超えています。');
+      InfoDialog.snackBarError(
+          context, ConstantsValidateText.invalidRecruitmentNumbers);
       return false;
     }
     if (numbers < 0) {
-      InfoDialog.snackBarError(context, '募集人数は1人以上で入力してください。');
+      InfoDialog.snackBarError(
+          context, ConstantsValidateText.zeroRecruitmentNumbers);
       return false;
     }
     DateTime? dateTime = DateTime.tryParse(startDate);
     if (dateTime == null) {
-      InfoDialog.snackBarError(context, '日付の指定が不正です。');
+      InfoDialog.snackBarError(context, ConstantsValidateText.invalidStartDate);
       return false;
     }
-    if (dateTime.isBefore(DateTime.now())){
-      InfoDialog.snackBarError(context, '日付は本日以降を指定してください。');
+    if (dateTime.isBefore(DateTime.now())) {
+      InfoDialog.snackBarError(context, ConstantsValidateText.zeroStartDate);
       return false;
     }
     return true;
