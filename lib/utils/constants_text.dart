@@ -51,4 +51,9 @@ class ConstantsText {
   static const checkVerificationEmail = '\nに確認メールを送信しました。\nメール記載のリンクを開いて、認証を完了してください。';
   static const resendConfirmEmail = '確認メールを再送信する';
   static const emailVerificationCompleted = 'メールアドレス認証完了';
+  static const home = 'ホーム';
+  static const team = 'チーム';
+  static const payment = '入金';
+  static const notice = 'お知らせ';
+  static const setting = '設定';
  }
