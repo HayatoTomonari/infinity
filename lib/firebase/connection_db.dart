@@ -96,11 +96,13 @@ class ConnectionDb {
       final User? user = (await FirebaseAuth.instance
               .signInWithEmailAndPassword(email: email, password: password))
           .user;
-      if (user != null) {
-        await user.sendEmailVerification();
-        if (context.mounted) {
-          InfoDialog.snackBarNetral(context, '$email\nに認証メールを送信しました。');
-        }
+      if (user == null) {
+        throw FirebaseAuthException(code: ConstantsText.unexpectedError);
+      }
+      await user.sendEmailVerification();
+      if (context.mounted) {
+        InfoDialog.snackBarNetral(
+            context, '$email${ConstantsText.sendConfirmEmailWithoutEmail}');
       }
     } on FirebaseAuthException {
       InfoDialog.snackBarError(context, ConstantsText.unexpectedError);
@@ -113,15 +115,16 @@ class ConnectionDb {
       final User? user = (await FirebaseAuth.instance
               .signInWithEmailAndPassword(email: email, password: password))
           .user;
-      if (user != null) {
-        await user.updateEmail(newEmail);
-        await FirebaseFirestore.instance
-            .collection(ConstantsDbText.dbCollectionUser)
-            .doc(user.uid)
-            .update({ConstantsDbText.docEmail: newEmail});
-        if (context.mounted) {
-          await sendConfirmEmail(context, newEmail, password);
-        }
+      if (user == null) {
+        throw FirebaseAuthException(code: ConstantsText.unexpectedError);
+      }
+      await user.updateEmail(newEmail);
+      await FirebaseFirestore.instance
+          .collection(ConstantsDbText.dbCollectionUser)
+          .doc(user.uid)
+          .update({ConstantsDbText.docEmail: newEmail});
+      if (context.mounted) {
+        await sendConfirmEmail(context, newEmail, password);
       }
     } on FirebaseAuthException {
       InfoDialog.snackBarError(context, ConstantsText.unexpectedError);
@@ -138,7 +141,7 @@ class ConnectionDb {
           .update({ConstantsDbText.docUserName: userName});
       await uploadImage(uid, data);
       if (context.mounted) {
-        InfoDialog.snackBarSuccess(context, 'プロフィールを保存しました');
+        InfoDialog.snackBarSuccess(context, ConstantsText.saveProfileCompleted);
       }
     } on FirebaseAuthException {
       InfoDialog.snackBarError(context, ConstantsText.unexpectedError);
@@ -151,11 +154,13 @@ class ConnectionDb {
       final User? user = (await FirebaseAuth.instance
               .signInWithEmailAndPassword(email: email, password: password))
           .user;
-      if (user != null) {
-        await user.updatePassword(newPassword);
-        if (context.mounted) {
-          InfoDialog.snackBarSuccess(context, 'パスワードの変更が完了しました。');
-        }
+      if (user == null) {
+        throw FirebaseAuthException(code: ConstantsText.unexpectedError);
+      }
+      await user.updatePassword(newPassword);
+      if (context.mounted) {
+        InfoDialog.snackBarSuccess(
+            context, ConstantsText.passwordChangeCompleted);
       }
     } on FirebaseAuthException {
       InfoDialog.snackBarError(context, ConstantsText.unexpectedError);
@@ -167,7 +172,8 @@ class ConnectionDb {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       if (context.mounted) {
-        InfoDialog.snackBarNetral(context, '$email\nにパスワード再設定メールを送信しました。');
+        InfoDialog.snackBarNetral(
+            context, '$email${ConstantsText.sendRestPasswordWithoutEmail}');
       }
     } on FirebaseAuthException {
       InfoDialog.snackBarError(context, ConstantsText.unexpectedError);
@@ -189,7 +195,10 @@ class ConnectionDb {
     await FirebaseFirestore.instance
         .collection(ConstantsDbText.dbCollectionUser)
         .doc(uid)
-        .update({ConstantsDbText.docImageUrl: 'gs://$bucket/$uuid'});
+        .update({
+      ConstantsDbText.docImageUrl:
+          '${ConstantsDbText.googleAppsScript}$bucket/$uuid'
+    });
   }
 
   static Future<void> deleteImage(String imageUrl) async {
@@ -221,8 +230,7 @@ class ConnectionDb {
 
   static Future<String> getImageUrl(String image) async {
     final storage = FirebaseStorage.instance.refFromURL(image);
-    String imageUrl = await storage.getDownloadURL();
-    return imageUrl;
+    return await storage.getDownloadURL();
   }
 
   static void _showLoginErrorMessage(

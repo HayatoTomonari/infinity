@@ -16,4 +16,5 @@ class ConstantsDbText{
   static const docStartDate = 'startDate';
   static const defaultUserImage = 'gs://siproject-c5cd0.appspot.com/unknownUser.png';
   static const defaultTeamImage = 'gs://siproject-c5cd0.appspot.com/noImageTeam.jpg';
+  static const googleAppsScript = 'gs://';
 }

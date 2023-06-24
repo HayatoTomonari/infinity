@@ -47,6 +47,7 @@ class ConstantsText {
   static const pleaseEnterNewPassword = '新しいパスワードを入力してください。';
   static const changingPassword = 'パスワードを変更する';
   static const saveProfile = 'プロフィールを保存';
+  static const saveProfileCompleted = 'プロフィールを保存しました';
   static const sendPasswordResetEmail = 'パスワード再設定メールを送信';
   static const checkVerificationEmail = '\nに確認メールを送信しました。\nメール記載のリンクを開いて、認証を完了してください。';
   static const resendConfirmEmail = '確認メールを再送信する';
@@ -79,4 +80,7 @@ class ConstantsText {
   static const startDateDescription = '開始日になると募集が打ち切られ、メンバーの預金が開始されます。';
   static const confirmInputContent = '入力内容確認';
   static const teamCreationComplete = 'チームの作成が完了しました。';
+  static const sendConfirmEmailWithoutEmail = '\nに認証メールを送信しました。';
+  static const sendRestPasswordWithoutEmail = '\nにパスワード再設定メールを送信しました。';
+  static const passwordChangeCompleted = 'パスワードの変更が完了しました。';
 }
