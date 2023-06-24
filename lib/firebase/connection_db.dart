@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:si_proto/models/team_model.dart';
-import 'package:si_proto/pages/signup/confirm_email_page.dart';
 import 'package:si_proto/utils/constants_db_text,.dart';
 import 'package:si_proto/utils/constants_text.dart';
 import 'package:uuid/uuid.dart';
@@ -37,7 +36,7 @@ class ConnectionDb {
     }
   }
 
-  static Future<void> registerUser(BuildContext context, String email,
+  static Future<bool> registerUser(BuildContext context, String email,
       String password, String userName) async {
     try {
       final User? user = (await FirebaseAuth.instance
@@ -57,15 +56,10 @@ class ConnectionDb {
         ConstantsDbText.docImageUrl: ConstantsDbText.defaultUserImage
       });
       await user.sendEmailVerification();
-      if (context.mounted) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ConfirmEmailPage(email, password)),
-        );
-      }
+      return true;
     } on FirebaseAuthException catch (e) {
       _showErrorRegisterMessage(context, e);
+      return false;
     }
   }
 

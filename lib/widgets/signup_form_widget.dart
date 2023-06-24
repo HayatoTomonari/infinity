@@ -5,6 +5,8 @@ import 'package:si_proto/firebase/connection_db.dart';
 import 'package:si_proto/utils/constants_color.dart';
 import 'package:si_proto/utils/constants_text.dart';
 
+import '../pages/signup/confirm_email_page.dart';
+
 //TODO:登録する項目を増やす。(電話番号とか)
 class SignUpFormWidget extends StatelessWidget {
   const SignUpFormWidget({super.key});
@@ -51,12 +53,25 @@ class SignUpFormWidget extends StatelessWidget {
           child: CustomButton(
             labelText: ConstantsText.accountRegistration,
             onPressedFunction: () =>
-                ConnectionDb.registerUser(context, email, password, userName),
+                _registerUser(context, email, password, userName),
             textColor: ConstantsColor.lightButtonTextColor,
             backColor: ConstantsColor.lightButtonBackColor,
           ),
         ),
       ],
     );
+  }
+
+  void _registerUser(BuildContext context, String email, String password,
+      String userName) async {
+    bool result =
+        await ConnectionDb.registerUser(context, email, password, userName);
+    if (context.mounted && result) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ConfirmEmailPage(email, password)),
+      );
+    }
   }
 }
