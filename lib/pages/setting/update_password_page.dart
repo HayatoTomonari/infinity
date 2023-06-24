@@ -6,6 +6,7 @@ import '../../components/custom_button.dart';
 import '../../components/custom_text_field.dart';
 import '../../firebase/connection_db.dart';
 import '../../models/user_model.dart';
+import '../../utils/constants_text.dart';
 
 class UpdatePasswordPage extends StatefulWidget {
   const UpdatePasswordPage({super.key});
@@ -18,13 +19,13 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
   String password = "";
   String email = "";
   String newPassword = "";
-  UserModel user = const UserModel();
+  UserModel userModel = const UserModel();
   late Future<bool> waitingProcess;
 
-  Future<bool> getUser() async {
+  Future<bool> getUserModel() async {
     UserModel getUser = await ConnectionDb.getUserModel();
     setState(() {
-      user = getUser;
+      userModel = getUser;
     });
     return true;
   }
@@ -32,14 +33,14 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
   @override
   void initState() {
     super.initState();
-    waitingProcess = getUser();
+    waitingProcess = getUserModel();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('パスワード変更'),
+          title: const Text(ConstantsText.changePassword),
           centerTitle: true,
           flexibleSpace: Container(
             decoration: const BoxDecoration(
@@ -57,14 +58,14 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                       top: 30, bottom: 10, right: 50, left: 50),
                   child: SizedBox(
                     child: CustomTextField(
-                      labelText: '現在のメールアドレス',
+                      labelText: ConstantsText.currentEmail,
                       hintText: '',
                       obscureText: false,
                       onChangedFunction: (String value) => {},
                       icon: Icons.mail,
                       textColor: ConstantsColor.darkTextColor,
                       focusColor: ConstantsColor.darkFocusColor,
-                      initialValue: user.email,
+                      initialValue: userModel.email,
                       enabled: false,
                     ),
                   ),
@@ -74,8 +75,8 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
                   child: CustomTextField(
-                    labelText: '現在のパスワード',
-                    hintText: '現在のパスワードを入力してください。',
+                    labelText: ConstantsText.currentPassword,
+                    hintText: ConstantsText.pleaseEnterCurrentPassword,
                     obscureText: true,
                     onChangedFunction: (String value) => password = value,
                     icon: Icons.lock_clock_outlined,
@@ -88,8 +89,8 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
                   child: CustomTextField(
-                    labelText: '新しいパスワード',
-                    hintText: '新しいパスワードを入力してください。',
+                    labelText: ConstantsText.newPassword,
+                    hintText: ConstantsText.pleaseEnterNewPassword,
                     obscureText: true,
                     onChangedFunction: (String value) => newPassword = value,
                     icon: Icons.lock_clock_outlined,
@@ -104,9 +105,9 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                   child: SizedBox(
                     width: double.infinity,
                     child: CustomButton(
-                      labelText: 'パスワードを変更する',
+                      labelText: ConstantsText.changingPassword,
                       onPressedFunction: () => ConnectionDb.updatePassword(
-                          context, user.email, newPassword, password),
+                          context, userModel.email, newPassword, password),
                       textColor: ConstantsColor.darkButtonTextColor,
                       backColor: ConstantsColor.darkButtonBackColor,
                     ),

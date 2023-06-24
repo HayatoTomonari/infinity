@@ -41,4 +41,9 @@ class ConstantsText {
   static const currentEmail = '現在のメールアドレス';
   static const newEmail = '新しいメールアドレス';
   static const sendConfirmEmail = '確認メールを送信';
+  static const currentPassword = '現在のパスワード';
+  static const pleaseEnterCurrentPassword = '現在のパスワードを入力してください。';
+  static const newPassword = '新しいパスワード';
+  static const pleaseEnterNewPassword = '新しいパスワードを入力してください。';
+  static const changingPassword = 'パスワードを変更する';
 }
