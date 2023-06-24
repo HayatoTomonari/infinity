@@ -7,6 +7,7 @@ import 'package:si_proto/pages/setting/update_email_page.dart';
 import 'package:si_proto/pages/setting/update_password_page.dart';
 import 'package:si_proto/pages/setting/update_profile_page.dart';
 import 'package:si_proto/pages/signin/signin_page.dart';
+import 'package:si_proto/utils/constants_text.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -18,7 +19,7 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   String version = '';
 
-  Future getVer() async {
+  Future getApplicationVersion() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     setState(() {
       version = packageInfo.version;
@@ -28,7 +29,7 @@ class _SettingPageState extends State<SettingPage> {
   @override
   void initState() {
     super.initState();
-    getVer();
+    getApplicationVersion();
   }
 
   @override
@@ -37,31 +38,33 @@ class _SettingPageState extends State<SettingPage> {
       platform: DevicePlatform.iOS,
       sections: [
         SettingsSection(
-          title: const Text('ユーザー設定'),
+          title: const Text(ConstantsText.userSetting),
           tiles: <SettingsTile>[
             SettingsTile.navigation(
               leading: const Icon(Icons.account_circle),
-              title: const Text('プロフィール編集'),
+              title: const Text(ConstantsText.profileEdit),
               onPressed: (value) {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const UpdateProfilePage()),
+                  MaterialPageRoute(
+                      builder: (context) => const UpdateProfilePage()),
                 );
               },
             ),
             SettingsTile.navigation(
               leading: const Icon(Icons.mail),
-              title: const Text('メールアドレスの変更'),
+              title: const Text(ConstantsText.changeEmail),
               onPressed: (value) {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const UpdateEmailPage()),
+                  MaterialPageRoute(
+                      builder: (context) => const UpdateEmailPage()),
                 );
               },
             ),
             SettingsTile.navigation(
               leading: const Icon(Icons.lock_open),
-              title: const Text('パスワードの変更'),
+              title: const Text(ConstantsText.changePassword),
               onPressed: (value) {
                 Navigator.push(
                   context,
@@ -73,53 +76,53 @@ class _SettingPageState extends State<SettingPage> {
           ],
         ),
         SettingsSection(
-          title: const Text('アプリ設定'),
+          title: const Text(ConstantsText.applicationSetting),
           tiles: <SettingsTile>[
             SettingsTile.switchTile(
               leading: const Icon(Icons.color_lens_outlined),
-              title: const Text('ダークテーマを有効にする'),
+              title: const Text(ConstantsText.enableDarkTheme),
               initialValue: false,
               onToggle: (value) {},
             ),
             SettingsTile.switchTile(
               leading: const Icon(Icons.notifications),
-              title: const Text('通知設定を有効にする'),
+              title: const Text(ConstantsText.enableNoticeSetting),
               initialValue: false,
               onToggle: (value) {},
             ),
           ],
         ),
         SettingsSection(
-          title: const Text('infinityについて'),
+          title: const Text(ConstantsText.aboutApplication),
           tiles: <SettingsTile>[
             SettingsTile(
               leading: const Icon(Icons.not_started_outlined),
-              title: const Text('infinityの始め方'),
+              title: const Text(ConstantsText.howToStartApplication),
             ),
             SettingsTile(
               leading: const Icon(Icons.question_mark_outlined),
-              title: const Text('よくあるご質問'),
+              title: const Text(ConstantsText.faq),
             ),
             SettingsTile(
               leading: const Icon(Icons.rule_folder_outlined),
-              title: const Text('利用規約'),
+              title: const Text(ConstantsText.termsOfService),
             ),
             SettingsTile(
               leading: const Icon(Icons.privacy_tip_outlined),
-              title: const Text('プライバシーポリシー'),
+              title: const Text(ConstantsText.privacyPolicy),
             ),
             SettingsTile(
               leading: const Icon(Icons.label_important_outline),
-              title: const Text('オープンソースライセンス'),
+              title: const Text(ConstantsText.openSourceLicense),
             ),
           ],
         ),
         SettingsSection(
-          title: const Text('アプリ情報'),
+          title: const Text(ConstantsText.applicationInformation),
           tiles: <SettingsTile>[
             SettingsTile(
                 leading: const Icon(Icons.info),
-                title: const Text('アプリバージョン'),
+                title: const Text(ConstantsText.applicationVersion),
                 value: Text(version))
           ],
         ),
@@ -127,10 +130,10 @@ class _SettingPageState extends State<SettingPage> {
           tiles: <SettingsTile>[
             SettingsTile(
               leading: const Icon(Icons.login_outlined),
-              title: const Text('ログアウト'),
+              title: const Text(ConstantsText.logout),
               onPressed: (value) async => {
                 await FirebaseAuth.instance.signOut(),
-                InfoDialog.snackBarSuccess(context, "ログアウトしました。"),
+                InfoDialog.snackBarSuccess(context, ConstantsText.loggedOut),
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const SignInPage()),
