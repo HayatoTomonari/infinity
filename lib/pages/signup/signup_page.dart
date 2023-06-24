@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:si_proto/utils/constants_text.dart';
 import 'package:si_proto/widgets/signup_form_widget.dart';
 
 import '../../widgets/title_screen_widget.dart';
@@ -31,7 +32,7 @@ class SignUpPage extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 30),
                     child: Center(
-                        child: Text("新規アカウント登録",
+                        child: Text(ConstantsText.accountRegistration,
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold))),
                   ),
