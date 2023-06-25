@@ -299,7 +299,7 @@ class _TeamCreatePageState extends State<TeamCreatePage> {
     if (context.mounted) {
       Navigator.push(context, MaterialPageRoute(
         builder: (context) {
-          return TeamCreateConfirmPage(teamModel: teamModel);
+          return TeamCreateConfirmPage(teamModel: teamModel, imageData: imageData,);
         },
       ));
     }

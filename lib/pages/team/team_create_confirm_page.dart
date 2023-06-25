@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:si_proto/utils/constants_text.dart';
@@ -12,8 +14,9 @@ import '../../utils/constants_color.dart';
 import '../top/top_page.dart';
 
 class TeamCreateConfirmPage extends StatelessWidget {
-  const TeamCreateConfirmPage({required this.teamModel, super.key});
+  const TeamCreateConfirmPage({required this.teamModel, required this.imageData, super.key});
   final TeamModel teamModel;
+  final Uint8List imageData;
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +178,7 @@ class TeamCreateConfirmPage extends StatelessWidget {
   }
 
   _registerTeam(BuildContext context) async {
-    bool result = await ConnectionDb.registerTeam(context, teamModel);
+    bool result = await ConnectionDb.registerTeam(context, teamModel, imageData);
     if (context.mounted && result) {
       Navigator.push(context, MaterialPageRoute(
         builder: (context) {
