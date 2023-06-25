@@ -220,6 +220,24 @@ class ConnectionDb {
     return TeamModel.fromJson(data);
   }
 
+  static Future<List<UserModel>> getTeamMember(String teamId) async {
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
+        .instance
+        .collection(ConstantsDbText.dbCollectionUser)
+        .where(ConstantsDbText.docTeamId, isEqualTo: teamId)
+        .get();
+
+    List<UserModel> userList = [];
+    for (QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot
+        in querySnapshot.docs) {
+      Map<String, dynamic>? data =
+          docSnapshot.exists ? docSnapshot.data() : null; //
+      if (data == null) continue;
+      userList.add(UserModel.fromJson(data));
+    }
+    return userList;
+  }
+
   static Future<UserModel> getUserModel() async {
     final uid = FirebaseAuth.instance.currentUser?.uid.toString();
     final docRef = FirebaseFirestore.instance
