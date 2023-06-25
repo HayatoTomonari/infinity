@@ -63,11 +63,12 @@ class ConnectionDb {
   }
 
   static Future<bool> registerTeam(
-      BuildContext context, TeamModel teamModel) async {
+      BuildContext context, TeamModel teamModel, Uint8List imageData) async {
     try {
+      String uuid = const Uuid().v4();
       await FirebaseFirestore.instance
           .collection(ConstantsDbText.dbCollectionTeams)
-          .doc(const Uuid().v4())
+          .doc(uuid)
           .set({
         ConstantsDbText.docTeamName: teamModel.teamName,
         ConstantsDbText.docDescription: teamModel.description,
@@ -79,7 +80,8 @@ class ConnectionDb {
         ConstantsDbText.docIsPublic: teamModel.isPublic,
         ConstantsDbText.docStartDate: teamModel.startDate
       });
-      //TODO:画像アップロード
+      await uploadImage(teamModel.imageUrl, ConstantsDbText.defaultTeamImage,
+          ConstantsDbText.dbCollectionTeams, uuid, imageData);
       if (context.mounted) {
         InfoDialog.snackBarSuccess(context, ConstantsText.teamCreationComplete);
       }
@@ -139,7 +141,9 @@ class ConnectionDb {
           .collection(ConstantsDbText.dbCollectionUser)
           .doc(uid)
           .update({ConstantsDbText.docUserName: userName});
-      await uploadImage(uid, data);
+      UserModel userModel = await getUserModel();
+      await uploadImage(userModel.imageUrl, ConstantsDbText.defaultUserImage,
+          ConstantsDbText.dbCollectionUser, uid, data);
       if (context.mounted) {
         InfoDialog.snackBarSuccess(context, ConstantsText.saveProfileCompleted);
       }
@@ -180,20 +184,20 @@ class ConnectionDb {
     }
   }
 
-  static Future<void> uploadImage(String? uid, Uint8List data) async {
+  static Future<void> uploadImage(String imageUrl, String defaultImageUrl,
+      String collectionText, String? uid, Uint8List data) async {
     if (data.isEmpty) {
       return;
     }
-    UserModel user = await getUserModel();
     String uuid = const Uuid().v4();
     final storageRef = FirebaseStorage.instance.ref().child(uuid);
     await storageRef.putData(data);
     String bucket = storageRef.bucket;
-    if (user.imageUrl != ConstantsDbText.defaultUserImage) {
-      await deleteImage(user.imageUrl);
+    if (imageUrl != defaultImageUrl) {
+      await deleteImage(imageUrl);
     }
     await FirebaseFirestore.instance
-        .collection(ConstantsDbText.dbCollectionUser)
+        .collection(collectionText)
         .doc(uid)
         .update({
       ConstantsDbText.docImageUrl:
