@@ -56,14 +56,12 @@ class _TeamMemberListWidgetState extends State<TeamMemberListWidget> {
                 )),
             const SizedBox(width: 10),
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(user.userName, style: const TextStyle(color: ConstantsColor.darkTextColor)),
+              Text(user.userName,
+                  style: const TextStyle(color: ConstantsColor.darkTextColor)),
               const SizedBox(
                 height: 5,
               ),
-              Text(user.userId,
-                  style: TextStyle(
-                      color: Colors.grey[500],
-                      fontWeight: FontWeight.w500)),
+              Text(user.comment, style: TextStyle(color: Colors.grey[500], fontWeight: FontWeight.w300)),
             ])
           ]),
         ],

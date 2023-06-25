@@ -86,4 +86,5 @@ class ConstantsText {
   static const participant = '参加メンバー ';
   static const upToTargetAmount = '目標金額まで';
   static const noUsersFound = '参加メンバーが見つかりません';
+  static const comment = 'ひとこと';
 }

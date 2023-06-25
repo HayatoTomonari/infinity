@@ -20,16 +20,18 @@ class UpdateProfilePage extends StatefulWidget {
 
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
   String userName = '';
+  String comment = '';
   String imagePath = '';
   Uint8List imageData = Uint8List(0);
   late Future<bool> waitingProcess;
 
   Future<bool> getUserNameAndImagePath() async {
-    UserModel appUser = await ConnectionDb.getUserModel();
-    String imageUrl = await ConnectionDb.getImageUrl(appUser.imageUrl);
+    UserModel userModel = await ConnectionDb.getUserModel();
+    String imageUrl = await ConnectionDb.getImageUrl(userModel.imageUrl);
     setState(() {
-      userName = appUser.userName;
+      userName = userModel.userName;
       imagePath = imageUrl;
+      comment = userModel.comment;
     });
     return true;
   }
@@ -82,13 +84,28 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                 const SizedBox(height: 48),
                 Padding(
                   padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+                  child: CustomTextField(
+                    labelText: ConstantsText.comment,
+                    hintText: '',
+                    obscureText: false,
+                    onChangedFunction: (String value) => comment = value,
+                    icon: Icons.comment,
+                    textColor: ConstantsColor.darkTextColor,
+                    focusColor: ConstantsColor.darkFocusColor,
+                    initialValue: comment,
+                  ),
+                ),
+                const SizedBox(height: 48),
+                Padding(
+                  padding:
                       const EdgeInsets.symmetric(vertical: 5, horizontal: 60),
                   child: SizedBox(
                     width: double.infinity,
                     child: CustomButton(
                       labelText: ConstantsText.saveProfile,
                       onPressedFunction: () => ConnectionDb.updateProfile(
-                          context, userName, imageData),
+                          context, userName, comment, imageData),
                       textColor: ConstantsColor.darkButtonTextColor,
                       backColor: ConstantsColor.darkButtonBackColor,
                     ),
