@@ -50,6 +50,7 @@ class ConnectionDb {
           .set({
         ConstantsDbText.docUserName: userName,
         ConstantsDbText.docTeamId: '',
+        ConstantsDbText.docComment: '',
         ConstantsDbText.docAssets: 0,
         ConstantsDbText.docEmail: user.email,
         ConstantsDbText.docImageUrl: ConstantsDbText.defaultUserImage
@@ -133,14 +134,17 @@ class ConnectionDb {
     }
   }
 
-  static Future<void> updateProfile(
-      BuildContext context, String userName, Uint8List data) async {
+  static Future<void> updateProfile(BuildContext context, String userName,
+      String comment, Uint8List data) async {
     try {
       final uid = FirebaseAuth.instance.currentUser?.uid;
       await FirebaseFirestore.instance
           .collection(ConstantsDbText.dbCollectionUser)
           .doc(uid)
-          .update({ConstantsDbText.docUserName: userName});
+          .update({
+        ConstantsDbText.docUserName: userName,
+        ConstantsDbText.docComment: comment
+      });
       UserModel userModel = await getUserModel();
       await uploadImage(userModel.imageUrl, ConstantsDbText.defaultUserImage,
           ConstantsDbText.dbCollectionUser, uid, data);
@@ -218,6 +222,24 @@ class ConnectionDb {
     Map<String, dynamic>? data = docSnapshot.exists ? docSnapshot.data() : null;
     if (data == null) return const TeamModel();
     return TeamModel.fromJson(data);
+  }
+
+  static Future<List<UserModel>> getTeamMember(String teamId) async {
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
+        .instance
+        .collection(ConstantsDbText.dbCollectionUser)
+        .where(ConstantsDbText.docTeamId, isEqualTo: teamId)
+        .get();
+
+    List<UserModel> userList = [];
+    for (QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot
+        in querySnapshot.docs) {
+      Map<String, dynamic>? data =
+          docSnapshot.exists ? docSnapshot.data() : null; //
+      if (data == null) continue;
+      userList.add(UserModel.fromJson(data));
+    }
+    return userList;
   }
 
   static Future<UserModel> getUserModel() async {

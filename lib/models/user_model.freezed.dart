@@ -27,6 +27,7 @@ mixin _$UserModel {
   String get email => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
   String get phone => throw _privateConstructorUsedError;
+  String get comment => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,7 +47,8 @@ abstract class $UserModelCopyWith<$Res> {
       int assets,
       String email,
       String imageUrl,
-      String phone});
+      String phone,
+      String comment});
 }
 
 /// @nodoc
@@ -69,6 +71,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? email = null,
     Object? imageUrl = null,
     Object? phone = null,
+    Object? comment = null,
   }) {
     return _then(_value.copyWith(
       userId: null == userId
@@ -99,6 +102,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String,
+      comment: null == comment
+          ? _value.comment
+          : comment // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -117,7 +124,8 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       int assets,
       String email,
       String imageUrl,
-      String phone});
+      String phone,
+      String comment});
 }
 
 /// @nodoc
@@ -138,6 +146,7 @@ class __$$_UserModelCopyWithImpl<$Res>
     Object? email = null,
     Object? imageUrl = null,
     Object? phone = null,
+    Object? comment = null,
   }) {
     return _then(_$_UserModel(
       userId: null == userId
@@ -168,6 +177,10 @@ class __$$_UserModelCopyWithImpl<$Res>
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String,
+      comment: null == comment
+          ? _value.comment
+          : comment // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -182,7 +195,8 @@ class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
       this.assets = 0,
       this.email = '',
       this.imageUrl = '',
-      this.phone = ''});
+      this.phone = '',
+      this.comment = ''});
 
   factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
       _$$_UserModelFromJson(json);
@@ -208,10 +222,13 @@ class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
   @override
   @JsonKey()
   final String phone;
+  @override
+  @JsonKey()
+  final String comment;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserModel(userId: $userId, userName: $userName, teamId: $teamId, assets: $assets, email: $email, imageUrl: $imageUrl, phone: $phone)';
+    return 'UserModel(userId: $userId, userName: $userName, teamId: $teamId, assets: $assets, email: $email, imageUrl: $imageUrl, phone: $phone, comment: $comment)';
   }
 
   @override
@@ -225,7 +242,8 @@ class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
       ..add(DiagnosticsProperty('assets', assets))
       ..add(DiagnosticsProperty('email', email))
       ..add(DiagnosticsProperty('imageUrl', imageUrl))
-      ..add(DiagnosticsProperty('phone', phone));
+      ..add(DiagnosticsProperty('phone', phone))
+      ..add(DiagnosticsProperty('comment', comment));
   }
 
   @override
@@ -241,13 +259,14 @@ class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
-            (identical(other.phone, phone) || other.phone == phone));
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.comment, comment) || other.comment == comment));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, userId, userName, teamId, assets, email, imageUrl, phone);
+  int get hashCode => Object.hash(runtimeType, userId, userName, teamId, assets,
+      email, imageUrl, phone, comment);
 
   @JsonKey(ignore: true)
   @override
@@ -271,7 +290,8 @@ abstract class _UserModel implements UserModel {
       final int assets,
       final String email,
       final String imageUrl,
-      final String phone}) = _$_UserModel;
+      final String phone,
+      final String comment}) = _$_UserModel;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$_UserModel.fromJson;
@@ -290,6 +310,8 @@ abstract class _UserModel implements UserModel {
   String get imageUrl;
   @override
   String get phone;
+  @override
+  String get comment;
   @override
   @JsonKey(ignore: true)
   _$$_UserModelCopyWith<_$_UserModel> get copyWith =>
