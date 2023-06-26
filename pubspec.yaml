@@ -39,6 +39,7 @@ dependencies:
   mirai_dropdown_menu: ^0.0.6+2
   font_awesome_flutter: ^10.4.0
   avatar_glow: ^2.0.2
+  clay_containers: ^0.3.2
 
 dev_dependencies:
   flutter_test:

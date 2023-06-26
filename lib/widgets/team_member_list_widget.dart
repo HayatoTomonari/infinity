@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:si_proto/utils/constants_color.dart';
 import 'package:si_proto/utils/constants_text.dart';
+import 'package:clay_containers/clay_containers.dart';
 
 import '../models/user_model.dart';
 
@@ -40,31 +41,40 @@ class _TeamMemberListWidgetState extends State<TeamMemberListWidget> {
   }
 
   userComponent({required UserModel user, required Image image}) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
-      padding: const EdgeInsets.only(top: 10, bottom: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(children: [
-            SizedBox(
-                width: 60,
-                height: 60,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
-                  child: image,
-                )),
-            const SizedBox(width: 10),
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(user.userName,
-                  style: const TextStyle(color: ConstantsColor.darkTextColor)),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(user.comment, style: TextStyle(color: Colors.grey[500], fontWeight: FontWeight.w300)),
-            ])
-          ]),
-        ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 15),
+      child: ClayContainer(
+        depth: 50,
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(children: [
+                SizedBox(
+                    width: 60,
+                    height: 60,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: image,
+                    )),
+                const SizedBox(width: 10),
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(user.userName,
+                      style:
+                          const TextStyle(color: ConstantsColor.darkTextColor)),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(user.comment,
+                      style: TextStyle(
+                          color: Colors.grey[500], fontWeight: FontWeight.w300)),
+                ])
+              ]),
+            ],
+          ),
+        ),
       ),
     );
   }
