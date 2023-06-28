@@ -44,6 +44,7 @@ class _TeamMemberListWidgetState extends State<TeamMemberListWidget> {
     return Padding(
       padding: const EdgeInsets.only(top: 15),
       child: ClayContainer(
+        borderRadius: 15,
         depth: 50,
         color: Colors.white,
         child: Padding(
