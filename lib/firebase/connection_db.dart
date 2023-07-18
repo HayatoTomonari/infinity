@@ -81,8 +81,10 @@ class ConnectionDb {
         ConstantsDbText.docIsPublic: teamModel.isPublic,
         ConstantsDbText.docStartDate: teamModel.startDate
       });
-      await uploadImage(teamModel.imageUrl, ConstantsDbText.defaultTeamImage,
-          ConstantsDbText.dbCollectionTeams, uuid, imageData);
+      if (teamModel.imageUrl != ConstantsDbText.defaultTeamImage){
+        await uploadImage(
+            ConstantsDbText.dbCollectionTeams, uuid, imageData);
+      }
       if (context.mounted) {
         InfoDialog.snackBarSuccess(context, ConstantsText.teamCreationComplete);
       }
@@ -146,8 +148,11 @@ class ConnectionDb {
         ConstantsDbText.docComment: comment
       });
       UserModel userModel = await getUserModel();
-      await uploadImage(userModel.imageUrl, ConstantsDbText.defaultUserImage,
-          ConstantsDbText.dbCollectionUser, uid, data);
+      if (userModel.imageUrl != ConstantsDbText.defaultUserImage){
+        await uploadImage(
+            ConstantsDbText.dbCollectionUser, uid, data);
+        await deleteImage(userModel.imageUrl);
+      }
       if (context.mounted) {
         InfoDialog.snackBarSuccess(context, ConstantsText.saveProfileCompleted);
       }
@@ -188,7 +193,7 @@ class ConnectionDb {
     }
   }
 
-  static Future<void> uploadImage(String imageUrl, String defaultImageUrl,
+  static Future<void> uploadImage(
       String collectionText, String? uid, Uint8List data) async {
     if (data.isEmpty) {
       return;
@@ -197,9 +202,6 @@ class ConnectionDb {
     final storageRef = FirebaseStorage.instance.ref().child(uuid);
     await storageRef.putData(data);
     String bucket = storageRef.bucket;
-    if (imageUrl != defaultImageUrl) {
-      await deleteImage(imageUrl);
-    }
     await FirebaseFirestore.instance
         .collection(collectionText)
         .doc(uid)
@@ -222,6 +224,22 @@ class ConnectionDb {
     Map<String, dynamic>? data = docSnapshot.exists ? docSnapshot.data() : null;
     if (data == null) return const TeamModel();
     return TeamModel.fromJson(data);
+  }
+
+  static Future<List<TeamModel>> getTeams() async {
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
+        .instance
+        .collection(ConstantsDbText.dbCollectionTeams)
+        .get();
+    List<TeamModel> teamList = [];
+    for (QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot
+    in querySnapshot.docs) {
+      Map<String, dynamic>? data =
+      docSnapshot.exists ? docSnapshot.data() : null; //
+      if (data == null) continue;
+      teamList.add(TeamModel.fromJson(data));
+    }
+    return teamList;
   }
 
   static Future<List<UserModel>> getTeamMember(String teamId) async {
